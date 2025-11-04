@@ -1,82 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-    Sam & Georgia — Mediterranean Wedding in Gozo (Single-File Website)
-    -----------------------------------------------------------------
-    • Drop this single HTML file into a GitHub repo and enable GitHub Pages.
-    • All styles and scripts are embedded for immediate deployment.
-    • Replace placeholders exactly where marked with:
-      <Replace this text with the VARIABLE NAME or upload a file>
-
-    Customisation overview
-    ----------------------
-    1) BRANDING & TYPOGRAPHY
-       - Update the <title> and meta content below.
-       - Fonts: Cormorant Garamond (serif), Raleway (sans), Parisienne (script).
-
-    2) IMAGES
-       - HERO: set the CSS variable --hero-image to your selected photo/animation.
-         e.g. :root { --hero-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e8/Ramla_Bay.jpg'); /* Hero image: Ramla Bay, Gozo — Public Domain via Wikimedia Commons */; }
-         Alternatively keep the gradient/watercolour background.
-       - STORY & GALLERY: replace <img> src with your own files or upload links.
-
-    3) TEXT PLACEHOLDERS
-       - Find all <Replace this text with ...> and add your real content.
-       - Key variables also live in the CONFIG section in <script>.
-
-    4) RSVP
-       - Replace the form action with your provider (e.g. Formspree, Tally, Google Forms endpoint).
-         Search for: RSVP FORM ENDPOINT.
-
-    5) COUNTDOWN & DATES
-       - Edit WEDDING_DATE in the CONFIG block to power the countdown.
-
-    6) OPTIONAL GUEST AREA
-       - Toggle GUEST_AREA_ENABLED in CONFIG; set GUEST_AREA_PASSWORD.
-
-    7) ACCESSIBILITY
-       - Landmarks, labels, and contrast considered; keep alt text meaningful.
-
-    8) PERFORMANCE
-       - Images use lazy-loading; motion is subtle and reduced if prefers-reduced-motion.
-
-    Colour Palette (CSS variables)
-    ------------------------------
-      Terracotta Clay  (#A75A32) — var(--terracotta)
-      Golden Sun       (#E6B655) — var(--gold)
-      Seafoam Blue     (#83B8B4) — var(--seafoam)
-      Olive Leaf       (#7E8C4F) — var(--olive)
-      Soft Cream       (#F9F6F0) — var(--cream)
-      Deep Teal        (#2F4A4E) — var(--teal)
-  -->
+  <!-- Sam & Georgia — Gozo Wedding (single-file site) -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Sam & Georgia — Our Mediterranean wedding in Gozo. Travel info, dates, RSVP, and our story." />
+  <meta name="theme-color" content="#F9F6F0" />
   <title>Sam &amp; Georgia — Gozo Wedding</title>
+  <meta name="description" content="Sam & Georgia's Mediterranean wedding in Gozo · dates, travel, venues and RSVP — warm, coastal and timeless." />
+
+  <!-- Favicon: cartoon sun (SVG) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='14' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='4' x2='32' y2='16'/%3E%3Cline x1='32' y1='48' x2='32' y2='60'/%3E%3Cline x1='4' y1='32' x2='16' y2='32'/%3E%3Cline x1='48' y1='32' x2='60' y2='32'/%3E%3Cline x1='12' y1='12' x2='20' y2='20'/%3E%3Cline x1='44' y1='44' x2='52' y2='52'/%3E%3Cline x1='12' y1='52' x2='20' y2='44'/%3E%3Cline x1='44' y1='20' x2='52' y2='12'/%3E%3C/g%3E%3C/svg%3E" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Parisienne&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      /* Brand Colours */
-      --terracotta: #A75A32;
-      --gold: #E6B655;
-      --seafoam: #83B8B4;
-      --olive: #7E8C4F;
-      --cream: #F9F6F0;
-      --teal: #2F4A4E;
-      --ink: #243133;
-
-      /* Layout */
-      --maxw: 1100px;
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(47, 74, 78, 0.12);
-
-      /* Imagery */
-      /* Replace with your hero image URL (golden-hour coastline / watercolour). */
-      --hero-image: url('data:image/svg+xml;utf8,\
+    :root{
+      /* Colour palette */
+      --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F; --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
+      --maxw:1100px; --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
+      /* HERO from v1 (sun/sea SVG gradient) */
+      --hero-image:url('data:image/svg+xml;utf8,\
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">\
           <defs>\
             <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">\
@@ -94,172 +38,105 @@
         </svg>');
     }
 
-    /* Base */
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: 'Raleway', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--teal);
-      background: var(--cream);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--teal);font-family:'Raleway',system-ui,Segoe UI,Arial,sans-serif;line-height:1.6}
 
-    /* Utility */
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
-    .section { padding: 80px 0; position: relative; }
-    @media (min-width: 900px){ .section { padding: 120px 0; } }
-    .eyebrow { text-transform: uppercase; letter-spacing: 0.18em; font-size: .8rem; color: var(--olive); }
-    .accent { font-family: 'Parisienne', cursive; font-size: clamp(24px, 3vw, 42px); color: var(--terracotta); }
-    .btn { display: inline-flex; align-items: center; gap: .6rem; border-radius: 999px; padding: 14px 22px; border: 1px solid var(--terracotta); color: #fff; background: var(--terracotta); text-decoration: none; font-weight: 600; box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease, background .3s ease; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(167,90,50,0.25); background: #964c28; }
-    .btn.alt { background: #fff; color: var(--terracotta); }
-    .pill { display:inline-block; border-radius: 999px; border:1px solid var(--seafoam); padding:6px 12px; font-size:.9rem; color: var(--teal); background: #ffffffb3; }
+    /* Container & sections */
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    .section{padding:72px 0;position:relative;scroll-margin-top:84px}
+    @media(min-width:900px){.section{padding:120px 0}}
 
-    h1, h2, h3, .display { font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif; color: var(--ink); }
-    h2 { font-size: clamp(28px, 3.6vw, 44px); line-height: 1.2; margin: 0 0 14px; }
-    h3 { font-size: clamp(22px, 2.2vw, 28px); margin: 0 0 10px; }
-    p { margin: 0 0 1rem; }
+    /* Header (mobile-first realignment) */
+    header{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--cream) 85%,white 15%);border-bottom:1px solid #e8e3d9;backdrop-filter:blur(6px)}
+    .nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:60px}
+    .brand{justify-self:center;display:inline-flex;align-items:center;gap:.6rem;color:var(--terracotta);text-decoration:none;font-weight:700}
+    .brand .logo{width:26px;height:26px}
+    .burger{justify-self:end;margin-right:4px;display:inline-flex;width:40px;height:40px;border:1px solid #d8d3c8;border-radius:10px;background:#fff;align-items:center;justify-content:center}
+    .burger span{width:18px;height:2px;background:var(--teal);position:relative;display:block}
+    .burger span::before,.burger span::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--teal)}
+    .burger span::before{top:-6px}.burger span::after{top:6px}
+    nav ul{list-style:none;margin:0;padding:10px;display:none;position:absolute;top:60px;left:16px;right:16px;background:#fff;border:1px solid #e8e3d9;border-radius:14px;box-shadow:var(--shadow)}
+    nav ul.open{display:block}
+    nav a{text-decoration:none;color:var(--teal);font-weight:600;display:block;padding:12px 14px}
+    nav a:hover{color:var(--terracotta)}
+    @media(min-width:860px){.nav{grid-template-columns:auto 1fr auto}.brand{justify-self:start}.burger{display:none}nav ul{position:static;display:flex;border:none;box-shadow:none;padding:0}nav a{padding:0;margin-left:20px}}
 
-    /* Topographic motif (very faint) */
-    .island-lines {
-      position: absolute; inset: 0; pointer-events: none; opacity: .06;
-      background-image:
-        radial-gradient(ellipse at 20% 30%, var(--seafoam) 0 1px, transparent 2px),
-        radial-gradient(ellipse at 70% 70%, var(--gold) 0 1px, transparent 2px);
-      background-size: 200px 200px, 260px 260px;
-    }
-
-    /* Header / Nav */
-    header {
-      position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(6px);
-      background: color-mix(in srgb, var(--cream) 85%, white 15%);
-      border-bottom: 1px solid #e8e3d9; 
-    }
-    .nav { display:flex; align-items:center; justify-content:space-between; height: 64px; }
-    .brand { display:flex; align-items:center; gap:.6rem; font-weight:700; color: var(--terracotta); text-decoration:none; }
-    .brand .logo { width: 28px; height: 28px; }
-    nav ul { list-style:none; display:flex; gap: 20px; margin:0; padding:0; }
-    nav a { text-decoration:none; color: var(--teal); font-weight:600; }
-    nav a:hover { color: var(--terracotta); }
-    .burger { display:none; width:36px; height:36px; border:1px solid #d8d3c8; border-radius:10px; background: #fff; align-items:center; justify-content:center; }
-    .burger span { width:18px; height:2px; background:var(--teal); position:relative; display:block; }
-    .burger span::before, .burger span::after { content:""; position:absolute; left:0; right:0; height:2px; background:var(--teal); }
-    .burger span::before{ top:-6px;} .burger span::after{ top:6px; }
-    @media (max-width: 820px){
-      nav ul { display:none; position:absolute; top:64px; right:20px; background:#fff; border:1px solid #e8e3d9; border-radius:14px; box-shadow: var(--shadow); flex-direction:column; padding:12px; }
-      nav ul.open { display:flex; }
-      .burger { display:flex; }
-    }
-
-    /* Hero */
-    .hero {
-      min-height: 84vh; display:grid; place-items:center; text-align:center; position:relative; overflow:hidden;
-      background-image: linear-gradient(to bottom, rgba(249,246,240,.6), rgba(249,246,240,.1)), var(--hero-image);
-      background-size: cover; background-position: center; background-attachment: fixed; /* parallax on capable devices */
-    }
-    @media (max-width: 900px){ .hero { background-attachment: scroll; } }
-    .hero::after { /* gentle sunlight shimmer */
-      content:""; position:absolute; inset:-20%; background: radial-gradient(60% 30% at 50% 0%, rgba(230,182,85,.25), transparent 60%);
-      animation: shimmer 12s ease-in-out infinite; pointer-events:none;
-    }
-    @keyframes shimmer { 0%,100%{ transform: translateY(-2%);} 50%{ transform: translateY(2%);} }
-    .hero-inner { padding: 70px 20px; backdrop-filter: blur(1px); }
-    .display { font-size: clamp(48px, 8vw, 96px); margin: 0; letter-spacing:.5px; }
-    .tagline { margin-top: 8px; font-style: italic; color: var(--teal); }
-    .scroll-prompt { margin-top: 28px; color: var(--terracotta); font-weight:600; opacity:.9; }
+    /* Hero (realigned for mobile) */
+    .hero{min-height:78svh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;background-image:linear-gradient(to bottom,rgba(249,246,240,.6),rgba(249,246,240,.1)),var(--hero-image);background-size:cover;background-position:center;background-attachment:scroll}
+    @media(min-width:900px){.hero{min-height:86vh;background-attachment:fixed}}
+    .hero-inner{padding:calc(24px + env(safe-area-inset-top)) 20px 70px}
+    .display{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,8vw,96px);color:var(--terracotta);margin:0}
+    .tagline{margin-top:8px;font-style:italic;color:var(--teal)}
+    .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--olive)}
+    .btn{display:inline-flex;align-items:center;gap:.6rem;border-radius:999px;padding:14px 22px;border:1px solid var(--terracotta);color:#fff;background:var(--terracotta);text-decoration:none;font-weight:600;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,background .3s}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(167,90,50,.25);background:#964c28}
+    .btn.alt{background:#fff;color:var(--terracotta)}
 
     /* Story */
-    .story-grid { display:grid; gap: 26px; }
-    @media (min-width: 900px){ .story-grid { grid-template-columns: 1.2fr 1fr; align-items: center; gap: 48px; } }
-    .card { background:#fff; border: 1px solid #efe9de; border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
-    .media { position:relative; overflow:hidden; border-radius: var(--radius); box-shadow: var(--shadow); }
-    .media img { width:100%; height:auto; display:block; }
+    h2,h3{font-family:'Cormorant Garamond',serif;color:var(--ink)}
+    h2{font-size:clamp(26px,3.6vw,44px);margin:0 0 14px}
+    h3{font-size:clamp(22px,2.2vw,28px);margin:0 0 10px}
+    .accent{font-family:'Parisienne',cursive;font-size:clamp(24px,3vw,42px);color:var(--terracotta)}
+    .story-grid{display:grid;gap:24px}
+    @media(min-width:900px){.story-grid{grid-template-columns:1.2fr 1fr;align-items:center;gap:42px}}
+    .card{background:#fff;border:1px solid #efe9de;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+    .media{position:relative;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .media img{width:100%;height:auto;display:block}
+    .pill{display:inline-block;border-radius:999px;border:1px solid var(--seafoam);padding:6px 12px;font-size:.9rem;color:var(--teal);background:#ffffffb3;margin-right:6px}
 
-    /* Dates / Map */
-    .dates { background: linear-gradient(180deg, #fff, #f6f2ea); }
-    .dates-grid { display:grid; gap: 24px; }
-    @media (min-width: 980px){ .dates-grid { grid-template-columns: 1.1fr .9fr; gap: 36px; } }
-    .map-card { position:relative; background:#fff; border:1px solid #eadfcd; border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
-    .map-svg { width:100%; height:auto; display:block; }
-    .pin { fill: var(--terracotta); stroke: #fff; stroke-width: 2; }
+    /* Dates & Map */
+    .dates{background:linear-gradient(180deg,#fff,#f6f2ea)}
+    .dates-grid{display:grid;gap:22px}
+    @media(min-width:980px){.dates-grid{grid-template-columns:1.1fr .9fr;gap:32px}}
+    .map-card{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .map-svg{width:100%;height:auto;display:block}
+    .pin{fill:var(--terracotta);stroke:#fff;stroke-width:2}
 
     /* Travel */
-    .travel-grid { display:grid; gap: 24px; }
-    @media (min-width: 900px){ .travel-grid { grid-template-columns: repeat(3, 1fr); } }
-    .tip { background:#fff; border:1px solid #efe9de; border-radius: var(--radius); padding:20px; box-shadow: var(--shadow); }
-    .tip h3 { display:flex; align-items:center; gap:.5rem; }
+    .travel-grid{display:grid;gap:22px}
+    @media(min-width:900px){.travel-grid{grid-template-columns:repeat(3,1fr)}}
+    .tip{background:#fff;border:1px solid #efe9de;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
 
     /* RSVP */
-    .rsvp { background: linear-gradient(180deg, #f6f2ea, #fff); }
-    form { display:grid; gap: 14px; max-width: 620px; margin: 16px auto 0; }
-    input, select, textarea { width:100%; border:1px solid #e5ded2; border-radius:12px; padding:14px 14px; font: inherit; background:#fff; }
-    .choices { display:flex; gap:10px; flex-wrap:wrap; }
-    .choices .btn { flex:1 1 200px; justify-content:center; }
+    .rsvp{background:linear-gradient(180deg,#f6f2ea,#fff)}
+    form{display:grid;gap:14px;max-width:620px;margin:16px auto 0}
+    input,select,textarea{width:100%;border:1px solid #e5ded2;border-radius:12px;padding:14px;font:inherit;background:#fff;min-height:48px;font-size:16px}
 
     /* Gallery */
-    .gallery-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media (min-width: 800px){ .gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; } }
-    .gallery-grid img { width:100%; height:100%; object-fit:cover; border-radius:14px; box-shadow: var(--shadow); }
+    .gallery-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:800px){.gallery-grid{grid-template-columns:repeat(4,1fr);gap:14px}}
+    .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:14px;box-shadow:var(--shadow)}
 
     /* Footer */
-    footer { background: var(--teal); color: #eaf3f2; padding: 50px 0; position: relative; overflow:hidden; }
-    .footer-motif { position:absolute; inset:0; opacity:.08; background-image: radial-gradient(circle at 20% 10%, #fff 1px, transparent 2px), radial-gradient(circle at 80% 70%, #fff 1px, transparent 2px); background-size: 120px 120px, 160px 160px; }
-    .footer-inner { position:relative; }
+    footer{background:var(--teal);color:#eaf3f2;padding:50px 0;position:relative;overflow:hidden}
+    .footer-motif{position:absolute;inset:0;opacity:.08;background-image:radial-gradient(circle at 20% 10%,#fff 1px,transparent 2px),radial-gradient(circle at 80% 70%,#fff 1px,transparent 2px);background-size:120px 120px,160px 160px}
 
     /* Countdown */
-    .countdown { display:flex; gap:14px; justify-content:center; margin-top: 14px; }
-    .countdown .unit { background:#fff; border:1px solid #eadfcd; border-radius:12px; padding:10px 14px; min-width:72px; }
-    .countdown .num { font-weight:700; color: var(--terracotta); font-size: 1.4rem; }
+    .countdown{display:flex;gap:14px;justify-content:center;margin-top:14px}
+    .countdown .unit{background:#fff;border:1px solid #eadfcd;border-radius:12px;padding:10px 14px;min-width:72px}
+    .countdown .num{font-weight:700;color:var(--terracotta);font-size:1.4rem}
 
-    /* Reveal on scroll */
-    .reveal { opacity:0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
-    .reveal.visible { opacity:1; transform: translateY(0); }
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s,transform .8s}
+    .reveal.visible{opacity:1;transform:translateY(0)}
 
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .hero::after { animation: none; }
-      .btn { transition: none; }
-    }
+    /* Custom cursor & sunlight hover */
+    body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='10' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='2' x2='32' y2='14'/%3E%3Cline x1='32' y1='50' x2='32' y2='62'/%3E%3Cline x1='2' y1='32' x2='14' y2='32'/%3E%3Cline x1='50' y1='32' x2='62' y2='32'/%3E%3Cline x1='10' y1='10' x2='18' y2='18'/%3E%3Cline x1='46' y1='46' x2='54' y2='54'/%3E%3Cline x1='10' y1='54' x2='18' y2='46'/%3E%3Cline x1='46' y1='18' x2='54' y2='10'/%3E%3C/g%3E%3C/svg%3E") 13 13, auto}
+    .sunlight{position:fixed;inset:0;pointer-events:none;mix-blend-mode:soft-light;background:radial-gradient(200px 200px at var(--x,50%) var(--y,50%), rgba(230,182,85,.35), rgba(230,182,85,.08) 40%, rgba(230,182,85,0) 60%);transition:background .12s ease;z-index:5}
+    @media (prefers-reduced-motion: reduce){.sunlight{transition:none}}
 
-    /* Small icons (SVG as masks) */
-    .icon { width: 22px; height: 22px; display:inline-block; background: var(--seafoam); mask-size: contain; mask-repeat:no-repeat; mask-position:center; transition: background .3s ease; }
-    .icon.sun { mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M12 4a1 1 0 0 1 1-1h0a1 1 0 1 1-2 0h0a1 1 0 0 1 1 1Zm0 17a1 1 0 0 1 1 1h0a1 1 0 1 1-2 0h0a1 1 0 0 1 1-1ZM4 12a1 1 0 0 1-1 1h0a1 1 0 1 1 0-2h0a1 1 0 0 1 1 1Zm17 0a1 1 0 0 1 1-1h0a1 1 0 1 1 0 2h0a1 1 0 0 1-1-1ZM5.64 5.64a1 1 0 0 1 1.41-1.41h0a1 1 0 1 1-1.41 1.41ZM16.95 17a1 1 0 0 1 1.41 1.41h0A1 1 0 1 1 16.95 17ZM5.64 18.36a1 1 0 0 1 1.41 1.41h0A1 1 0 1 1 5.64 18.36ZM17 7.05a1 1 0 0 1 1.41-1.41h0A1 1 0 1 1 17 7.05ZM12 7a5 5 0 1 1 0 10A5 5 0 0 1 12 7Z"/></svg>'); }
-    .icon.wave { mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M2 12s1.5-2 5-2 5 2 8 2 5-2 7-2v4c-2 0-4 2-7 2s-4-2-8-2-5 2-5 2v-4Z"/></svg>'); }
-    .icon.leaf { mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M20.59 3.41S15 2 10 7 3.41 20.59 3.41 20.59 2 15 7 10 20.59 3.41 20.59 3.41Z"/></svg>'); }
-    .tip:hover .icon, a:hover .icon { background: var(--gold); }
-
-    /* Simple modal for Guest Area */
-    .modal { position: fixed; inset: 0; display:none; place-items:center; background: rgba(47,74,78,.42); z-index: 2000; }
-    .modal.open { display:grid; }
-    .modal-card { background:#fff; border-radius: 18px; padding: 24px; width:min(90vw, 520px); box-shadow: var(--shadow); }
-    /* --- Mobile-first refinements --- */
-    .section { scroll-margin-top: 84px; }
-    @media (max-width: 820px){
-      .container { padding: 0 16px; }
-      .nav { height: 56px; }
-      .brand span { font-size: 0.95rem; }
-      .hero { min-height: 78svh; }
-      .section { padding: 56px 0; }
-      nav ul { width: calc(100vw - 32px); right: 16px; left: 16px; top: 56px; }
-      nav ul a { display:block; padding: 12px 14px; }
-      .btn { min-height: 48px; padding: 14px 18px; font-size: 1rem; }
-      input, select, textarea { min-height: 48px; font-size: 16px; } /* avoid iOS zoom */
-      .gallery-grid { grid-template-columns: 1fr; gap: 12px; }
-      .media img { display:block; width:100%; height:auto; }
-      .choices .btn { flex: 1 1 100%; }
-    }
+    /* Audio toggle */
+    .audio-toggle{position:fixed;right:14px;bottom:14px;z-index:1200;background:#fff;border:1px solid #e5ded2;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:.5rem;align-items:center}
+    .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:var(--terracotta)}
   </style>
 </head>
 <body>
-  <div class="island-lines" aria-hidden="true"></div>
+  <div class="sunlight" aria-hidden="true"></div>
 
-  <!-- Header / Navigation -->
+  <!-- Header / Nav -->
   <header>
     <div class="container nav" role="navigation" aria-label="Main navigation">
       <a class="brand" href="#welcome" aria-label="Go to top">
-        <!-- Shell logo as inline SVG -->
         <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2c5 0 9 4 9 9 0 6-9 11-9 11S3 17 3 11c0-5 4-9 9-9Zm0 3c-3.3 0-6 2.7-6 6 0 3.9 3.6 7.4 6 9 2.4-1.6 6-5.1 6-9 0-3.3-2.7-6-6-6Z"/></svg>
         <span>Sam &amp; Georgia</span>
       </a>
@@ -276,11 +153,11 @@
     </div>
   </header>
 
-  <!-- Welcome / Hero -->
+  <!-- Hero -->
   <main id="welcome" class="hero" role="main" aria-label="Welcome">
-    <div class="hero-inner container reveal visible">
+    <div class="container hero-inner reveal visible">
       <p class="eyebrow">Gozo, Malta</p>
-      <h1 class="display" style="color:var(--terracotta);">Sam &amp; Georgia</h1>
+      <h1 class="display">Sam &amp; Georgia</h1>
       <p class="tagline"><Replace this text with the WEDDING TAGLINE or upload a file></p>
       <div class="countdown" aria-live="polite" aria-label="Countdown to our wedding">
         <div class="unit"><div class="num" id="d">—</div><div class="lbl">days</div></div>
@@ -288,10 +165,9 @@
         <div class="unit"><div class="num" id="m">—</div><div class="lbl">mins</div></div>
         <div class="unit"><div class="num" id="s">—</div><div class="lbl">secs</div></div>
       </div>
-      <p class="scroll-prompt">Discover our story ↓</p>
-      <p style="margin-top: 18px;">
-        <a class="btn alt" href="#story"><span class="icon wave" aria-hidden="true"></span> Meet us</a>
-        <a class="btn" href="#rsvp"><span class="icon sun" aria-hidden="true"></span> Join us under the Gozo sun</a>
+      <p style="margin-top:18px">
+        <a class="btn alt" href="#story">Discover our story</a>
+        <a class="btn" href="#rsvp">Join us under the Gozo sun</a>
       </p>
     </div>
   </main>
@@ -304,31 +180,25 @@
       <div class="story-grid reveal">
         <div class="card">
           <h3>From Malta to Gozo</h3>
-          <p>
-            <strong>How we met:</strong> <Replace this text with the HOW WE MET or upload a file>
-          </p>
-          <p>
-            <strong>The engagement:</strong> <Replace this text with the ENGAGEMENT MOMENT or upload a file>
-          </p>
-          <div style="margin-top: 10px;">
-            <span class="pill"><span class="icon wave" aria-hidden="true"></span> Golden beaches</span>
-            <span class="pill"><span class="icon leaf" aria-hidden="true"></span> Olive groves</span>
-            <span class="pill"><span class="icon sun" aria-hidden="true"></span> Sunlit days</span>
+          <p><strong>How we met:</strong> <Replace this text with the HOW WE MET or upload a file></p>
+          <p><strong>The engagement:</strong> <Replace this text with the ENGAGEMENT MOMENT or upload a file></p>
+          <div style="margin-top:10px">
+            <span class="pill">Golden beaches</span>
+            <span class="pill">Olive groves</span>
+            <span class="pill">Sunlit days</span>
           </div>
         </div>
         <figure class="media">
-          <!-- Story photo: Xlendi Bay (Public Domain) -->
-          <img loading="lazy" src="https://images.unsplash.com/photo-1538898500942-78b80fa92216?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Turquoise waters and boats in Xlendi Bay, Gozo">
+          <!-- Story photo: Xlendi Bay (PD) -->
+          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Xlendi_Bay_Gozo_Malta_2014_1.jpg" alt="Turquoise waters and boats in Xlendi Bay, Gozo">
         </figure>
       </div>
-
-      <!-- Optional playful timeline -->
-      <div class="card reveal" style="margin-top:26px;">
+      <div class="card reveal" style="margin-top:26px">
         <h3>Moments that matter</h3>
-        <ol style="margin:0; padding-left: 18px;">
+        <ol style="margin:0; padding-left:18px">
           <li><strong>First meeting:</strong> <Replace this text with the FIRST MEETING DATE or upload a file></li>
           <li><strong>Engagement:</strong> <Replace this text with the ENGAGEMENT DATE or upload a file></li>
-          <li><strong>Wedding:</strong> <span id="timeline-wedding-date">—</span></li>
+          <li><strong>Wedding:</strong> <span id="timeline-wedding-date">10 September 2026</span></li>
         </ol>
       </div>
     </div>
@@ -342,9 +212,9 @@
         <div class="card reveal">
           <h3>Ceremony</h3>
           <p><Replace this text with the CEREMONY DETAILS or upload a file></p>
-          <h3 style="margin-top:18px;">Reception</h3>
-          <p><Replace this text with the RECEPTION DETAILS or upload a file></p>
-          <hr style="border:0; height:1px; background:linear-gradient(90deg, transparent, var(--gold), transparent); margin: 18px 0;"/>
+          <h3 style="margin-top:18px">Reception — Kantra Beach Club</h3>
+          <p>Kantra Beach Club, Triq Ta' Ċeńc (near Mġarr ix-Xini), Sannat, Gozo. <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor listing</a></p>
+          <hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0" />
           <h3>Local highlights</h3>
           <ul>
             <li>Ramla Bay — red sand beach</li>
@@ -353,26 +223,21 @@
           </ul>
         </div>
         <div class="map-card reveal" aria-label="Stylised map of Gozo with pins">
-          <!-- Stylised map of Gozo (simplified). Replace pin positions and labels as needed. -->
           <svg class="map-svg" viewBox="0 0 520 420" role="img" aria-labelledby="mapTitle mapDesc">
             <title id="mapTitle">Stylised map of Gozo</title>
-            <desc id="mapDesc">An abstract outline of the island of Gozo with pins for ceremony and reception.</desc>
-            <!-- Island shape (abstract) -->
+            <desc id="mapDesc">Abstract outline with pins for ceremony and reception.</desc>
             <path d="M126 60 C 180 30, 320 30, 384 70 C 440 106, 468 160, 452 214 C 436 268, 384 318, 310 340 C 236 362, 154 350, 110 312 C 66 274, 48 218, 68 162 C 88 106, 96 84, 126 60 Z" fill="#eaf3f2" stroke="#cddfdd" stroke-width="3"/>
-            <!-- Sea ripples -->
             <path d="M40 380 Q 100 360 160 380 T 280 380 T 400 380 T 520 380" stroke="#83B8B4" stroke-width="2" fill="none" opacity=".5"/>
-            <!-- Pins -->
             <g>
               <circle class="pin" cx="290" cy="170" r="8"/>
               <text x="300" y="166" font-family="Raleway" font-size="12" fill="#2F4A4E">Ceremony</text>
             </g>
             <g>
               <circle class="pin" cx="230" cy="230" r="8"/>
-              <text x="240" y="226" font-family="Raleway" font-size="12" fill="#2F4A4E">Reception</text>
+              <text x="240" y="226" font-family="Raleway" font-size="12" fill="#2F4A4E">Reception — Kantra</text>
             </g>
-            <!-- Placeholder for venue names -->
             <text x="20" y="24" font-family="Raleway" font-size="12" fill="#7E8C4F">Venue: <Replace this text with the CEREMONY VENUE NAME or upload a file></text>
-            <text x="20" y="44" font-family="Raleway" font-size="12" fill="#7E8C4F">Venue: <Replace this text with the RECEPTION VENUE NAME or upload a file></text>
+            <text x="20" y="44" font-family="Raleway" font-size="12" fill="#7E8C4F">Kantra Beach Club, Sannat</text>
           </svg>
         </div>
       </div>
@@ -386,16 +251,19 @@
       <p class="accent">We can't wait to share this island with you.</p>
       <div class="travel-grid">
         <div class="tip reveal">
-          <h3><span class="icon wave" aria-hidden="true"></span> Getting here</h3>
+          <h3>Getting here</h3>
           <p>Fly into Malta International Airport (MLA). From Ċirkewwa, take the Gozo Channel ferry to Mġarr (approx. 20–30 min). Taxis and buses connect easily.</p>
         </div>
         <div class="tip reveal">
-          <h3><span class="icon sun" aria-hidden="true"></span> Where to stay</h3>
+          <h3>Where to stay (near Kantra)</h3>
+          <ul>
+            <li><strong>Hotel Ta’ Cenc &amp; Spa</strong> — Cenc Street, Sannat SNT9049, Gozo. <a href="https://www.tripadvisor.co.uk/Hotel_Review-g230154-d267341-Reviews-Hotel_Ta_Cenc_Spa-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor</a></li>
+            <li><strong>Cesca Boutique Hotel</strong> — Xlendi Valley edge, Munxar/Xlendi. <a href="https://www.cesca.com.mt/" target="_blank" rel="noopener">Official site</a></li>
+          </ul>
           <p><Replace this text with the ACCOMMODATION RECOMMENDATIONS or upload a file></p>
-          <p><a href="#" onclick="alert('Add your real links here!'); return false;"><Replace this text with the HOTEL LINKS or upload a file></a></p>
         </div>
         <div class="tip reveal">
-          <h3><span class="icon leaf" aria-hidden="true"></span> Getting around</h3>
+          <h3>Getting around</h3>
           <p>Rent a car or use taxis for flexibility; buses run frequently between towns. Summer sun is strong — pack water, hats, and SPF.</p>
         </div>
       </div>
@@ -407,46 +275,29 @@
     <div class="container">
       <h2 id="rsvp-title">RSVP</h2>
       <p class="accent">Pack your sunglasses — Gozo awaits!</p>
-      <p style="text-align:center; font-weight:600;">We can't wait to celebrate with you!</p>
-
-      <div class="choices" role="group" aria-label="RSVP quick choices">
-        <a class="btn alt" href="#rsvp-form">Yes! See you there</a>
-        <a class="btn alt" href="#rsvp-form">Sadly can't make it</a>
-      </div>
-
+      <p style="text-align:center;font-weight:600">We can't wait to celebrate with you!</p>
       <form id="rsvp-form" class="reveal" method="post" action="<Replace this text with the RSVP FORM ENDPOINT or upload a file>">
-        <label>
-          Full name
-          <input type="text" name="name" required placeholder="Your name" autocomplete="name" />
-        </label>
-        <label>
-          Email
-          <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
-        </label>
-        <label>
-          Will you join us?
+        <label>Full name<input type="text" name="name" required placeholder="Your name" autocomplete="name" /></label>
+        <label>Email<input type="email" name="email" required placeholder="you@example.com" autocomplete="email" /></label>
+        <label>Will you join us?
           <select name="attendance" required>
             <option value="">Select…</option>
             <option>Joyfully accepts</option>
             <option>Regretfully declines</option>
           </select>
         </label>
-        <label>
-          Dietary notes
-          <textarea name="diet" rows="4" placeholder="Vegetarian, allergies, etc."></textarea>
-        </label>
+        <label>Dietary notes<textarea name="diet" rows="4" placeholder="Vegetarian, allergies, etc."></textarea></label>
         <button class="btn" type="submit">Join us under the Gozo sun</button>
       </form>
     </div>
   </section>
 
-  <!-- Gallery (Optional) -->
+  <!-- Gallery -->
   <section id="gallery" class="section" aria-labelledby="gallery-title">
     <div class="container">
       <h2 id="gallery-title">Gallery</h2>
       <p class="accent">A few moments and places we love.</p>
       <div class="gallery-grid reveal">
-        <!-- Stock images of Gozo scenery (Wikimedia Commons) with responsive sizes -->
         <img loading="lazy" width="1280" height="853" sizes="(max-width: 820px) 100vw, 600px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Inland_sea_at_Dwejra%2C_Gozo.jpg/1280px-Inland_sea_at_Dwejra%2C_Gozo.jpg" alt="Dwejra Inland Sea cave and boat, Gozo">
         <img loading="lazy" width="1280" height="853" sizes="(max-width: 820px) 100vw, 600px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Mgarr_Harbour_in_Gozo.jpg/1280px-Mgarr_Harbour_in_Gozo.jpg" alt="Mġarr Harbour with Gozo Channel Line ferry">
         <img loading="lazy" width="1280" height="853" sizes="(max-width: 820px) 100vw, 600px" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Ramla_Bay.jpg" alt="Ramla Bay red sand beach, Gozo">
@@ -459,171 +310,62 @@
   <footer role="contentinfo">
     <div class="footer-motif" aria-hidden="true"></div>
     <div class="container footer-inner">
-      <p style="text-align:center; margin:0; font-family:'Cormorant Garamond', serif; font-size: 1.2rem;">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
-    </div>
-    <footer role="contentinfo">
-    <div class="footer-motif" aria-hidden="true"></div>
-    <div class="container footer-inner">
-      <p style="text-align:center; margin:0; font-family:'Cormorant Garamond', serif; font-size: 1.2rem;">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
-      <p style="text-align:center; margin:8px 0 0; font-size:.85rem; opacity:.8;">Photo credits: Ramla Bay (William Shewring, Public Domain) citeturn5view0 · Xlendi Bay (Karelj, PD) citeturn7view0 · Dwejra Inland Sea (Bellina 09, CC BY-SA 4.0) citeturn9view0 · Mġarr Harbour (Spike28742, CC BY-SA 4.0) citeturn11view0</p>
+      <p style="text-align:center;margin:0;font-family:'Cormorant Garamond',serif;font-size:1.2rem">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
+      <p style="text-align:center;margin:8px 0 0;font-size:.85rem;opacity:.8">Images: Dwejra Inland Sea; Mġarr Harbour; Ramla Bay; Xlendi Bay — via Wikimedia Commons.</p>
     </div>
   </footer>
 
-  <!-- Optional Guest Area Modal (password-protected) -->
-  <div id="guestModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="guestTitle" aria-modal="true">
-    <div class="modal-card">
-      <h3 id="guestTitle">Guest Area</h3>
-      <p>Enter the password to view the detailed itinerary &amp; FAQs.</p>
-      <form id="guestForm">
-        <input type="password" id="guestPwd" placeholder="Password" aria-label="Guest area password" />
-        <button type="submit" class="btn" style="margin-top:10px;">Open</button>
-        <button type="button" class="btn alt" style="margin-top:10px; margin-left:6px;" onclick="closeGuest()">Cancel</button>
-      </form>
-      <div id="guestContent" style="display:none; margin-top:16px;">
-        <div class="tip">
-          <h3>Itinerary</h3>
-          <p><Replace this text with the DETAILED ITINERARY or upload a file></p>
-        </div>
-        <div class="tip" style="margin-top:12px;">
-          <h3>Travel FAQs</h3>
-          <p><Replace this text with the TRAVEL FAQS or upload a file></p>
-        </div>
-      </div>
-    </div>
+  <!-- Ambient waves (soft). Autoplay policies: starts muted; tap the toggle to enable sound. -->
+  <audio id="waves" loop preload="auto">
+    <source src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Oceanwavescrushing.ogg" type="audio/ogg">
+  </audio>
+  <div class="audio-toggle" role="region" aria-label="Audio controls">
+    <span>Waves</span>
+    <button id="audioBtn" type="button">Sound off</button>
   </div>
 
   <script>
     /* =====================
-       CONFIG: Edit here
+       CONFIG
        ===================== */
     const CONFIG = {
-      WEDDING_DATE: '2026-06-20T14:00:00+02:00', // ISO 8601 (example). Update to your real datetime.
-      GUEST_AREA_ENABLED: true,
-      GUEST_AREA_PASSWORD: '<Replace this text with the GUEST AREA PASSWORD or upload a file>',
+      WEDDING_DATE: '2026-09-10T14:00:00+02:00', // 10 September 2026 (adjust time/zone as needed)
+      GUEST_AREA_ENABLED: false
     };
 
-    /* ===============
-       Mobile nav
-       =============== */
-    const burger = document.querySelector('.burger');
-    const menu = document.getElementById('menu');
-    burger?.addEventListener('click', () => {
-      menu.classList.toggle('open');
-      const expanded = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!expanded));
-    });
+    /* Mobile menu */
+    const burger=document.querySelector('.burger');
+    const menu=document.getElementById('menu');
+    burger?.addEventListener('click',()=>{menu.classList.toggle('open');const ex=burger.getAttribute('aria-expanded')==='true';burger.setAttribute('aria-expanded',String(!ex));});
 
-    /* ========================
-       Smooth reveal on scroll
-       ======================== */
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      })
-    }, { threshold: 0.18 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    /* Reveal on scroll */
+    const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:.18});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-    /* =====================
-       Countdown timer
-       ===================== */
-    const $d = document.getElementById('d');
-    const $h = document.getElementById('h');
-    const $m = document.getElementById('m');
-    const $s = document.getElementById('s');
-    const target = new Date(CONFIG.WEDDING_DATE);
-    const tlWedding = document.getElementById('timeline-wedding-date');
-    if (tlWedding) tlWedding.textContent = target.toLocaleDateString(undefined, { year:'numeric', month:'long', day:'numeric' });
+    /* Countdown */
+    const $d=document.getElementById('d');const $h=document.getElementById('h');const $m=document.getElementById('m');const $s=document.getElementById('s');
+    const target=new Date(CONFIG.WEDDING_DATE);
+    const timeline=document.getElementById('timeline-wedding-date');
+    if(timeline){timeline.textContent=target.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});} 
+    function tick(){const now=new Date();const diff=Math.max(0,target-now);const days=Math.floor(diff/86400000);const hours=Math.floor((diff/3600000)%24);const mins=Math.floor((diff/60000)%60);const secs=Math.floor((diff/1000)%60);$d.textContent=String(days);$h.textContent=String(hours);$m.textContent=String(mins);$s.textContent=String(secs);} tick(); setInterval(tick,1000);
 
-    function tick(){
-      const now = new Date();
-      const diff = Math.max(0, target - now);
-      const days = Math.floor(diff / (1000*60*60*24));
-      const hours = Math.floor((diff / (1000*60*60)) % 24);
-      const mins = Math.floor((diff / (1000*60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-      if ($d) $d.textContent = String(days);
-      if ($h) $h.textContent = String(hours);
-      if ($m) $m.textContent = String(mins);
-      if ($s) $s.textContent = String(secs);
-    }
-    tick();
-    setInterval(tick, 1000);
+    /* Sunlight hover effect (mouse & touch) */
+    const light=document.querySelector('.sunlight');
+    function setLight(x,y){light.style.setProperty('--x',x+'px');light.style.setProperty('--y',y+'px');}
+    window.addEventListener('pointermove',e=>{setLight(e.clientX,e.clientY);});
+    // For touch: place light at center then fade to last tap
+    window.addEventListener('pointerdown',e=>{setLight(e.clientX,e.clientY);});
 
-    /* =====================
-       Optional Guest Area
-       ===================== */
-    const guestModal = document.getElementById('guestModal');
-    function openGuest(){ if(CONFIG.GUEST_AREA_ENABLED){ guestModal.classList.add('open'); guestModal.setAttribute('aria-hidden', 'false'); } }
-    function closeGuest(){ guestModal.classList.remove('open'); guestModal.setAttribute('aria-hidden', 'true'); }
-    window.closeGuest = closeGuest; // expose to inline button
-
-    // Add a footer link to open the guest modal (only if enabled)
-    if (CONFIG.GUEST_AREA_ENABLED) {
-      const footer = document.querySelector('footer .footer-inner');
-      const link = document.createElement('p');
-      link.style.textAlign = 'center';
-      link.style.marginTop = '12px';
-      link.innerHTML = '<a href="#" class="btn alt" aria-haspopup="dialog">Guest area</a>';
-      footer.appendChild(link);
-      link.querySelector('a').addEventListener('click', (e) => { e.preventDefault(); openGuest(); });
-
-      // Password check
-      const guestForm = document.getElementById('guestForm');
-      const guestPwd = document.getElementById('guestPwd');
-      const guestContent = document.getElementById('guestContent');
-      guestForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (guestPwd.value && CONFIG.GUEST_AREA_PASSWORD && guestPwd.value === CONFIG.GUEST_AREA_PASSWORD) {
-          guestContent.style.display = 'block';
-        } else {
-          alert('Password not recognised.');
-        }
-      });
-    }
-
-    /* =====================
-       Accessibility extras
-       ===================== */
-    // Close modal on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && guestModal?.classList.contains('open')) closeGuest();
-    });
-
+    /* Waves audio: starts muted (autoplay policy). First user interaction enables playback if toggled. */
+    const audio=document.getElementById('waves');
+    const btn=document.getElementById('audioBtn');
+    let isOn=false; // user intent
+    function updateBtn(){btn.textContent=isOn?'Sound on':'Sound off';}
+    btn.addEventListener('click',async()=>{isOn=!isOn;updateBtn(); if(isOn){try{await audio.play(); audio.volume=0.25;}catch(_){} } else {audio.pause();}});
+    // attempt gentle autoplay muted, then wait for click to unmute
+    (async()=>{try{audio.muted=true; await audio.play(); audio.volume=0.0;}catch(_){};})();
+    // On first interaction turn volume up if user already toggled on
+    const first=()=>{if(isOn){audio.muted=false; audio.volume=0.25;} window.removeEventListener('pointerdown',first)}; window.addEventListener('pointerdown',first);
   </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Sam & Georgia — Our Mediterranean wedding in Gozo. Travel info, dates, RSVP, and our story." />
-  <title>Sam &amp; Georgia — Gozo Wedding</title>
-  <!-- Favicon: cartoon sun SVG -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='14' fill='%23E6B655'/><g stroke='%23E6B655' stroke-width='4'><line x1='32' y1='4' x2='32' y2='16'/><line x1='32' y1='48' x2='32' y2='60'/><line x1='4' y1='32' x2='16' y2='32'/><line x1='48' y1='32' x2='60' y2='32'/><line x1='12' y1='12' x2='20' y2='20'/><line x1='44' y1='44' x2='52' y2='52'/><line x1='12' y1='52' x2='20' y2='44'/><line x1='44' y1='20' x2='52' y2='12'/></g></svg>">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Parisienne&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --terracotta: #A75A32;
-      --gold: #E6B655;
-      --seafoam: #83B8B4;
-      --olive: #7E8C4F;
-      --cream: #F9F6F0;
-      --teal: #2F4A4E;
-      --hero-image: url('https://upload.wikimedia.org/wikipedia/commons/e/e8/Ramla_Bay.jpg');
-    }
-  </style>
-</head>
-<body>
-  <header><h1 style="text-align:center;color:#A75A32;">Sam &amp; Georgia — Gozo Wedding</h1></header>
-  <main style="text-align:center;padding:50px;font-family:'Raleway',sans-serif;color:#2F4A4E;">
-    <p>Website content here (placeholder for full design).</p>
-    <p>Now includes a cheerful cartoon sun favicon!</p>
-  </main>
 </body>
 </html>
