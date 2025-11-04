@@ -1,393 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Sam & Georgia — Gozo Wedding (single-file site) -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#F9F6F0" />
   <title>Sam &amp; Georgia — Gozo Wedding</title>
   <meta name="description" content="Sam & Georgia's Mediterranean wedding in Gozo · dates, travel, venues and RSVP — warm, coastal and timeless." />
 
-  <!-- Favicon: cartoon sun (SVG) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='14' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='4' x2='32' y2='16'/%3E%3Cline x1='32' y1='48' x2='32' y2='60'/%3E%3Cline x1='4' y1='32' x2='16' y2='32'/%3E%3Cline x1='48' y1='32' x2='60' y2='32'/%3E%3Cline x1='12' y1='12' x2='20' y2='20'/%3E%3Cline x1='44' y1='44' x2='52' y2='52'/%3E%3Cline x1='12' y1='52' x2='20' y2='44'/%3E%3Cline x1='44' y1='20' x2='52' y2='12'/%3E%3C/g%3E%3C/svg%3E" />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Parisienne&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&family=Parisienne&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F; --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
-      --maxw:1100px; --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
-      --hero-image:url('data:image/svg+xml;utf8,\
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">\
-          <defs>\
-            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">\
-              <stop offset="0%" stop-color="%2383B8B4"/>\
-              <stop offset="60%" stop-color="%23F9F6F0"/>\
-            </linearGradient>\
-            <linearGradient id="sea" x1="0" y1="0" x2="1" y2="0">\
-              <stop offset="0%" stop-color="%232F4A4E"/>\
-              <stop offset="100%" stop-color="%2383B8B4"/>\
-            </linearGradient>\
-          </defs>\
-          <rect width="1200" height="800" fill="url(%23sky)"/>\
-          <path d="M0,520 C200,480 400,560 600,520 C800,480 1000,560 1200,520 L1200,800 L0,800 Z" fill="url(%23sea)" opacity="0.85"/>\
-          <circle cx="980" cy="140" r="55" fill="%23E6B655" opacity="0.9"/>\
-        </svg>');
+    :root {
+      --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F;
+      --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
+      --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
     }
 
-    html{scroll-behavior:smooth}
-    body{margin:0;background:var(--cream);color:var(--teal);font-family:'Raleway',system-ui,Segoe UI,Arial,sans-serif;line-height:1.6;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='10' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='2' x2='32' y2='14'/%3E%3Cline x1='32' y1='50' x2='32' y2='62'/%3E%3Cline x1='2' y1='32' x2='14' y2='32'/%3E%3Cline x1='50' y1='32' x2='62' y2='32'/%3E%3Cline x1='10' y1='10' x2='18' y2='18'/%3E%3Cline x1='46' y1='46' x2='54' y2='54'/%3E%3Cline x1='10' y1='54' x2='18' y2='46'/%3E%3Cline x1='46' y1='18' x2='54' y2='10'/%3E%3C/g%3E%3C/svg%3E") 13 13, auto}
+    body {
+      margin:0; font-family:'Raleway',sans-serif; background:var(--cream);
+      color:var(--teal); line-height:1.6;
+      cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='10' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='2' x2='32' y2='14'/%3E%3Cline x1='32' y1='50' x2='32' y2='62'/%3E%3Cline x1='2' y1='32' x2='14' y2='32'/%3E%3Cline x1='50' y1='32' x2='62' y2='32'/%3E%3Cline x1='10' y1='10' x2='18' y2='18'/%3E%3Cline x1='46' y1='46' x2='54' y2='54'/%3E%3Cline x1='10' y1='54' x2='18' y2='46'/%3E%3Cline x1='46' y1='18' x2='54' y2='10'/%3E%3C/g%3E%3C/svg%3E") 13 13, auto;
+    }
 
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-    .section{padding:72px 0;position:relative;scroll-margin-top:84px}
-    @media(min-width:900px){.section{padding:120px 0}}
+    header {
+      position:sticky; top:0; z-index:1000;
+      background:rgba(255,255,255,0.9); backdrop-filter:blur(6px);
+      border-bottom:1px solid #e8e3d9;
+    }
 
-    /* Header — alignment fixes */
-    header{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--cream) 90%,white 10%);border-bottom:1px solid #e8e3d9;backdrop-filter:blur(6px)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;height:64px}
-    .brand{display:inline-flex;align-items:center;gap:.6rem;color:var(--terracotta);text-decoration:none;font-weight:700}
-    .brand .logo{width:24px;height:24px}
-    nav ul{list-style:none;margin:0;padding:0;display:none;position:absolute;top:64px;left:16px;right:16px;background:#fff;border:1px solid #e8e3d9;border-radius:14px;box-shadow:var(--shadow)}
-    nav ul.open{display:block}
-    nav a{text-decoration:none;color:var(--teal);font-weight:600;display:block;padding:12px 14px}
-    nav a:hover{color:var(--terracotta)}
-    .burger{display:inline-flex;width:40px;height:40px;border:1px solid #d8d3c8;border-radius:12px;background:#fff;align-items:center;justify-content:center}
-    .burger span{width:18px;height:2px;background:var(--teal);position:relative;display:block}
-    .burger span::before,.burger span::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--teal)}
-    .burger span::before{top:-6px}.burger span::after{top:6px}
-    @media(min-width:880px){.burger{display:none} nav ul{position:static;display:flex;border:none;box-shadow:none} nav a{padding:0;margin-left:20px}}
+    .nav {
+      display:flex; align-items:center; justify-content:space-between;
+      height:64px; padding:0 16px;
+    }
 
-    /* Hero — mobile realignment */
-    .hero{min-height:78svh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;background-image:linear-gradient(to bottom,rgba(249,246,240,.65),rgba(249,246,240,.1)),var(--hero-image);background-size:cover;background-position:center;background-attachment:scroll}
-    @media(min-width:900px){.hero{min-height:86vh;background-attachment:fixed}}
-    .hero-inner{width:100%;max-width:var(--maxw);padding:calc(18px + env(safe-area-inset-top)) 12px 56px}
-    .display{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,8vw,96px);color:var(--terracotta);margin:0}
-    .tagline{margin-top:8px;font-style:italic;color:var(--teal)}
-    .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--olive)}
+    .brand {
+      display:flex; align-items:center; gap:.6rem;
+      color:var(--terracotta); text-decoration:none; font-weight:700;
+    }
 
-    .countdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:12px;justify-items:center;margin:14px auto 0;max-width:660px}
-    .countdown .unit{background:#fff;border:1px solid #eadfcd;border-radius:12px;padding:10px 14px;width:100%}
-    .countdown .num{font-weight:700;color:var(--terracotta);font-size:1.4rem}
-    .cta-row{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
-    @media(min-width:520px){.cta-row{grid-template-columns:1fr 1fr}}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;border-radius:999px;padding:14px 18px;border:1px solid var(--terracotta);color:#fff;background:var(--terracotta);text-decoration:none;font-weight:600;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,background .3s}
-    .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(167,90,50,.25);background:#964c28}
-    .btn.alt{background:#fff;color:var(--terracotta)}
+    .burger {
+      display:inline-flex; align-items:center; justify-content:center;
+      width:40px; height:40px; border:1px solid #d8d3c8;
+      border-radius:12px; background:#fff;
+    }
+    .burger span {width:18px;height:2px;background:var(--teal);position:relative;display:block;}
+    .burger span::before,.burger span::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--teal);}
+    .burger span::before{top:-6px;} .burger span::after{top:6px;}
 
-    h2,h3{font-family:'Cormorant Garamond',serif;color:var(--ink)}
-    h2{font-size:clamp(26px,3.6vw,44px);margin:0 0 14px}
-    h3{font-size:clamp(22px,2.2vw,28px);margin:0 0 10px}
-    .accent{font-family:'Parisienne',cursive;font-size:clamp(24px,3vw,42px);color:var(--terracotta)}
-    .story-grid{display:grid;gap:24px}
-    @media(min-width:900px){.story-grid{grid-template-columns:1.2fr 1fr;align-items:center;gap:42px}}
-    .card{background:#fff;border:1px solid #efe9de;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
-    .media{position:relative;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow)}
-    .media img{width:100%;height:auto;display:block}
-    .pill{display:inline-block;border-radius:999px;border:1px solid var(--seafoam);padding:6px 12px;font-size:.9rem;color:var(--teal);background:#ffffffb3;margin-right:6px}
+    nav ul {
+      list-style:none; margin:0; padding:0; display:none;
+      position:absolute; top:64px; left:16px; right:16px;
+      background:#fff; border:1px solid #e8e3d9; border-radius:14px; box-shadow:var(--shadow);
+    }
+    nav ul.open {display:block;}
+    nav a {display:block;padding:12px 14px;color:var(--teal);text-decoration:none;font-weight:600;}
+    nav a:hover {color:var(--terracotta);}
+    @media(min-width:880px){.burger{display:none;} nav ul{position:static;display:flex;border:none;box-shadow:none;} nav a{padding:0;margin-left:20px;}}
 
-    .dates{background:linear-gradient(180deg,#fff,#f6f2ea)}
-    .dates-grid{display:grid;gap:22px}
-    @media(min-width:980px){.dates-grid{grid-template-columns:1.1fr .9fr;gap:32px}}
-    .map-card{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-    .map-svg{width:100%;height:auto;display:block}
-    .pin{fill:var(--terracotta);stroke:#fff;stroke-width:2}
-    .travel-grid{display:grid;gap:22px}
-    @media(min-width:900px){.travel-grid{grid-template-columns:repeat(3,1fr)}}
-    .tip{background:#fff;border:1px solid #efe9de;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
-    .rsvp{background:linear-gradient(180deg,#f6f2ea,#fff)}
-    form{display:grid;gap:14px;max-width:620px;margin:16px auto 0}
-    input,select,textarea{width:100%;border:1px solid #e5ded2;border-radius:12px;padding:14px;font:inherit;background:#fff;min-height:48px;font-size:16px}
-    .gallery-grid{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:800px){.gallery-grid{grid-template-columns:repeat(4,1fr);gap:14px}}
-    .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:14px;box-shadow:var(--shadow)}
-    footer{background:var(--teal);color:#eaf3f2;padding:50px 0;position:relative;overflow:hidden}
-    .footer-motif{position:absolute;inset:0;opacity:.08;background-image:radial-gradient(circle at 20% 10%,#fff 1px,transparent 2px),radial-gradient(circle at 80% 70%,#fff 1px,transparent 2px);background-size:120px 120px,160px 160px}
+    /* HERO SECTION */
+    .hero {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center; background:linear-gradient(to bottom,#cfe8e5,#f9f6f0);
+      min-height:90vh; padding:100px 20px 60px; position:relative; overflow:hidden;
+    }
 
-    .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s,transform .8s}
-    .reveal.visible{opacity:1;transform:translateY(0)}
+    .display {
+      font-family:'Cormorant Garamond',serif;
+      color:var(--terracotta);
+      font-size:clamp(40px,8vw,72px);
+      margin:12px 0 8px;
+    }
 
-    /* Sunlight stronger */
-    .sunlight{position:fixed;inset:0;pointer-events:none;z-index:5;mix-blend-mode:soft-light;background:
-      radial-gradient(420px 420px at var(--x,50%) var(--y,50%), rgba(230,182,85,.55), rgba(230,182,85,.18) 40%, rgba(230,182,85,0) 65%),
+    .eyebrow {text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--olive);}
+    .tagline {color:var(--teal);font-style:italic;margin-bottom:24px;}
+
+    .countdown {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:8px; margin-bottom:24px;
+    }
+    .countdown .unit {
+      background:#fff;border:1px solid #eadfcd;border-radius:12px;
+      padding:8px 14px;min-width:120px;
+    }
+    .num {font-weight:700;color:var(--terracotta);font-size:1.4rem;}
+
+    .cta-row {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:12px;
+    }
+
+    @media(min-width:600px){
+      .countdown {flex-direction:row;}
+      .cta-row {flex-direction:row;}
+      .hero {padding:160px 20px 100px;}
+    }
+
+    .btn {
+      border-radius:999px; border:1px solid var(--terracotta);
+      padding:14px 18px; font-weight:600; text-decoration:none;
+      box-shadow:var(--shadow); transition:.2s; display:inline-flex; justify-content:center; align-items:center;
+    }
+    .btn.alt {background:#fff; color:var(--terracotta);}
+    .btn {background:var(--terracotta); color:#fff;}
+    .btn:hover {transform:translateY(-2px); box-shadow:0 14px 40px rgba(167,90,50,.25);}
+
+    /* Sunlight */
+    .sunlight{position:fixed;inset:0;pointer-events:none;z-index:5;mix-blend-mode:soft-light;
+      background:radial-gradient(420px 420px at var(--x,50%) var(--y,50%), rgba(230,182,85,.55), rgba(230,182,85,.18) 40%, rgba(230,182,85,0) 65%),
       radial-gradient(800px 800px at var(--x,50%) var(--y,50%), rgba(255,255,220,.15), rgba(255,255,220,0) 50%);
-      transition:background .08s ease}
-    @media(prefers-reduced-motion:reduce){.sunlight{transition:none}}
-
+      transition:background .08s ease;}
     .audio-toggle{position:fixed;right:14px;bottom:14px;z-index:1200;background:#fff;border:1px solid #e5ded2;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:.5rem;align-items:center}
-    .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:#A75A32}
+    .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:var(--terracotta);}
   </style>
 </head>
 <body>
-  <div class="sunlight" aria-hidden="true"></div>
+  <div class="sunlight"></div>
 
-  <!-- Header / Nav -->
   <header>
-    <div class="container nav" role="navigation" aria-label="Main navigation">
-      <a class="brand" href="#welcome" aria-label="Go to top">
-        <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2c5 0 9 4 9 9 0 6-9 11-9 11S3 17 3 11c0-5 4-9 9-9Zm0 3c-3.3 0-6 2.7-6 6 0 3.9 3.6 7.4 6 9 2.4-1.6 6-5.1 6-9 0-3.3-2.7-6-6-6Z"/></svg>
+    <div class="nav">
+      <a class="brand" href="#welcome">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2c5 0 9 4 9 9 0 6-9 11-9 11S3 17 3 11c0-5 4-9 9-9Zm0 3c-3.3 0-6 2.7-6 6 0 3.9 3.6 7.4 6 9 2.4-1.6 6-5.1 6-9 0-3.3-2.7-6-6-6Z"/></svg>
         <span>Sam &amp; Georgia</span>
       </a>
-      <button class="burger" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><span></span></button>
-      <nav>
-        <ul id="menu">
-          <li><a href="#story">Our Story</a></li>
-          <li><a href="#dates">Wedding Dates</a></li>
-          <li><a href="#travel">Travel &amp; Stay</a></li>
-          <li><a href="#rsvp">RSVP</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-        </ul>
-      </nav>
+      <button class="burger" aria-label="Open menu"><span></span></button>
+      <nav><ul id="menu"><li><a href="#story">Our Story</a></li><li><a href="#dates">Wedding Dates</a></li><li><a href="#travel">Travel &amp; Stay</a></li><li><a href="#rsvp">RSVP</a></li></ul></nav>
     </div>
   </header>
 
-  <!-- Hero -->
-  <main id="welcome" class="hero" role="main" aria-label="Welcome">
-    <div class="container hero-inner reveal visible">
-      <p class="eyebrow">Gozo, Malta</p>
-      <h1 class="display">Sam &amp; Georgia</h1>
-      <p class="tagline"><Replace this text with the WEDDING TAGLINE or upload a file></p>
-      <div class="countdown" aria-live="polite" aria-label="Countdown to our wedding">
-        <div class="unit"><div class="num" id="d">—</div><div class="lbl">days</div></div>
-        <div class="unit"><div class="num" id="h">—</div><div class="lbl">hours</div></div>
-        <div class="unit"><div class="num" id="m">—</div><div class="lbl">mins</div></div>
-        <div class="unit"><div class="num" id="s">—</div><div class="lbl">secs</div></div>
-      </div>
-      <p style="margin-top:18px">
-        <a class="btn alt" href="#story">Discover our story</a>
-        <a class="btn" href="#rsvp">Join us under the Gozo sun</a>
-      </p>
+  <main id="welcome" class="hero">
+    <p class="eyebrow">Gozo, Malta</p>
+    <h1 class="display">Sam &amp; Georgia</h1>
+    <p class="tagline">Join us for a sunlit celebration by the sea</p>
+
+    <div class="countdown">
+      <div class="unit"><div class="num" id="d">—</div><div>days</div></div>
+      <div class="unit"><div class="num" id="h">—</div><div>hours</div></div>
+      <div class="unit"><div class="num" id="m">—</div><div>mins</div></div>
+      <div class="unit"><div class="num" id="s">—</div><div>secs</div></div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn alt" href="#story">Discover our story</a>
+      <a class="btn" href="#rsvp">Join us under the Gozo sun</a>
     </div>
   </main>
 
-  <!-- Our Story -->
-  <section id="story" class="section" aria-labelledby="story-title">
-    <div class="container">
-      <h2 id="story-title">Our Story</h2>
-      <p class="accent">Our love story started here — and we're so excited to return.</p>
-      <div class="story-grid reveal">
-        <div class="card">
-          <h3>From Malta to Gozo</h3>
-          <p><strong>How we met:</strong> <Replace  We met at LeoVegas, Sam was (and still is), really cool></p>
-          <p><strong>The engagement:</strong> <Replace this text with the ENGAGEMENT MOMENT or upload a file></p>
-          <div style="margin-top:10px">
-            <span class="pill">Golden beaches</span>
-            <span class="pill">Olive groves</span>
-            <span class="pill">Sunlit days</span>
-          </div>
-        </div>
-        <figure class="media">
-          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Xlendi_Bay_Gozo_Malta_2014_1.jpg" alt="Turquoise waters and boats in Xlendi Bay, Gozo">
-        </figure>
-      </div>
-      <div class="card reveal" style="margin-top:26px">
-        <h3>Moments that matter</h3>
-        <ol style="margin:0; padding-left:18px">
-          <li><strong>First meeting:</strong> <Replace this text with the FIRST MEETING DATE or upload a file></li>
-          <li><strong>Engagement:</strong> <Replace this text with the ENGAGEMENT DATE or upload a file></li>
-          <li><strong>Wedding:</strong> <span id="timeline-wedding-date">10 September 2026</span></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <!-- Wedding Dates & Map -->
-  <section id="dates" class="section dates" aria-labelledby="dates-title">
-    <div class="container">
-      <h2 id="dates-title">The Wedding Dates</h2>
-      <div class="dates-grid">
-        <div class="card reveal">
-          <h3>Ceremony</h3>
-          <p><Replace this text with the CEREMONY DETAILS or upload a file></p>
-          <h3 style="margin-top:18px">Reception — Kantra Beach Club</h3>
-          <p>Kantra Beach Club, Triq Ta' Ċeńc (near Mġarr ix-Xini), Sannat, Gozo. <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor listing</a></p>
-          <hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0" />
-          <h3>Local highlights</h3>
-          <ul>
-            <li>Ramla Bay — red sand beach</li>
-            <li>Xlendi — seaside town for sunsets</li>
-            <li>Dwejra — sea and cliffs for golden hour</li>
-          </ul>
-        </div>
-        <div class="map-card reveal" aria-label="Stylised map of Gozo with pins">
-          <svg class="map-svg" viewBox="0 0 520 420" role="img" aria-labelledby="mapTitle mapDesc">
-            <title id="mapTitle">Stylised map of Gozo</title>
-            <desc id="mapDesc">Abstract outline with pins for ceremony and reception.</desc>
-            <path d="M126 60 C 180 30, 320 30, 384 70 C 440 106, 468 160, 452 214 C 436 268, 384 318, 310 340 C 236 362, 154 350, 110 312 C 66 274, 48 218, 68 162 C 88 106, 96 84, 126 60 Z" fill="#eaf3f2" stroke="#cddfdd" stroke-width="3"/>
-            <path d="M40 380 Q 100 360 160 380 T 280 380 T 400 380 T 520 380" stroke="#83B8B4" stroke-width="2" fill="none" opacity=".5"/>
-            <g>
-              <circle class="pin" cx="290" cy="170" r="8"/>
-              <text x="300" y="166" font-family="Raleway" font-size="12" fill="#2F4A4E">Ceremony</text>
-            </g>
-            <g>
-              <circle class="pin" cx="230" cy="230" r="8"/>
-              <text x="240" y="226" font-family="Raleway" font-size="12" fill="#2F4A4E">Reception — Kantra</text>
-            </g>
-            <text x="20" y="24" font-family="Raleway" font-size="12" fill="#7E8C4F">Venue: <Replace this text with the CEREMONY VENUE NAME or upload a file></text>
-            <text x="20" y="44" font-family="Raleway" font-size="12" fill="#7E8C4F">Kantra Beach Club, Sannat</text>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Travel & Stay -->
-  <section id="travel" class="section" aria-labelledby="travel-title">
-    <div class="container">
-      <h2 id="travel-title">Travel &amp; Stay</h2>
-      <p class="accent">We can't wait to share this island with you.</p>
-      <div class="travel-grid">
-        <div class="tip reveal">
-          <h3>Getting here</h3>
-          <p>Fly into Malta International Airport (MLA). From Ċirkewwa, take the Gozo Channel ferry to Mġarr (approx. 20–30 min). Taxis and buses connect easily.</p>
-        </div>
-        <div class="tip reveal">
-          <h3>Where to stay (near Kantra)</h3>
-          <ul>
-            <li><strong>Hotel Ta’ Cenc &amp; Spa</strong> — Cenc Street, Sannat SNT9049, Gozo. <a href="https://www.tripadvisor.co.uk/Hotel_Review-g230154-d267341-Reviews-Hotel_Ta_Cenc_Spa-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor</a></li>
-            <li><strong>Cesca Boutique Hotel</strong> — Xlendi Valley edge, Munxar/Xlendi. <a href="https://www.cesca.com.mt/" target="_blank" rel="noopener">Official site</a></li>
-          </ul>
-          <p><Replace this text with the ACCOMMODATION RECOMMENDATIONS or upload a file></p>
-        </div>
-        <div class="tip reveal">
-          <h3>Getting around</h3>
-          <p>Rent a car or use taxis for flexibility; buses run frequently between towns. Summer sun is strong — pack water, hats, and SPF.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RSVP -->
-  <section id="rsvp" class="section rsvp" aria-labelledby="rsvp-title">
-    <div class="container">
-      <h2 id="rsvp-title">RSVP</h2>
-      <p class="accent">Pack your sunglasses — Gozo awaits!</p>
-      <p style="text-align:center;font-weight:600">We can't wait to celebrate with you!</p>
-      <form id="rsvp-form" class="reveal" method="post" action="<Replace this text with the RSVP FORM ENDPOINT or upload a file>">
-        <label>Full name<input type="text" name="name" required placeholder="Your name" autocomplete="name" /></label>
-        <label>Email<input type="email" name="email" required placeholder="you@example.com" autocomplete="email" /></label>
-        <label>Will you join us?
-          <select name="attendance" required>
-            <option value="">Select…</option>
-            <option>Joyfully accepts</option>
-            <option>Regretfully declines</option>
-          </select>
-        </label>
-        <label>Dietary notes<textarea name="diet" rows="4" placeholder="Vegetarian, allergies, etc."></textarea></label>
-        <button class="btn" type="submit">Join us under the Gozo sun</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Gallery -->
-  <section id="gallery" class="section" aria-labelledby="gallery-title">
-    <div class="container">
-      <h2 id="gallery-title">Gallery</h2>
-      <p class="accent">A few moments and places we love.</p>
-      <div class="gallery-grid reveal">
-        <img loading="lazy" width="1280" height="853" sizes="(max-width: 820px) 100vw, 600px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Inland_sea_at_Dwejra%2C_Gozo.jpg/1280px-Inland_sea_at_Dwejra%2C_Gozo.jpg" alt="Dwejra Inland Sea cave and boat, Gozo">
-        <img loading="lazy" width="1280" height="853" sizes="(max-width: 820px) 100vw, 600px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Mgarr_Harbour_in_Gozo.jpg/1280px-Mgarr_Harbour_in_Gozo.jpg" alt="Mġarr Harbour with Gozo Channel Line ferry">
-        <img loading="lazy" width="1280" height="853" sizes="(max-width: 820px) 100vw, 600px" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Ramla_Bay.jpg" alt="Ramla Bay red sand beach, Gozo">
-        <img loading="lazy" width="1280" height="853" sizes="(max-width: 820px) 100vw, 600px" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Xlendi_Bay_Gozo_Malta_2014_1.jpg" alt="Xlendi Bay waterfront and boats, Gozo">
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <div class="footer-motif" aria-hidden="true"></div>
-    <div class="container footer-inner">
-      <p style="text-align:center;margin:0;font-family:'Cormorant Garamond',serif;font-size:1.2rem">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
-      <p style="text-align:center;margin:8px 0 0;font-size:.85rem;opacity:.8">Images: Dwejra Inland Sea; Mġarr Harbour; Ramla Bay; Xlendi Bay — via Wikimedia Commons.</p>
-    </div>
-  </footer>
-
-  <!-- Waves audio element -->
   <audio id="waves" playsinline loop muted preload="auto"></audio>
-
-  <div class="audio-toggle" role="region" aria-label="Audio controls">
-    <span>Waves</span>
-    <button id="audioBtn" type="button">Sound off</button>
-  </div>
+  <div class="audio-toggle"><span>Waves</span><button id="audioBtn">Sound off</button></div>
 
   <script>
-    const CONFIG={ WEDDING_DATE:'2026-09-10T14:00:00+02:00', GUEST_AREA_ENABLED:false };
+    const CONFIG={ WEDDING_DATE:'2026-09-10T14:00:00+02:00' };
+    const burger=document.querySelector('.burger'); const menu=document.getElementById('menu');
+    burger.addEventListener('click',()=>menu.classList.toggle('open'));
 
-    /* Nav */
-    const burger=document.querySelector('.burger');
-    const menu=document.getElementById('menu');
-    burger?.addEventListener('click',()=>{menu.classList.toggle('open');const ex=burger.getAttribute('aria-expanded')==='true';burger.setAttribute('aria-expanded',String(!ex));});
-
-    /* Reveal */
-    const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:.18});
-    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-    /* Countdown */
     const $d=document.getElementById('d'),$h=document.getElementById('h'),$m=document.getElementById('m'),$s=document.getElementById('s');
     const target=new Date(CONFIG.WEDDING_DATE);
-    const tl=document.getElementById('timeline-wedding-date'); if(tl) tl.textContent=target.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
-    function tick(){const now=new Date();const diff=Math.max(0,target-now);$d.textContent=Math.floor(diff/86400000);$h.textContent=Math.floor((diff/3600000)%24);$m.textContent=Math.floor((diff/60000)%60);$s.textContent=Math.floor((diff/1000)%60);} tick(); setInterval(tick,1000);
+    function tick(){const now=new Date(),diff=Math.max(0,target-now);
+      $d.textContent=Math.floor(diff/86400000);
+      $h.textContent=Math.floor((diff/3600000)%24);
+      $m.textContent=Math.floor((diff/60000)%60);
+      $s.textContent=Math.floor((diff/1000)%60);} tick(); setInterval(tick,1000);
 
-    /* Sunlight pointer */
     const light=document.querySelector('.sunlight');
-    function setLight(x,y){light.style.setProperty('--x',x+'px');light.style.setProperty('--y',y+'px');}
-    window.addEventListener('pointermove',e=>setLight(e.clientX,e.clientY));
-    window.addEventListener('pointerdown',e=>setLight(e.clientX,e.clientY));
+    window.addEventListener('pointermove',e=>{light.style.setProperty('--x',e.clientX+'px');light.style.setProperty('--y',e.clientY+'px');});
 
-    /* WAVES: single, robust setup */
     (async function setupWaves(){
-      const audio = document.getElementById('waves');
-      const btn   = document.getElementById('audioBtn');
-      let audible = false; // becomes true once unmuted & playing
-
-      // 1) Fetch from Wikimedia and bind as Blob URL (no extra files)
-      try {
-        const res = await fetch('https://upload.wikimedia.org/wikipedia/commons/8/84/Sea_waves.wav', { mode: 'cors' });
-        const buf = await res.arrayBuffer();
-        const blob = new Blob([buf], { type: 'audio/wav' });
-        const url  = URL.createObjectURL(blob);
-        audio.src  = url;
-
-        // 2) Autoplay muted (allowed)
-        await audio.play(); // plays because element is muted
-      } catch (e) {
-        console.info('Waves: load/play (muted) failed', e);
-      }
-
-      // 3) First interaction => unmute & set volume
-      async function enableSound() {
-        if (audible) return;
-        try {
-          audio.muted = false;
-          audio.volume = 0.35;
-          await audio.play();
-          audible = true;
-          updateBtn();
-        } catch (e) {
-          console.info('Waves: unmute failed', e);
-        }
-      }
-
-      // 4) Button behaviour
-      function updateBtn(){ btn.textContent = audible ? 'Sound on' : 'Sound off'; }
-      updateBtn();
-
-      btn.addEventListener('click', async () => {
-        if (!audible) { await enableSound(); return; }
-        // If already audible, toggle pause/mute to turn it "off"
-        if (!audio.paused) { audio.pause(); audible = false; }
-        else { await enableSound(); }
-        updateBtn();
-      });
-
-      // Unmute on first user interaction (even a scroll)
-      ['pointerdown','touchstart','click','keydown','scroll','wheel']
-        .forEach(ev => window.addEventListener(ev, enableSound, { once:true, passive:true }));
-
-      // Resume if tab becomes visible again
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && audible) audio.play().catch(()=>{});
-      });
+      const audio=document.getElementById('waves');
+      const btn=document.getElementById('audioBtn'); let audible=false;
+      try{const r=await fetch('https://upload.wikimedia.org/wikipedia/commons/8/84/Sea_waves.wav');
+        const b=await r.arrayBuffer(); audio.src=URL.createObjectURL(new Blob([b],{type:'audio/wav'}));
+        await audio.play();}catch(e){console.info('Muted autoplay failed',e);}
+      async function enable(){if(audible)return; try{audio.muted=false;audio.volume=0.35;await audio.play();audible=true;btn.textContent='Sound on';}catch(e){console.info(e);}}
+      btn.addEventListener('click',async()=>{if(!audible)return enable(); if(!audio.paused){audio.pause();audible=false;btn.textContent='Sound off';}else{await enable();}});
+      ['click','scroll','touchstart','keydown'].forEach(ev=>window.addEventListener(ev,enable,{once:true,passive:true}));
     })();
   </script>
 </body>
