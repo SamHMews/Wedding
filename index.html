@@ -217,46 +217,121 @@
     </div>
   </section>
 
-  <!-- Wedding Dates & Map -->
-  <section id="dates" class="section dates" aria-labelledby="dates-title">
-    <div class="container">
-      <h2 id="dates-title">The Wedding Dates</h2>
-      <div class="dates-grid">
-        <div class="card reveal">
-          <h3>Ceremony</h3>
-          <p><Replace this text with the CEREMONY DETAILS or upload a file></p>
-          <h3 style="margin-top:18px">Reception — Kantra Beach Club</h3>
-          <p>Kantra Beach Club, Triq Ta' Ċeńc (near Mġarr ix-Xini), Sannat, Gozo.
-            <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor listing</a></p>
-          <hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0" />
-          <h3>Local highlights</h3>
-          <ul>
-            <li>Ramla Bay — red sand beach</li>
-            <li>Xlendi — seaside town for sunsets</li>
-            <li>Dwejra — sea and cliffs for golden hour</li>
-          </ul>
-        </div>
-        <div class="map-card reveal" aria-label="Stylised map of Gozo with pins">
-          <svg class="map-svg" viewBox="0 0 520 420" role="img" aria-labelledby="mapTitle mapDesc">
-            <title id="mapTitle">Stylised map of Gozo</title>
-            <desc id="mapDesc">Abstract outline with pins for ceremony and reception.</desc>
-            <path d="M126 60 C 180 30, 320 30, 384 70 C 440 106, 468 160, 452 214 C 436 268, 384 318, 310 340 C 236 362, 154 350, 110 312 C 66 274, 48 218, 68 162 C 88 106, 96 84, 126 60 Z" fill="#eaf3f2" stroke="#cddfdd" stroke-width="3"/>
-            <path d="M40 380 Q 100 360 160 380 T 280 380 T 400 380 T 520 380" stroke="#83B8B4" stroke-width="2" fill="none" opacity=".5"/>
-            <g>
-              <circle class="pin" cx="290" cy="170" r="8"/>
-              <text x="300" y="166" font-family="Raleway" font-size="12" fill="#2F4A4E">Ceremony</text>
-            </g>
-            <g>
-              <circle class="pin" cx="230" cy="230" r="8"/>
-              <text x="240" y="226" font-family="Raleway" font-size="12" fill="#2F4A4E">Reception — Kantra</text>
-            </g>
-            <text x="20" y="24" font-family="Raleway" font-size="12" fill="#7E8C4F">Venue: <Replace this text with the CEREMONY VENUE NAME or upload a file></text>
-            <text x="20" y="44" font-family="Raleway" font-size="12" fill="#7E8C4F">Kantra Beach Club, Sannat</text>
-          </svg>
+ <!-- Wedding Dates & Abstract Map (Ta’ Ċenċ Il-Kantra highlight) -->
+<section id="dates" class="section dates" aria-labelledby="dates-title">
+  <style>
+    /* --- abstract map styles (scoped-ish via prefix) --- */
+    .kantra-map-wrap{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(47,74,78,.12)}
+    .kantra-map{width:100%;height:auto;display:block}
+    .km-water{fill:#bfe0dd}
+    .km-land{fill:#f5efe4;stroke:#d8d0c1;stroke-width:2}
+    .km-road{fill:none;stroke:#c9b49e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
+    .km-beach{fill:#f0e6cf;opacity:.85}
+    .km-label{font-family: Raleway, system-ui, -apple-system, Segoe UI, Arial, sans-serif; font-size:12px; fill:#2F4A4E}
+    .km-pin{fill:#A75A32;stroke:#fff;stroke-width:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
+    .km-pulse { fill: rgba(167,90,50,.25); animation: kmPulse 2.4s infinite ease-out; }
+    @keyframes kmPulse { 0%{ r:2; opacity:.7 } 70%{ r:18; opacity:0 } 100%{ r:18; opacity:0 } }
+    .km-legend{position:absolute;left:14px;bottom:12px;background:#ffffffd8;border:1px solid #eadfcd;border-radius:12px;padding:6px 10px;font-size:.85rem;color:#2F4A4E}
+    .km-badge{display:inline-flex;align-items:center;gap:.4rem}
+    .km-dot{width:10px;height:10px;background:#A75A32;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #A75A32}
+  </style>
+
+  <div class="container">
+    <h2 id="dates-title">The Wedding Dates</h2>
+    <div class="dates-grid">
+      <!-- Left: details -->
+      <div class="card reveal">
+        <h3>Ceremony</h3>
+        <p><Replace this text with the CEREMONY DETAILS or upload a file></p>
+
+        <h3 style="margin-top:18px">Reception — Kantra Beach Club</h3>
+        <p>
+          Kantra Beach Club, Triq Ta’ Ċenċ (by Mġarr ix-Xini), Sannat, Gozo.
+          <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor</a>
+        </p>
+
+        <hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0" />
+
+        <h3>Local highlights</h3>
+        <ul>
+          <li>Mġarr ix-Xini inlet — swim and snorkel</li>
+          <li>Ramla Bay — red sand beach</li>
+          <li>Xlendi — sunsets & seafront strolls</li>
+        </ul>
+      </div>
+
+      <!-- Right: abstract coastline map with Kantra pin -->
+      <div class="kantra-map-wrap reveal" aria-label="Abstract coastline map of Ta’ Ċenċ Il-Kantra">
+        <svg class="kantra-map" viewBox="0 0 520 420" role="img" aria-labelledby="kmTitle kmDesc">
+          <title id="kmTitle">Ta’ Ċenċ Il-Kantra — abstract coastline</title>
+          <desc id="kmDesc">
+            Simplified outline of the Ta’ Ċenċ headland and the narrow Mġarr ix-Xini inlet.
+            A single marker pin highlights Kantra Beach Club at the mouth of the inlet.
+          </desc>
+
+          <!-- Sea background -->
+          <rect x="0" y="0" width="520" height="420" class="km-water"/>
+
+          <!-- Land mass (abstracted from your screenshot; preserves the inlet + headland shape) -->
+          <path class="km-land" d="
+            M 10,120
+            C 70,90  150,80  210,110
+            C 245,128 260,150 270,168
+            C 278,182 288,198 300,210
+            C 320,230 350,245 380,248
+            C 420,252 455,245 490,230
+            L 510,310
+            C 470,330 420,345 360,350
+            C 300,356 250,352 210,338
+            C 160,320 130,296 105,270
+            C 70,234 50,200 38,168
+            C 26,140 16,126 10,120
+            Z" />
+
+          <!-- Beach / low rock tongue (abstract) -->
+          <path class="km-beach" d="
+            M 455,285
+            C 430,294 400,300 365,302
+            C 350,303 335,302 318,300
+            C 345,296 372,288 398,276
+            C 418,267 438,258 455,252 Z" />
+
+          <!-- Mġarr ix-Xini inlet (carved into land) -->
+          <path class="km-water" d="
+            M 245,110
+            C 260,120 272,134 280,150
+            C 288,166 300,186 318,202
+            C 332,214 352,224 380,228
+            C 392,230 405,230 420,228
+            C 400,238 380,246 358,252
+            C 334,258 312,260 294,256
+            C 270,250 250,238 236,220
+            C 220,200 210,176 208,156
+            C 206,138 220,120 245,110 Z" />
+
+          <!-- A couple of tiny roads (schematic lines) -->
+          <path class="km-road" d="M 430,230 Q 398,242 362,250 Q 330,256 302,255" />
+          <path class="km-road" d="M 320,210 Q 300,200 286,182 Q 274,166 266,148" />
+          <path class="km-road" d="M 280,150 Q 258,130 230,120" />
+
+          <!-- PIN: Ta’ Ċenċ Il-Kantra (mouth of inlet on south side) -->
+          <!-- Pulse ring -->
+          <circle class="km-pulse" cx="408" cy="286" r="10" />
+          <!-- Pin body -->
+          <g transform="translate(408,286)">
+            <circle class="km-pin" r="8"/>
+            <path class="km-pin" d="M 0,8 L 0,18" />
+          </g>
+          <text class="km-label" x="418" y="282">Ta’ Ċenċ Il-Kantra</text>
+        </svg>
+
+        <div class="km-legend">
+          <span class="km-badge"><span class="km-dot"></span> Reception</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Travel & Stay -->
   <section id="travel" class="section" aria-labelledby="travel-title">
