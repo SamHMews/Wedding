@@ -304,7 +304,8 @@
   </footer>
 
   <!-- Ambient waves (soft). Autoplay policies: starts muted; tap the toggle to enable sound. -->
-  <audio id="waves" loop preload="auto"></audio>
+<audio id="waves" playsinline loop muted preload="auto"></audio>
+
   <div class="audio-toggle" role="region" aria-label="Audio controls">
     <span>Waves</span>
     <button id="audioBtn" type="button">Sound off</button>
@@ -332,18 +333,56 @@
 
     // Waves: fetch from online source and embed as Blob URL so the page is self-contained at runtime.
     const audio=document.getElementById('waves');
-    const btn=document.getElementById('audioBtn');
-    let isOn=false; function updateBtn(){btn.textContent=isOn?'Sound on':'Sound off';}
-    async function fetchAndInlineAudio(){
-      try{ const res=await fetch('https://upload.wikimedia.org/wikipedia/commons/3/3a/Oceanwavescrushing.ogg');
-        const buf=await res.arrayBuffer(); const blob=new Blob([buf],{type:'audio/ogg'});
-        const url=URL.createObjectURL(blob); audio.src=url; audio.load(); audio.muted=true; await audio.play(); audio.volume=0.0; }
-      catch(err){ console.info('Audio fetch failed',err); }
-    }
-    fetchAndInlineAudio();
+ <script>
+(async function setupWaves(){
+  const audio = document.getElementById('waves');
 
-    btn.addEventListener('click',async()=>{isOn=!isOn;updateBtn(); if(isOn){ try{audio.muted=false; audio.volume=0.25; await audio.play();}catch{} } else { audio.pause(); }});
-    updateBtn();
-  </script>
+  // 1) Fetch from Wikimedia Commons and convert to a Blob URL
+  try {
+    const res = await fetch('https://upload.wikimedia.org/wikipedia/commons/8/84/Sea_waves.wav', { mode: 'cors' });
+    const buf = await res.arrayBuffer();
+    const blob = new Blob([buf], { type: 'audio/wav' });
+    const url = URL.createObjectURL(blob);
+    audio.src = url;
+
+    // 2) Try to autoplay muted (allowed by browsers)
+    await audio.play();
+  } catch (e) {
+    console.info('Waves: load/play (muted) failed', e);
+  }
+
+  // 3) When user interacts (scroll/click/touch), unmute and set volume
+  let userEnabled = false;
+  async function enableSound() {
+    if (userEnabled) return;
+    userEnabled = true;
+    try {
+      audio.muted = false;
+      audio.volume = 0.35; // Adjust volume if needed
+      await audio.play();
+    } catch (e) {
+      console.info('Waves: unmute failed', e);
+    }
+  }
+
+  // Listen for first interaction
+  ['pointerdown', 'touchstart', 'click', 'keydown', 'scroll']
+    .forEach(ev => window.addEventListener(ev, enableSound, { once: true, passive: true }));
+
+  // Optional: integrate with your button (if you still have one)
+  const btn = document.getElementById('audioBtn');
+  if (btn) {
+    const update = () => btn.textContent = userEnabled ? 'Sound on' : 'Sound off';
+    update();
+    btn.addEventListener('click', async () => {
+      if (!userEnabled) { await enableSound(); update(); return; }
+      if (!audio.paused) { audio.pause(); userEnabled = false; }
+      else { await enableSound(); }
+      update();
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
