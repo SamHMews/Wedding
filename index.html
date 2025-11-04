@@ -217,23 +217,24 @@
     </div>
   </section>
 
- <!-- Wedding Dates & Abstract Map (Ta’ Ċenċ Il-Kantra highlight) -->
+<!-- Wedding Dates & Abstract Coastline Map (Ta’ Ċenċ Il-Kantra) -->
 <section id="dates" class="section dates" aria-labelledby="dates-title">
   <style>
-    /* --- abstract map styles (scoped-ish via prefix) --- */
-    .kantra-map-wrap{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(47,74,78,.12)}
-    .kantra-map{width:100%;height:auto;display:block}
-    .km-water{fill:#bfe0dd}
+    /* Scoped styles for this map */
+    .km-wrap{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(47,74,78,.12)}
+    .km{width:100%;height:auto;display:block}
+    .km-sea{fill:#bfe0dd}
     .km-land{fill:#f5efe4;stroke:#d8d0c1;stroke-width:2}
-    .km-road{fill:none;stroke:#c9b49e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
-    .km-beach{fill:#f0e6cf;opacity:.85}
-    .km-label{font-family: Raleway, system-ui, -apple-system, Segoe UI, Arial, sans-serif; font-size:12px; fill:#2F4A4E}
+    .km-cut{fill:#bfe0dd}
+    .km-sand{fill:#efe4c8;opacity:.85}
+    .km-shelf{fill:none;stroke:#9cc7c2;stroke-width:3;opacity:.35}
+    .km-track{fill:none;stroke:#c9b49e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.7}
     .km-pin{fill:#A75A32;stroke:#fff;stroke-width:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
-    .km-pulse { fill: rgba(167,90,50,.25); animation: kmPulse 2.4s infinite ease-out; }
-    @keyframes kmPulse { 0%{ r:2; opacity:.7 } 70%{ r:18; opacity:0 } 100%{ r:18; opacity:0 } }
+    .km-pulse{fill:rgba(167,90,50,.25);animation:kmp 2.4s infinite ease-out}
+    @keyframes kmp{0%{r:2;opacity:.7}70%{r:18;opacity:0}100%{r:18;opacity:0}}
+    .km-label{font:600 12px Raleway,system-ui,sans-serif;fill:#2F4A4E}
     .km-legend{position:absolute;left:14px;bottom:12px;background:#ffffffd8;border:1px solid #eadfcd;border-radius:12px;padding:6px 10px;font-size:.85rem;color:#2F4A4E}
-    .km-badge{display:inline-flex;align-items:center;gap:.4rem}
-    .km-dot{width:10px;height:10px;background:#A75A32;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #A75A32}
+    .km-dot{display:inline-block;width:10px;height:10px;background:#A75A32;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #A75A32;margin-right:.4rem}
   </style>
 
   <div class="container">
@@ -251,83 +252,82 @@
         </p>
 
         <hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0" />
-
         <h3>Local highlights</h3>
         <ul>
-          <li>Mġarr ix-Xini inlet — swim and snorkel</li>
+          <li>Mġarr ix-Xini inlet — swim & snorkel</li>
           <li>Ramla Bay — red sand beach</li>
           <li>Xlendi — sunsets & seafront strolls</li>
         </ul>
       </div>
 
-      <!-- Right: abstract coastline map with Kantra pin -->
-      <div class="kantra-map-wrap reveal" aria-label="Abstract coastline map of Ta’ Ċenċ Il-Kantra">
-        <svg class="kantra-map" viewBox="0 0 520 420" role="img" aria-labelledby="kmTitle kmDesc">
+      <!-- Right: abstract coastline (aligned to Google Maps shape) -->
+      <div class="km-wrap reveal" aria-label="Abstract coastline of Mġarr ix-Xini and Ta’ Ċenċ Il-Kantra">
+        <svg class="km" viewBox="0 0 520 420" role="img" aria-labelledby="kmTitle kmDesc">
           <title id="kmTitle">Ta’ Ċenċ Il-Kantra — abstract coastline</title>
           <desc id="kmDesc">
-            Simplified outline of the Ta’ Ċenċ headland and the narrow Mġarr ix-Xini inlet.
-            A single marker pin highlights Kantra Beach Club at the mouth of the inlet.
+            Simplified outline of the Ta’ Ċenċ headland with the narrow north-to-south Mġarr ix-Xini inlet.
+            Pin marks Kantra on the south-eastern lip of the inlet mouth.
           </desc>
 
           <!-- Sea background -->
-          <rect x="0" y="0" width="520" height="420" class="km-water"/>
+          <rect width="520" height="420" class="km-sea"/>
 
-          <!-- Land mass (abstracted from your screenshot; preserves the inlet + headland shape) -->
+          <!-- Land mass (approx. Ta’ Ċenċ headland geometry) -->
+          <!-- Drawn to resemble the hook-like south-east point and the cove edges seen in your screenshot -->
           <path class="km-land" d="
-            M 10,120
-            C 70,90  150,80  210,110
-            C 245,128 260,150 270,168
-            C 278,182 288,198 300,210
-            C 320,230 350,245 380,248
-            C 420,252 455,245 490,230
-            L 510,310
-            C 470,330 420,345 360,350
-            C 300,356 250,352 210,338
-            C 160,320 130,296 105,270
-            C 70,234 50,200 38,168
-            C 26,140 16,126 10,120
-            Z" />
+            M 36,120
+            C 84,92 150,78 216,96
+            C 268,110 300,138 324,170
+            C 336,186 348,206 365,216
+            C 390,231 426,236 470,228
+            L 494,314
+            C 448,332 404,345 360,350
+            C 300,356 246,350 204,334
+            C 160,318 128,296 102,270
+            C 68,236 48,202 38,172
+            C 30,148 30,132 36,120 Z" />
 
-          <!-- Beach / low rock tongue (abstract) -->
-          <path class="km-beach" d="
-            M 455,285
-            C 430,294 400,300 365,302
-            C 350,303 335,302 318,300
-            C 345,296 372,288 398,276
-            C 418,267 438,258 455,252 Z" />
+          <!-- Inlet cut (narrow channel running N→S into land) -->
+          <path class="km-cut" d="
+            M 260,118
+            C 272,126 284,140 292,154
+            C 302,172 316,194 338,210
+            C 354,222 378,230 408,232
+            C 418,232 430,232 446,230
+            C 430,240 410,248 388,254
+            C 362,260 336,260 316,254
+            C 294,248 276,236 262,220
+            C 246,202 236,182 232,162
+            C 230,148 238,128 260,118 Z" />
 
-          <!-- Mġarr ix-Xini inlet (carved into land) -->
-          <path class="km-water" d="
-            M 245,110
-            C 260,120 272,134 280,150
-            C 288,166 300,186 318,202
-            C 332,214 352,224 380,228
-            C 392,230 405,230 420,228
-            C 400,238 380,246 358,252
-            C 334,258 312,260 294,256
-            C 270,250 250,238 236,220
-            C 220,200 210,176 208,156
-            C 206,138 220,120 245,110 Z" />
+          <!-- Sand / shelf at the mouth (SE lip) -->
+          <path class="km-sand" d="
+            M 420,270
+            C 398,278 376,284 354,286
+            C 344,287 334,286 324,285
+            C 348,282 368,276 392,266
+            C 404,262 412,258 426,252
+            L 438,284
+            C 432,286 426,288 420,290 Z" />
 
-          <!-- A couple of tiny roads (schematic lines) -->
-          <path class="km-road" d="M 430,230 Q 398,242 362,250 Q 330,256 302,255" />
-          <path class="km-road" d="M 320,210 Q 300,200 286,182 Q 274,166 266,148" />
-          <path class="km-road" d="M 280,150 Q 258,130 230,120" />
+          <!-- Subtle coastal shelf lines -->
+          <path class="km-shelf" d="M 436,250 Q 404,264 370,274" />
+          <path class="km-shelf" d="M 332,206 Q 350,220 376,226" />
 
-          <!-- PIN: Ta’ Ċenċ Il-Kantra (mouth of inlet on south side) -->
-          <!-- Pulse ring -->
-          <circle class="km-pulse" cx="408" cy="286" r="10" />
-          <!-- Pin body -->
-          <g transform="translate(408,286)">
+          <!-- A couple of schematic tracks (like the bendy access roads) -->
+          <path class="km-track" d="M 302,156 Q 292,142 276,132 Q 254,120 230,114" />
+          <path class="km-track" d="M 332,206 Q 320,196 306,178" />
+
+          <!-- PIN: Ta’ Ċenċ Il-Kantra — south-eastern lip of inlet mouth -->
+          <circle class="km-pulse" cx="436" cy="282" r="10"/>
+          <g transform="translate(436,282)">
             <circle class="km-pin" r="8"/>
-            <path class="km-pin" d="M 0,8 L 0,18" />
+            <path class="km-pin" d="M 0,8 L 0,18"/>
           </g>
-          <text class="km-label" x="418" y="282">Ta’ Ċenċ Il-Kantra</text>
+          <text class="km-label" x="446" y="278">Ta’ Ċenċ Il-Kantra</text>
         </svg>
 
-        <div class="km-legend">
-          <span class="km-badge"><span class="km-dot"></span> Reception</span>
-        </div>
+        <div class="km-legend"><span class="km-dot"></span>Reception</div>
       </div>
     </div>
   </div>
