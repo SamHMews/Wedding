@@ -115,7 +115,7 @@
     @media(prefers-reduced-motion:reduce){.sunlight{transition:none}}
 
     .audio-toggle{position:fixed;right:14px;bottom:14px;z-index:1200;background:#fff;border:1px solid #e5ded2;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:.5rem;align-items:center}
-    .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:var(--terracotta)}
+    .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:#A75A32}
   </style>
 </head>
 <body>
@@ -177,7 +177,6 @@
           </div>
         </div>
         <figure class="media">
-          <!-- Story photo: Xlendi Bay (PD) -->
           <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Xlendi_Bay_Gozo_Malta_2014_1.jpg" alt="Turquoise waters and boats in Xlendi Bay, Gozo">
         </figure>
       </div>
@@ -303,8 +302,8 @@
     </div>
   </footer>
 
-  <!-- Ambient waves (soft). Autoplay policies: starts muted; tap the toggle to enable sound. -->
-<audio id="waves" playsinline loop muted preload="auto"></audio>
+  <!-- Waves audio element -->
+  <audio id="waves" playsinline loop muted preload="auto"></audio>
 
   <div class="audio-toggle" role="region" aria-label="Audio controls">
     <span>Waves</span>
@@ -314,75 +313,82 @@
   <script>
     const CONFIG={ WEDDING_DATE:'2026-09-10T14:00:00+02:00', GUEST_AREA_ENABLED:false };
 
+    /* Nav */
     const burger=document.querySelector('.burger');
     const menu=document.getElementById('menu');
     burger?.addEventListener('click',()=>{menu.classList.toggle('open');const ex=burger.getAttribute('aria-expanded')==='true';burger.setAttribute('aria-expanded',String(!ex));});
 
+    /* Reveal */
     const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:.18});
     document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
+    /* Countdown */
     const $d=document.getElementById('d'),$h=document.getElementById('h'),$m=document.getElementById('m'),$s=document.getElementById('s');
     const target=new Date(CONFIG.WEDDING_DATE);
     const tl=document.getElementById('timeline-wedding-date'); if(tl) tl.textContent=target.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
     function tick(){const now=new Date();const diff=Math.max(0,target-now);$d.textContent=Math.floor(diff/86400000);$h.textContent=Math.floor((diff/3600000)%24);$m.textContent=Math.floor((diff/60000)%60);$s.textContent=Math.floor((diff/1000)%60);} tick(); setInterval(tick,1000);
 
+    /* Sunlight pointer */
     const light=document.querySelector('.sunlight');
     function setLight(x,y){light.style.setProperty('--x',x+'px');light.style.setProperty('--y',y+'px');}
     window.addEventListener('pointermove',e=>setLight(e.clientX,e.clientY));
     window.addEventListener('pointerdown',e=>setLight(e.clientX,e.clientY));
 
-    // Waves: fetch from online source and embed as Blob URL so the page is self-contained at runtime.
-    const audio=document.getElementById('waves');
- <script>
-(async function setupWaves(){
-  const audio = document.getElementById('waves');
+    /* WAVES: single, robust setup */
+    (async function setupWaves(){
+      const audio = document.getElementById('waves');
+      const btn   = document.getElementById('audioBtn');
+      let audible = false; // becomes true once unmuted & playing
 
-  // 1) Fetch from Wikimedia Commons and convert to a Blob URL
-  try {
-    const res = await fetch('https://upload.wikimedia.org/wikipedia/commons/8/84/Sea_waves.wav', { mode: 'cors' });
-    const buf = await res.arrayBuffer();
-    const blob = new Blob([buf], { type: 'audio/wav' });
-    const url = URL.createObjectURL(blob);
-    audio.src = url;
+      // 1) Fetch from Wikimedia and bind as Blob URL (no extra files)
+      try {
+        const res = await fetch('https://upload.wikimedia.org/wikipedia/commons/8/84/Sea_waves.wav', { mode: 'cors' });
+        const buf = await res.arrayBuffer();
+        const blob = new Blob([buf], { type: 'audio/wav' });
+        const url  = URL.createObjectURL(blob);
+        audio.src  = url;
 
-    // 2) Try to autoplay muted (allowed by browsers)
-    await audio.play();
-  } catch (e) {
-    console.info('Waves: load/play (muted) failed', e);
-  }
+        // 2) Autoplay muted (allowed)
+        await audio.play(); // plays because element is muted
+      } catch (e) {
+        console.info('Waves: load/play (muted) failed', e);
+      }
 
-  // 3) When user interacts (scroll/click/touch), unmute and set volume
-  let userEnabled = false;
-  async function enableSound() {
-    if (userEnabled) return;
-    userEnabled = true;
-    try {
-      audio.muted = false;
-      audio.volume = 0.35; // Adjust volume if needed
-      await audio.play();
-    } catch (e) {
-      console.info('Waves: unmute failed', e);
-    }
-  }
+      // 3) First interaction => unmute & set volume
+      async function enableSound() {
+        if (audible) return;
+        try {
+          audio.muted = false;
+          audio.volume = 0.35;
+          await audio.play();
+          audible = true;
+          updateBtn();
+        } catch (e) {
+          console.info('Waves: unmute failed', e);
+        }
+      }
 
-  // Listen for first interaction
-  ['pointerdown', 'touchstart', 'click', 'keydown', 'scroll']
-    .forEach(ev => window.addEventListener(ev, enableSound, { once: true, passive: true }));
+      // 4) Button behaviour
+      function updateBtn(){ btn.textContent = audible ? 'Sound on' : 'Sound off'; }
+      updateBtn();
 
-  // Optional: integrate with your button (if you still have one)
-  const btn = document.getElementById('audioBtn');
-  if (btn) {
-    const update = () => btn.textContent = userEnabled ? 'Sound on' : 'Sound off';
-    update();
-    btn.addEventListener('click', async () => {
-      if (!userEnabled) { await enableSound(); update(); return; }
-      if (!audio.paused) { audio.pause(); userEnabled = false; }
-      else { await enableSound(); }
-      update();
-    });
-  }
-})();
-</script>
+      btn.addEventListener('click', async () => {
+        if (!audible) { await enableSound(); return; }
+        // If already audible, toggle pause/mute to turn it "off"
+        if (!audio.paused) { audio.pause(); audible = false; }
+        else { await enableSound(); }
+        updateBtn();
+      });
 
+      // Unmute on first user interaction (even a scroll)
+      ['pointerdown','touchstart','click','keydown','scroll','wheel']
+        .forEach(ev => window.addEventListener(ev, enableSound, { once:true, passive:true }));
+
+      // Resume if tab becomes visible again
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && audible) audio.play().catch(()=>{});
+      });
+    })();
+  </script>
 </body>
 </html>
