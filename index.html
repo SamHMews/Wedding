@@ -39,12 +39,11 @@
     html{scroll-behavior:smooth}
     body{margin:0;background:var(--cream);color:var(--teal);font-family:'Raleway',system-ui,Segoe UI,Arial,sans-serif;line-height:1.6;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='10' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='2' x2='32' y2='14'/%3E%3Cline x1='32' y1='50' x2='32' y2='62'/%3E%3Cline x1='2' y1='32' x2='14' y2='32'/%3E%3Cline x1='50' y1='32' x2='62' y2='32'/%3E%3Cline x1='10' y1='10' x2='18' y2='18'/%3E%3Cline x1='46' y1='46' x2='54' y2='54'/%3E%3Cline x1='10' y1='54' x2='18' y2='46'/%3E%3Cline x1='46' y1='18' x2='54' y2='10'/%3E%3C/g%3E%3C/svg%3E") 13 13, auto}
 
-    /* Container & sections */
     .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
     .section{padding:72px 0;position:relative;scroll-margin-top:84px}
     @media(min-width:900px){.section{padding:120px 0}}
 
-    /* Header — alignment fixes (desktop & mobile) */
+    /* Header — alignment fixes */
     header{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--cream) 90%,white 10%);border-bottom:1px solid #e8e3d9;backdrop-filter:blur(6px)}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;height:64px}
     .brand{display:inline-flex;align-items:center;gap:.6rem;color:var(--terracotta);text-decoration:none;font-weight:700}
@@ -67,7 +66,6 @@
     .tagline{margin-top:8px;font-style:italic;color:var(--teal)}
     .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--olive)}
 
-    /* CTA & countdown layout (prevent overflow on mobile) */
     .countdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:12px;justify-items:center;margin:14px auto 0;max-width:660px}
     .countdown .unit{background:#fff;border:1px solid #eadfcd;border-radius:12px;padding:10px 14px;width:100%}
     .countdown .num{font-weight:700;color:var(--terracotta);font-size:1.4rem}
@@ -77,7 +75,6 @@
     .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(167,90,50,.25);background:#964c28}
     .btn.alt{background:#fff;color:var(--terracotta)}
 
-    /* Story */
     h2,h3{font-family:'Cormorant Garamond',serif;color:var(--ink)}
     h2{font-size:clamp(26px,3.6vw,44px);margin:0 0 14px}
     h3{font-size:clamp(22px,2.2vw,28px);margin:0 0 10px}
@@ -89,13 +86,37 @@
     .media img{width:100%;height:auto;display:block}
     .pill{display:inline-block;border-radius:999px;border:1px solid var(--seafoam);padding:6px 12px;font-size:.9rem;color:var(--teal);background:#ffffffb3;margin-right:6px}
 
-    /* Dates / Travel / Gallery / Footer unchanged structure with minor spacing */
     .dates{background:linear-gradient(180deg,#fff,#f6f2ea)}
     .dates-grid{display:grid;gap:22px}
     @media(min-width:980px){.dates-grid{grid-template-columns:1.1fr .9fr;gap:32px}}
     .map-card{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
     .map-svg{width:100%;height:auto;display:block}
-    .pin{fill:var(--terracott
+    .pin{fill:var(--terracotta);stroke:#fff;stroke-width:2}
+    .travel-grid{display:grid;gap:22px}
+    @media(min-width:900px){.travel-grid{grid-template-columns:repeat(3,1fr)}}
+    .tip{background:#fff;border:1px solid #efe9de;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .rsvp{background:linear-gradient(180deg,#f6f2ea,#fff)}
+    form{display:grid;gap:14px;max-width:620px;margin:16px auto 0}
+    input,select,textarea{width:100%;border:1px solid #e5ded2;border-radius:12px;padding:14px;font:inherit;background:#fff;min-height:48px;font-size:16px}
+    .gallery-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:800px){.gallery-grid{grid-template-columns:repeat(4,1fr);gap:14px}}
+    .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:14px;box-shadow:var(--shadow)}
+    footer{background:var(--teal);color:#eaf3f2;padding:50px 0;position:relative;overflow:hidden}
+    .footer-motif{position:absolute;inset:0;opacity:.08;background-image:radial-gradient(circle at 20% 10%,#fff 1px,transparent 2px),radial-gradient(circle at 80% 70%,#fff 1px,transparent 2px);background-size:120px 120px,160px 160px}
+
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s,transform .8s}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* Sunlight stronger */
+    .sunlight{position:fixed;inset:0;pointer-events:none;z-index:5;mix-blend-mode:soft-light;background:
+      radial-gradient(420px 420px at var(--x,50%) var(--y,50%), rgba(230,182,85,.55), rgba(230,182,85,.18) 40%, rgba(230,182,85,0) 65%),
+      radial-gradient(800px 800px at var(--x,50%) var(--y,50%), rgba(255,255,220,.15), rgba(255,255,220,0) 50%);
+      transition:background .08s ease}
+    @media(prefers-reduced-motion:reduce){.sunlight{transition:none}}
+
+    .audio-toggle{position:fixed;right:14px;bottom:14px;z-index:1200;background:#fff;border:1px solid #e5ded2;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:.5rem;align-items:center}
+    .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:var(--terracotta)}
+  </style>
 </head>
 <body>
   <div class="sunlight" aria-hidden="true"></div>
@@ -283,56 +304,46 @@
   </footer>
 
   <!-- Ambient waves (soft). Autoplay policies: starts muted; tap the toggle to enable sound. -->
-  <audio id="waves" loop preload="auto">
-    <source src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Oceanwavescrushing.ogg" type="audio/ogg">
-  </audio>
+  <audio id="waves" loop preload="auto"></audio>
   <div class="audio-toggle" role="region" aria-label="Audio controls">
     <span>Waves</span>
     <button id="audioBtn" type="button">Sound off</button>
   </div>
 
   <script>
-    /* =====================
-       CONFIG
-       ===================== */
-    const CONFIG = {
-      WEDDING_DATE: '2026-09-10T14:00:00+02:00', // 10 September 2026 (adjust time/zone as needed)
-      GUEST_AREA_ENABLED: false
-    };
+    const CONFIG={ WEDDING_DATE:'2026-09-10T14:00:00+02:00', GUEST_AREA_ENABLED:false };
 
-    /* Mobile menu */
     const burger=document.querySelector('.burger');
     const menu=document.getElementById('menu');
     burger?.addEventListener('click',()=>{menu.classList.toggle('open');const ex=burger.getAttribute('aria-expanded')==='true';burger.setAttribute('aria-expanded',String(!ex));});
 
-    /* Reveal on scroll */
     const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:.18});
     document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-    /* Countdown */
-    const $d=document.getElementById('d');const $h=document.getElementById('h');const $m=document.getElementById('m');const $s=document.getElementById('s');
+    const $d=document.getElementById('d'),$h=document.getElementById('h'),$m=document.getElementById('m'),$s=document.getElementById('s');
     const target=new Date(CONFIG.WEDDING_DATE);
-    const timeline=document.getElementById('timeline-wedding-date');
-    if(timeline){timeline.textContent=target.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});} 
-    function tick(){const now=new Date();const diff=Math.max(0,target-now);const days=Math.floor(diff/86400000);const hours=Math.floor((diff/3600000)%24);const mins=Math.floor((diff/60000)%60);const secs=Math.floor((diff/1000)%60);$d.textContent=String(days);$h.textContent=String(hours);$m.textContent=String(mins);$s.textContent=String(secs);} tick(); setInterval(tick,1000);
+    const tl=document.getElementById('timeline-wedding-date'); if(tl) tl.textContent=target.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
+    function tick(){const now=new Date();const diff=Math.max(0,target-now);$d.textContent=Math.floor(diff/86400000);$h.textContent=Math.floor((diff/3600000)%24);$m.textContent=Math.floor((diff/60000)%60);$s.textContent=Math.floor((diff/1000)%60);} tick(); setInterval(tick,1000);
 
-    /* Sunlight hover effect (mouse & touch) */
     const light=document.querySelector('.sunlight');
     function setLight(x,y){light.style.setProperty('--x',x+'px');light.style.setProperty('--y',y+'px');}
-    window.addEventListener('pointermove',e=>{setLight(e.clientX,e.clientY);});
-    // For touch: place light at center then fade to last tap
-    window.addEventListener('pointerdown',e=>{setLight(e.clientX,e.clientY);});
+    window.addEventListener('pointermove',e=>setLight(e.clientX,e.clientY));
+    window.addEventListener('pointerdown',e=>setLight(e.clientX,e.clientY));
 
-    /* Waves audio: starts muted (autoplay policy). First user interaction enables playback if toggled. */
+    // Waves: fetch from online source and embed as Blob URL so the page is self-contained at runtime.
     const audio=document.getElementById('waves');
     const btn=document.getElementById('audioBtn');
-    let isOn=false; // user intent
-    function updateBtn(){btn.textContent=isOn?'Sound on':'Sound off';}
-    btn.addEventListener('click',async()=>{isOn=!isOn;updateBtn(); if(isOn){try{await audio.play(); audio.volume=0.25;}catch(_){} } else {audio.pause();}});
-    // attempt gentle autoplay muted, then wait for click to unmute
-    (async()=>{try{audio.muted=true; await audio.play(); audio.volume=0.0;}catch(_){};})();
-    // On first interaction turn volume up if user already toggled on
-    const first=()=>{if(isOn){audio.muted=false; audio.volume=0.25;} window.removeEventListener('pointerdown',first)}; window.addEventListener('pointerdown',first);
+    let isOn=false; function updateBtn(){btn.textContent=isOn?'Sound on':'Sound off';}
+    async function fetchAndInlineAudio(){
+      try{ const res=await fetch('https://upload.wikimedia.org/wikipedia/commons/3/3a/Oceanwavescrushing.ogg');
+        const buf=await res.arrayBuffer(); const blob=new Blob([buf],{type:'audio/ogg'});
+        const url=URL.createObjectURL(blob); audio.src=url; audio.load(); audio.muted=true; await audio.play(); audio.volume=0.0; }
+      catch(err){ console.info('Audio fetch failed',err); }
+    }
+    fetchAndInlineAudio();
+
+    btn.addEventListener('click',async()=>{isOn=!isOn;updateBtn(); if(isOn){ try{audio.muted=false; audio.volume=0.25; await audio.play();}catch{} } else { audio.pause(); }});
+    updateBtn();
   </script>
 </body>
 </html>
