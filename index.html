@@ -2,13 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,viewport-fit=cover"
-  />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Sam & Georgia — Wedding</title>
   <meta name="color-scheme" content="light only" />
-  <link rel="preload" as="audio" href="assets/waves.mp3" />
   <style>
     :root{
       --brand:#8a4f38; --ink:#2a2a2a; --muted:#6b6b6b; --line:#e8e5e2;
@@ -55,7 +51,7 @@
     .mobile-menu .menu{flex-direction:column;gap:6px;padding:14px}
     .mobile-menu .menu a{padding:12px 4px}
 
-    /* ===== Hero (kept minimal; customise as needed) ===== */
+    /* ===== Hero ===== */
     .hero{background:linear-gradient(180deg,#d7efe7 0%, var(--bg) 60%);}
     .hero-inner{max-width:var(--container);margin:0 auto;padding:64px 16px 40px;text-align:center}
     .eyebrow{letter-spacing:.2em;color:#6f7f76;margin:0 0 14px}
@@ -80,7 +76,7 @@
       .btn,.btn-primary{width:100%}
     }
 
-    /* ===== Sun cursor (bright + obvious) ===== */
+    /* ===== Sun cursor ===== */
     #sun-cursor{
       position:fixed;left:0;top:0;width:360px;height:360px;pointer-events:none;
       transform:translate(-9999px,-9999px);border-radius:50%;
@@ -90,9 +86,8 @@
       filter: blur(8px) saturate(1.2);
       mix-blend-mode: screen; z-index:999;
     }
-    @media (pointer:none), (hover:none){ #sun-cursor{display:none} } /* hide on touch devices */
+    @media (pointer:none), (hover:none){ #sun-cursor{display:none} }
 
-    /* Make sure page never “breaks” visually */
     .page{min-height:100vh}
     .spacer{height:50vh}
     footer{max-width:var(--container);margin:40px auto;padding:16px;color:var(--muted);text-align:center;border-top:1px dashed #0001}
@@ -140,7 +135,7 @@
     </nav>
   </header>
 
-  <!-- ===== Hero (example content) ===== -->
+  <!-- ===== Hero ===== -->
   <main class="page">
     <section class="hero">
       <div class="hero-inner">
@@ -164,91 +159,61 @@
     <div class="spacer"></div>
   </main>
 
-  <footer>
-    © Sam &amp; Georgia
-  </footer>
+  <footer>© Sam &amp; Georgia</footer>
 
-  <!-- ===== Audio + Sun Cursor ===== -->
-  <audio id="waves-audio" src="assets/waves.mp3" loop preload="auto" crossorigin="anonymous"></audio>
+  <!-- ===== Audio + Cursor ===== -->
+  <audio id="waves-audio" 
+         src="https://cdn.pixabay.com/download/audio/2021/08/09/audio_0cb2b1b0de.mp3?filename=waves-and-seagulls-ambient-6541.mp3"
+         loop preload="auto" crossorigin="anonymous">
+  </audio>
+
   <div id="sun-cursor" aria-hidden="true"></div>
 
   <!-- ===== Scripts ===== -->
   <script>
-    // Mobile drawer
+    // --- Mobile navigation ---
     (function(){
-      const btn = document.querySelector('.hamburger');
-      const panel = document.getElementById('mobile-menu');
-      if(!btn || !panel) return;
-      btn.addEventListener('click', () => {
-        const open = panel.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const btn=document.querySelector('.hamburger');
+      const panel=document.getElementById('mobile-menu');
+      if(!btn||!panel)return;
+      btn.addEventListener('click',()=>{
+        const open=panel.classList.toggle('open');
+        btn.setAttribute('aria-expanded',open?'true':'false');
       });
-      // Close drawer on link click
-      panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-        panel.classList.remove('open'); btn.setAttribute('aria-expanded','false');
+      panel.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+        panel.classList.remove('open');btn.setAttribute('aria-expanded','false');
       }));
     })();
 
-    // Waves audio toggle (works with autoplay restrictions and persists choice)
+    // --- Waves audio toggle (free CDN) ---
     (function(){
-      const audio  = document.getElementById('waves-audio');
-      const toggle = document.getElementById('waves-toggle');
-      if(!audio || !toggle) return;
-
-      const stateEl = toggle.querySelector('.state');
-      const setUI = (playing) => {
-        toggle.dataset.playing = playing ? 'true' : 'false';
-        toggle.setAttribute('aria-pressed', playing ? 'true' : 'false');
-        stateEl.textContent = playing ? ' Sound on' : ' Sound off';
+      const audio=document.getElementById('waves-audio');
+      const toggle=document.getElementById('waves-toggle');
+      if(!audio||!toggle)return;
+      const stateEl=toggle.querySelector('.state');
+      const setUI=p=>{
+        toggle.dataset.playing=p?'true':'false';
+        toggle.setAttribute('aria-pressed',p?'true':'false');
+        stateEl.textContent=p?' Sound on':' Sound off';
       };
-
-      const play = async () => {
-        try { await audio.play(); setUI(true); localStorage.setItem('waves-playing','true'); }
-        catch(e){ /* blocked until user gesture */ }
-      };
-      const pause = () => { audio.pause(); setUI(false); localStorage.setItem('waves-playing','false'); };
-
-      // Initialise UI from stored state
-      setUI(localStorage.getItem('waves-playing') === 'true');
-
-      // Toggle
-      toggle.addEventListener('click', () => {
-        if(audio.paused){ play(); } else { pause(); }
-      });
-
-      // If previously on, start after the first user gesture
-      const firstGesture = () => {
-        if(localStorage.getItem('waves-playing') === 'true' && audio.paused){ play(); }
-        window.removeEventListener('pointerdown', firstGesture);
-      };
-      window.addEventListener('pointerdown', firstGesture);
+      const play=async()=>{try{await audio.play();setUI(true);}catch(e){}};
+      const pause=()=>{audio.pause();setUI(false);};
+      setUI(false);
+      toggle.addEventListener('click',()=>{audio.paused?play():pause();});
     })();
 
-    // Sun cursor glow (larger/clearer)
+    // --- Sun cursor glow ---
     (function(){
-      const sun = document.getElementById('sun-cursor');
-      if(!sun) return;
-      let targetX = -9999, targetY = -9999, x = -9999, y = -9999;
-      const ease = 0.18;
-
-      const move = e => {
-        targetX = (e.clientX || 0) - sun.offsetWidth / 2;
-        targetY = (e.clientY || 0) - sun.offsetHeight / 2;
-      };
-      window.addEventListener('mousemove', move, { passive:true });
-
-      const raf = () => {
-        x += (targetX - x) * ease;
-        y += (targetY - y) * ease;
-        sun.style.transform = `translate(${x}px, ${y}px)`;
-        requestAnimationFrame(raf);
-      };
+      const sun=document.getElementById('sun-cursor');
+      if(!sun)return;
+      let tx=-9999,ty=-9999,x=-9999,y=-9999;const ease=.18;
+      const move=e=>{tx=(e.clientX||0)-sun.offsetWidth/2;ty=(e.clientY||0)-sun.offsetHeight/2;};
+      window.addEventListener('mousemove',move,{passive:true});
+      const raf=()=>{x+=(tx-x)*ease;y+=(ty-y)*ease;sun.style.transform=`translate(${x}px,${y}px)`;requestAnimationFrame(raf);};
       requestAnimationFrame(raf);
-
-      // Extra brightness when hovering the main CTA
-      document.querySelectorAll('.btn-primary').forEach(btn=>{
-        btn.addEventListener('mouseenter', ()=> sun.style.filter = 'blur(8px) saturate(1.2) brightness(1.35)');
-        btn.addEventListener('mouseleave', ()=> sun.style.filter = 'blur(8px) saturate(1.2) brightness(1)');
+      document.querySelectorAll('.btn-primary').forEach(b=>{
+        b.addEventListener('mouseenter',()=>sun.style.filter='blur(8px) saturate(1.2) brightness(1.35)');
+        b.addEventListener('mouseleave',()=>sun.style.filter='blur(8px) saturate(1.2) brightness(1)');
       });
     })();
   </script>
