@@ -1,24 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
-  <!-- Sam & Georgia — Gozo Wedding (single-file site) -->
+  <!-- Sam & Georgia — Gozo Wedding (single-file site, updated with content + RSVP logic + mobile fish) -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#F9F6F0" />
   <title>Sam &amp; Georgia — Gozo Wedding</title>
   <meta name="description" content="Sam & Georgia's Mediterranean wedding in Gozo · dates, travel, venues and RSVP — warm, coastal and timeless." />
 
+  <!-- Social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sam &amp; Georgia — Gozo Wedding" />
+  <meta property="og:description" content="Join us in Gozo · dates, travel, venue & RSVP." />
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/e/e8/Ramla_Bay.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="canonical" href="https://example.com/" />
+
   <!-- Favicon: cartoon sun (SVG) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='14' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='4' x2='32' y2='16'/%3E%3Cline x1='32' y1='48' x2='32' y2='60'/%3E%3Cline x1='4' y1='32' x2='16' y2='32'/%3E%3Cline x1='48' y1='32' x2='60' y2='32'/%3E%3Cline x1='12' y1='12' x2='20' y2='20'/%3E%3Cline x1='44' y1='44' x2='52' y2='52'/%3E%3Cline x1='12' y1='52' x2='20' y2='44'/%3E%3Cline x1='44' y1='20' x2='52' y2='12'/%3E%3C/g%3E%3C/svg%3E" />
 
   <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Parisienne&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F; --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
       --maxw:1100px; --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
-      /* Hero artwork from the first version (sea/sky + sun) */
+      /* Hero artwork (sea/sky + sun) */
       --hero-image:url('data:image/svg+xml;utf8,\
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">\
           <defs>\
@@ -48,7 +58,7 @@
     .section{padding:72px 0;position:relative;scroll-margin-top:84px}
     @media(min-width:900px){.section{padding:120px 0}}
 
-    /* Header — mobile-first with burger on the right */
+    /* Header */
     header{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--cream) 90%,white 10%);border-bottom:1px solid #e8e3d9;backdrop-filter:blur(6px)}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;height:64px}
     .brand{display:inline-flex;align-items:center;gap:.6rem;color:var(--terracotta);text-decoration:none;font-weight:700}
@@ -63,7 +73,7 @@
     nav a:hover{color:var(--terracotta)}
     @media(min-width:880px){.burger{display:none} nav ul{position:static;display:flex;border:none;box-shadow:none} nav a{padding:0;margin-left:20px}}
 
-    /* HERO — decoupled mobile layout (vertical stack), desktop keeps airy feel */
+    /* HERO */
     .hero{
       display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
       min-height:90vh;padding:100px 20px 60px;position:relative;overflow:hidden;
@@ -71,17 +81,18 @@
       background-size:cover;background-position:center;background-attachment:scroll
     }
     @media(min-width:900px){.hero{min-height:86vh;background-attachment:fixed;padding:160px 20px 100px}}
+    @media (prefers-reduced-motion: reduce){.hero{background-attachment:scroll}}
     .hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--olive)}
     .hero .display{font-family:'Cormorant Garamond',serif;color:var(--terracotta);font-size:clamp(40px,8vw,72px);margin:12px 0 8px}
     .hero .tagline{margin-bottom:24px;color:var(--teal);font-style:italic}
 
-    /* Countdown stacked on mobile, row on wider screens */
+    /* Countdown */
     .countdown{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:24px}
     .countdown .unit{background:#fff;border:1px solid #eadfcd;border-radius:12px;padding:8px 14px;min-width:120px}
     .countdown .num{font-weight:700;color:var(--terracotta);font-size:1.4rem}
     @media(min-width:600px){.countdown{flex-direction:row}}
 
-    /* CTAs stacked on mobile, row on tablets+ */
+    /* CTAs */
     .cta-row{display:flex;flex-direction:column;align-items:center;gap:12px}
     @media(min-width:600px){.cta-row{flex-direction:row}}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;border-radius:999px;padding:14px 18px;border:1px solid var(--terracotta);font-weight:600;text-decoration:none;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,background .3s}
@@ -109,15 +120,24 @@
     .map-svg{width:100%;height:auto;display:block}
     .pin{fill:var(--terracotta);stroke:#fff;stroke-width:2}
 
-    /* Travel */
+    /* Travel / Stay grids */
     .travel-grid{display:grid;gap:22px}
     @media(min-width:900px){.travel-grid{grid-template-columns:repeat(3,1fr)}}
     .tip{background:#fff;border:1px solid #efe9de;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
 
+    /* New: Accommodation detail section */
+    .stay-grid{display:grid;gap:22px}
+    @media(min-width:980px){.stay-grid{grid-template-columns:1.1fr .9fr;gap:28px}}
+    .stay-list{margin:0;padding-left:18px}
+    .stay-list li{margin:8px 0}
+
     /* RSVP */
     .rsvp{background:linear-gradient(180deg,#f6f2ea,#fff)}
-    form{display:grid;gap:14px;max-width:620px;margin:16px auto 0}
+    form{display:grid;gap:14px;max-width:720px;margin:16px auto 0}
     input,select,textarea{width:100%;border:1px solid #e5ded2;border-radius:12px;padding:14px;font:inherit;background:#fff;min-height:48px;font-size:16px}
+    .fieldset{border:1px dashed #eadfcd;border-radius:14px;padding:12px}
+    .fieldset legend{padding:0 6px;color:var(--terracotta);font-weight:600}
+    .hidden{display:none !important}
 
     /* Gallery */
     .gallery-grid{display:grid;grid-template-columns:1fr;gap:12px}
@@ -132,17 +152,55 @@
     .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s,transform .8s}
     .reveal.visible{opacity:1;transform:translateY(0)}
 
-    /* Sunlight hover (stronger) */
+    /* Sunlight hover */
     .sunlight{position:fixed;inset:0;pointer-events:none;z-index:5;mix-blend-mode:soft-light;background:
       radial-gradient(420px 420px at var(--x,50%) var(--y,50%), rgba(230,182,85,.55), rgba(230,182,85,.18) 40%, rgba(230,182,85,0) 65%),
       radial-gradient(800px 800px at var(--x,50%) var(--y,50%), rgba(255,255,220,.15), rgba(255,255,220,0) 50%);
       transition:background .08s ease}
-    @media(prefers-reduced-motion:reduce){.sunlight{transition:none}}
+    @media(prefers-reduced-motion:reduce){.sunlight{transition:none;display:none}}
 
     /* Audio toggle */
     .audio-toggle{position:fixed;right:14px;bottom:14px;z-index:1200;background:#fff;border:1px solid #e5ded2;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:.5rem;align-items:center}
     .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:var(--terracotta)}
+
+    /* Mobile fish effect */
+    .fish{
+      position:fixed;left:0;top:0;pointer-events:none;z-index:6;width:18px;height:12px;
+      transform:translate(var(--x,0),var(--y,0)) rotate(var(--rot,0deg));
+      opacity:0; will-change: transform, opacity, filter;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,.18));
+      animation: fish-pop .12s ease-out forwards, fish-swim var(--dur,900ms) cubic-bezier(.2,.6,.2,1) forwards, fish-fade .25s ease-in var(--dur,900ms) forwards;
+    }
+    .fish svg{display:block;width:100%;height:100%}
+    @keyframes fish-pop{from{transform:translate(var(--x,0),var(--y,0)) scale(.6) rotate(var(--rot,0deg));opacity:0} to{transform:translate(var(--x,0),var(--y,0)) scale(1) rotate(var(--rot,0deg));opacity:1}}
+    @keyframes fish-swim{
+      to{ transform: translate(calc(var(--x,0) + var(--dx,60px)), calc(var(--y,0) + var(--dy,-20px))) rotate(calc(var(--rot,0deg) + var(--spin,18deg))); }
+    }
+    @keyframes fish-fade{to{opacity:0}}
+    @media(min-width:768px){ .fish{ display:none } } /* mobile-first: show on small screens only */
   </style>
+
+  <!-- Event structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Sam & Georgia — Wedding",
+    "startDate": "2026-09-10T14:00:00+02:00",
+    "endDate": "2026-09-10T20:00:00+02:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Kantra Beach Club",
+      "address": "Triq Ta’ Ċenċ (by Mġarr ix-Xini), Sannat, Gozo"
+    },
+    "image": [
+      "https://upload.wikimedia.org/wikipedia/commons/e/e8/Ramla_Bay.jpg"
+    ],
+    "description": "Our Mediterranean wedding in Gozo: dates, travel, venue and RSVP."
+  }
+  </script>
 </head>
 <body>
   <div class="sunlight" aria-hidden="true"></div>
@@ -160,6 +218,7 @@
           <li><a href="#story">Our Story</a></li>
           <li><a href="#dates">Wedding Dates</a></li>
           <li><a href="#travel">Travel &amp; Stay</a></li>
+          <li><a href="#stay">Where to Stay</a></li>
           <li><a href="#rsvp">RSVP</a></li>
           <li><a href="#gallery">Gallery</a></li>
         </ul>
@@ -171,7 +230,7 @@
   <main id="welcome" class="hero" role="main" aria-label="Welcome">
     <p class="eyebrow">Gozo, Malta</p>
     <h1 class="display">Sam &amp; Georgia</h1>
-    <p class="tagline"><Replace this text with the WEDDING TAGLINE or upload a file></p>
+    <p class="tagline"><em>Under the Gozo sun — warm seas, good food, and all our favourite people.</em></p>
 
     <div class="countdown" aria-live="polite" aria-label="Countdown to our wedding">
       <div class="unit"><div class="num" id="d">—</div><div class="lbl">days</div></div>
@@ -184,6 +243,9 @@
       <a class="btn alt" href="#story">Discover our story</a>
       <a class="btn" href="#rsvp">Join us under the Gozo sun</a>
     </div>
+
+    <!-- Add-to-calendar quick link -->
+    <p style="margin-top:14px"><a id="ics" class="btn alt" download="sam-georgia-gozo.ics" href="#">Add to calendar</a></p>
   </main>
 
   <!-- Our Story -->
@@ -194,8 +256,8 @@
       <div class="story-grid reveal">
         <div class="card">
           <h3>From Bristol to Gozo</h3>
-          <p><strong>How we met: </strong> We met at LeoVegas, G fell in love with Sam because he is an absolute unit and really cool </p> <
-          <p><strong>The engagement: Bare romance</strong> <Replace this text with the ENGAGEMENT MOMENT or upload a file></p>
+          <p><strong>How we met: </strong> We met at LeoVegas, G fell in love with Sam because he is an absolute unit and really cool.</p>
+          <p><strong>The engagement: Bare romance</strong> &ndash; we’ll fill this in soon.</p>
           <div style="margin-top:10px">
             <span class="pill">Golden beaches</span>
             <span class="pill">Olive groves</span>
@@ -203,182 +265,316 @@
           </div>
         </div>
         <figure class="media">
-          <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Xlendi_Bay_Gozo_Malta_2014_1.jpg" alt="Turquoise waters and boats in Xlendi Bay, Gozo">
+          <img loading="lazy" width="1280" height="853" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Xlendi_Bay_Gozo_Malta_2014_1.jpg" alt="Turquoise waters and boats in Xlendi Bay, Gozo">
         </figure>
       </div>
       <div class="card reveal" style="margin-top:26px">
         <h3>Moments that matter</h3>
         <ol style="margin:0; padding-left:18px">
-          <li><strong>First meeting:</strong> <Replace this text with the FIRST MEETING DATE or upload a file></li>
-          <li><strong>Engagement:</strong> <Replace this text with the ENGAGEMENT DATE or upload a file></li>
+          <li><strong>First meeting:</strong> (date coming soon)</li>
+          <li><strong>Engagement:</strong> (date coming soon)</li>
           <li><strong>Wedding:</strong> <span id="timeline-wedding-date">10 September 2026</span></li>
         </ol>
       </div>
     </div>
   </section>
 
-<!-- Wedding Dates & Abstract Coastline Map (Ta’ Ċenċ Il-Kantra) -->
-<section id="dates" class="section dates" aria-labelledby="dates-title">
-  <style>
-    /* Scoped styles for this map */
-    .km-wrap{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(47,74,78,.12)}
-    .km{width:100%;height:auto;display:block}
-    .km-sea{fill:#bfe0dd}
-    .km-land{fill:#f5efe4;stroke:#d8d0c1;stroke-width:2}
-    .km-cut{fill:#bfe0dd}
-    .km-sand{fill:#efe4c8;opacity:.85}
-    .km-shelf{fill:none;stroke:#9cc7c2;stroke-width:3;opacity:.35}
-    .km-track{fill:none;stroke:#c9b49e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.7}
-    .km-pin{fill:#A75A32;stroke:#fff;stroke-width:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
-    .km-pulse{fill:rgba(167,90,50,.25);animation:kmp 2.4s infinite ease-out}
-    @keyframes kmp{0%{r:2;opacity:.7}70%{r:18;opacity:0}100%{r:18;opacity:0}}
-    .km-label{font:600 12px Raleway,system-ui,sans-serif;fill:#2F4A4E}
-    .km-legend{position:absolute;left:14px;bottom:12px;background:#ffffffd8;border:1px solid #eadfcd;border-radius:12px;padding:6px 10px;font-size:.85rem;color:#2F4A4E}
-    .km-dot{display:inline-block;width:10px;height:10px;background:#A75A32;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #A75A32;margin-right:.4rem}
-  </style>
+  <!-- Wedding Dates & Abstract Coastline Map -->
+  <section id="dates" class="section dates" aria-labelledby="dates-title">
+    <style>
+      /* Scoped styles for this map */
+      .km-wrap{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(47,74,78,.12)}
+      .km{width:100%;height:auto;display:block}
+      .km-sea{fill:#bfe0dd}
+      .km-land{fill:#f5efe4;stroke:#d8d0c1;stroke-width:2}
+      .km-cut{fill:#bfe0dd}
+      .km-sand{fill:#efe4c8;opacity:.85}
+      .km-shelf{fill:none;stroke:#9cc7c2;stroke-width:3;opacity:.35}
+      .km-track{fill:none;stroke:#c9b49e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.7}
+      .km-pin{fill:#A75A32;stroke:#fff;stroke-width:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
+      .km-pulse{fill:rgba(167,90,50,.25);animation:kmp 2.4s infinite ease-out}
+      @keyframes kmp{0%{r:2;opacity:.7}70%{r:18;opacity:0}100%{r:18;opacity:0}}
+      .km-label{font:600 12px Raleway,system-ui,sans-serif;fill:#2F4A4E}
+      .km-legend{position:absolute;left:14px;bottom:12px;background:#ffffffd8;border:1px solid #eadfcd;border-radius:12px;padding:6px 10px;font-size:.85rem;color:#2F4A4E}
+      .km-dot{display:inline-block;width:10px;height:10px;background:#A75A32;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #A75A32;margin-right:.4rem}
+    </style>
 
-  <div class="container">
-    <h2 id="dates-title">The Wedding Dates</h2>
-    <div class="dates-grid">
-      <!-- Left: details -->
-      <div class="card reveal">
-        <h3>Ceremony</h3>
-        <p><Replace this text with the CEREMONY DETAILS or upload a file></p>
-
-        <h3 style="margin-top:18px">Reception — Kantra Beach Club</h3>
-        <p>
-          Kantra Beach Club, Triq Ta’ Ċenċ (by Mġarr ix-Xini), Sannat, Gozo.
-          <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor</a>
-        </p>
-
-        <hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0" />
-        <h3>Local highlights</h3>
-        <ul>
-          <li>Mġarr ix-Xini inlet — swim & snorkel</li>
-          <li>Ramla Bay — red sand beach</li>
-          <li>Xlendi — sunsets & seafront strolls</li>
-        </ul>
-      </div>
-
-      <!-- Right: abstract coastline (aligned to Google Maps shape) -->
-      <div class="km-wrap reveal" aria-label="Abstract coastline of Mġarr ix-Xini and Ta’ Ċenċ Il-Kantra">
-        <svg class="km" viewBox="0 0 520 420" role="img" aria-labelledby="kmTitle kmDesc">
-          <title id="kmTitle">Ta’ Ċenċ Il-Kantra — abstract coastline</title>
-          <desc id="kmDesc">
-            Simplified outline of the Ta’ Ċenċ headland with the narrow north-to-south Mġarr ix-Xini inlet.
-            Pin marks Kantra on the south-eastern lip of the inlet mouth.
-          </desc>
-
-          <!-- Sea background -->
-          <rect width="520" height="420" class="km-sea"/>
-
-          <!-- Land mass (approx. Ta’ Ċenċ headland geometry) -->
-          <!-- Drawn to resemble the hook-like south-east point and the cove edges seen in your screenshot -->
-          <path class="km-land" d="
-            M 36,120
-            C 84,92 150,78 216,96
-            C 268,110 300,138 324,170
-            C 336,186 348,206 365,216
-            C 390,231 426,236 470,228
-            L 494,314
-            C 448,332 404,345 360,350
-            C 300,356 246,350 204,334
-            C 160,318 128,296 102,270
-            C 68,236 48,202 38,172
-            C 30,148 30,132 36,120 Z" />
-
-          <!-- Inlet cut (narrow channel running N→S into land) -->
-          <path class="km-cut" d="
-            M 260,118
-            C 272,126 284,140 292,154
-            C 302,172 316,194 338,210
-            C 354,222 378,230 408,232
-            C 418,232 430,232 446,230
-            C 430,240 410,248 388,254
-            C 362,260 336,260 316,254
-            C 294,248 276,236 262,220
-            C 246,202 236,182 232,162
-            C 230,148 238,128 260,118 Z" />
-
-          <!-- Sand / shelf at the mouth (SE lip) -->
-          <path class="km-sand" d="
-            M 420,270
-            C 398,278 376,284 354,286
-            C 344,287 334,286 324,285
-            C 348,282 368,276 392,266
-            C 404,262 412,258 426,252
-            L 438,284
-            C 432,286 426,288 420,290 Z" />
-
-          <!-- Subtle coastal shelf lines -->
-          <path class="km-shelf" d="M 436,250 Q 404,264 370,274" />
-          <path class="km-shelf" d="M 332,206 Q 350,220 376,226" />
-
-          <!-- A couple of schematic tracks (like the bendy access roads) -->
-          <path class="km-track" d="M 302,156 Q 292,142 276,132 Q 254,120 230,114" />
-          <path class="km-track" d="M 332,206 Q 320,196 306,178" />
-
-          <!-- PIN: Ta’ Ċenċ Il-Kantra — south-eastern lip of inlet mouth -->
-          <circle class="km-pulse" cx="436" cy="282" r="10"/>
-          <g transform="translate(436,282)">
-            <circle class="km-pin" r="8"/>
-            <path class="km-pin" d="M 0,8 L 0,18"/>
-          </g>
-          <text class="km-label" x="446" y="278">Ta’ Ċenċ Il-Kantra</text>
-        </svg>
-
-        <div class="km-legend"><span class="km-dot"></span>Reception</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- Travel & Stay -->
-  <section id="travel" class="section" aria-labelledby="travel-title">
     <div class="container">
-      <h2 id="travel-title">Travel &amp; Stay</h2>
-      <p class="accent">We can't wait to share this island with you.</p>
-      <div class="travel-grid">
-        <div class="tip reveal">
-          <h3>Getting here</h3>
-          <p>Fly into Malta International Airport (MLA). From Ċirkewwa, take the Gozo Channel ferry to Mġarr (approx. 20–30 min). Taxis and buses connect easily.</p>
-        </div>
-        <div class="tip reveal">
-          <h3>Where to stay (near Kantra)</h3>
+      <h2 id="dates-title">The Wedding Dates</h2>
+      <div class="dates-grid">
+        <!-- Left: details -->
+        <div class="card reveal">
+          <h3>Ceremony</h3>
+          <p>Details to follow — time and location for the vows will be shared here.</p>
+
+          <h3 style="margin-top:18px">Reception — Kantra Beach Club</h3>
+          <p>
+            Kantra Beach Club, Triq Ta’ Ċenċ (by Mġarr ix-Xini), Sannat, Gozo.
+            <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor</a>
+          </p>
+
+          <hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0" />
+          <h3>Local highlights</h3>
           <ul>
-            <li><strong>Hotel Ta’ Cenc &amp; Spa</strong> — Cenc Street, Sannat SNT9049, Gozo.
-              <a href="https://www.tripadvisor.co.uk/Hotel_Review-g230154-d267341-Reviews-Hotel_Ta_Cenc_Spa-Sannat_Island_of_Gozo.html" target="_blank" rel="noopener">Tripadvisor</a></li>
-            <li><strong>Cesca Boutique Hotel</strong> — Xlendi Valley edge, Munxar/Xlendi.
-              <a href="https://www.cesca.com.mt/" target="_blank" rel="noopener">Official site</a></li>
+            <li>Mġarr ix-Xini inlet — swim &amp; snorkel</li>
+            <li>Ramla Bay — red sand beach</li>
+            <li>Xlendi — sunsets &amp; seafront strolls</li>
           </ul>
-          <p><Replace this text with the ACCOMMODATION RECOMMENDATIONS or upload a file></p>
         </div>
-        <div class="tip reveal">
-          <h3>Getting around</h3>
-          <p>Rent a car or use taxis for flexibility; buses run frequently between towns. Summer sun is strong — pack water, hats, and SPF.</p>
+
+        <!-- Right: abstract coastline (aligned to area) -->
+        <div class="km-wrap reveal" aria-label="Abstract coastline of Mġarr ix-Xini and Ta’ Ċenċ Il-Kantra">
+          <svg class="km" viewBox="0 0 520 420" role="img" aria-labelledby="kmTitle kmDesc">
+            <title id="kmTitle">Ta’ Ċenċ Il-Kantra — abstract coastline</title>
+            <desc id="kmDesc">
+              Simplified outline of the Ta’ Ċenċ headland with the narrow north-to-south Mġarr ix-Xini inlet.
+              Pin marks Kantra on the south-eastern lip of the inlet mouth.
+            </desc>
+
+            <!-- Sea background -->
+            <rect width="520" height="420" class="km-sea"/>
+
+            <!-- Land mass -->
+            <path class="km-land" d="
+              M 36,120
+              C 84,92 150,78 216,96
+              C 268,110 300,138 324,170
+              C 336,186 348,206 365,216
+              C 390,231 426,236 470,228
+              L 494,314
+              C 448,332 404,345 360,350
+              C 300,356 246,350 204,334
+              C 160,318 128,296 102,270
+              C 68,236 48,202 38,172
+              C 30,148 30,132 36,120 Z" />
+
+            <!-- Inlet cut -->
+            <path class="km-cut" d="
+              M 260,118
+              C 272,126 284,140 292,154
+              C 302,172 316,194 338,210
+              C 354,222 378,230 408,232
+              C 418,232 430,232 446,230
+              C 430,240 410,248 388,254
+              C 362,260 336,260 316,254
+              C 294,248 276,236 262,220
+              C 246,202 236,182 232,162
+              C 230,148 238,128 260,118 Z" />
+
+            <!-- Sand / shelf at the mouth -->
+            <path class="km-sand" d="
+              M 420,270
+              C 398,278 376,284 354,286
+              C 344,287 334,286 324,285
+              C 348,282 368,276 392,266
+              C 404,262 412,258 426,252
+              L 438,284
+              C 432,286 426,288 420,290 Z" />
+
+            <!-- Subtle coastal shelf lines -->
+            <path class="km-shelf" d="M 436,250 Q 404,264 370,274" />
+            <path class="km-shelf" d="M 332,206 Q 350,220 376,226" />
+
+            <!-- Tracks -->
+            <path class="km-track" d="M 302,156 Q 292,142 276,132 Q 254,120 230,114" />
+            <path class="km-track" d="M 332,206 Q 320,196 306,178" />
+
+            <!-- Pin -->
+            <circle class="km-pulse" cx="436" cy="282" r="10"/>
+            <g transform="translate(436,282)">
+              <circle class="km-pin" r="8"/>
+              <path class="km-pin" d="M 0,8 L 0,18"/>
+            </g>
+            <text class="km-label" x="446" y="278">Ta’ Ċenċ Il-Kantra</text>
+          </svg>
+
+          <div class="km-legend"><span class="km-dot"></span>Reception</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- RSVP -->
+  <!-- Travel (How to Get There) -->
+  <section id="travel" class="section" aria-labelledby="travel-title">
+    <div class="container">
+      <h2 id="travel-title">How to Get There</h2>
+      <p class="accent">Getting to Gozo is simple — the ferry is part of the charm.</p>
+
+      <div class="travel-grid">
+        <div class="tip reveal">
+          <h3>Step 1: Fly to Malta (MLA)</h3>
+          <p>All international flights land at Malta International Airport. From there, it’s around 45–60 minutes by taxi or private transfer to the Ċirkewwa Ferry Terminal.</p>
+        </div>
+        <div class="tip reveal">
+          <h3>Step 2: Ferry to Gozo</h3>
+          <ul class="stay-list">
+            <li>Runs every 30–45 minutes; crossing time ~25 minutes</li>
+            <li>You pay on the return journey (Gozo → Malta)</li>
+            <li>Arrives in Mġarr Harbour, Gozo</li>
+            <li>There’s also a fast ferry from Valletta (~45 minutes)</li>
+          </ul>
+        </div>
+        <div class="tip reveal">
+          <h3>Getting Around Gozo</h3>
+          <ul class="stay-list">
+            <li>Taxis (Bolt, Uber, and local companies)</li>
+            <li>Car hire for full flexibility</li>
+            <li>Regular, inexpensive buses between towns</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="travel-grid" style="margin-top:18px">
+        <div class="tip reveal">
+          <h3>Weather in Early September</h3>
+          <ul class="stay-list">
+            <li>Warm, sunny days ~27–31&nbsp;°C</li>
+            <li>Pleasant evenings ~22–24&nbsp;°C</li>
+            <li>Usually dry and bright; sea ~25–27&nbsp;°C</li>
+            <li>Gentle coastal breezes</li>
+          </ul>
+        </div>
+        <div class="tip reveal">
+          <h3>Wedding Attire</h3>
+          <p>Think smart-casual, summery, and comfortable — nothing too formal in Mediterranean heat.</p>
+        </div>
+        <div class="tip reveal">
+          <h3>Bonus Tips</h3>
+          <ul class="stay-list">
+            <li>Book early — especially Ta’ Ċenċ and boutique hotels</li>
+            <li>Rural stays are relaxing; a hire car helps</li>
+            <li>Groups often find farmhouses better value</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW: Where to Stay (full content integration) -->
+  <section id="stay" class="section" aria-labelledby="stay-title">
+    <div class="container">
+      <h2 id="stay-title">🌿 Where to Stay on Gozo</h2>
+      <p class="accent">Boutique hotels, traditional farmhouses, and seaside apartments.</p>
+
+      <div class="stay-grid">
+        <div class="card reveal">
+          <p>Gozo has a wonderful mix of boutique hotels, traditional farmhouses, and seaside apartments — perfect for a relaxed Mediterranean wedding getaway. The island is small and easy to explore, so wherever you stay you’ll be a short drive from the celebrations.</p>
+
+          <h3 style="margin-top:10px">Popular Areas to Stay</h3>
+          <ul class="stay-list">
+            <li><strong>Victoria (Rabat):</strong> Lively capital with cafés, shops, and history — great for walkable convenience.</li>
+            <li><strong>Xlendi:</strong> Seaside village with a calm bay, cliff walks, and lots of restaurants.</li>
+            <li><strong>Marsalforn:</strong> Coastal favourite with a promenade, relaxed dining, and good swimming — ideal for families.</li>
+            <li><strong>Għarb / San Lawrenz:</strong> Tranquil countryside villages with wide views and stone homes.</li>
+          </ul>
+
+          <h3 style="margin-top:10px">Accommodation Styles</h3>
+          <ul class="stay-list">
+            <li><strong>Boutique Hotels:</strong> Character-filled stays in restored stone buildings with warm hospitality.</li>
+            <li><strong>Farmhouses with Pools:</strong> Rustic Gozitan classics with space — great for groups and families.</li>
+            <li><strong>Waterfront Apartments:</strong> Modern, comfortable stays with sea views.</li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Recommended Places to Stay</h3>
+          <ul class="stay-list">
+            <li><strong>Hotel Ta’ Ċenċ &amp; Spa:</strong> Secluded retreat above the cliffs with pools, spa, tennis courts, and guided walks. <br><em>Wedding Guest Discount:</em> 3 nights: 10% off · 7 nights: 15% off. <br>Book via <a href="mailto:info@tacenchotel.com">info@tacenchotel.com</a> and quote: “Private event at Il Kantra, for Sam &amp; Georgia’s wedding.”</li>
+            <li><strong>Cesca Boutique Hotel (Xlendi Valley):</strong> 18-room converted farmhouse with balconies and valley views — romantic and close to Xlendi Bay.</li>
+            <li><strong>Kempinski Hotel San Lawrenz:</strong> Luxury resort with gardens, multiple pools, and a renowned spa.</li>
+            <li><strong>Duke Boutique Hotel (Victoria):</strong> Central base with modern comforts; some suites have terraces or hot tubs.</li>
+            <li><strong>Murella Living B&amp;B (Marsalforn):</strong> Design-led B&amp;B near the sea — relaxed and friendly.</li>
+            <li><strong>Retro-Style Farmhouse (Xewkija):</strong> Characterful farmhouse with vintage touches and outdoor space — great for families or groups.</li>
+          </ul>
+
+          <h3 style="margin-top:10px">Accommodation Websites</h3>
+          <ul class="stay-list">
+            <li><a href="https://www.booking.com/" target="_blank" rel="noopener">Booking.com</a> — Hotels, apartments, and guesthouses.</li>
+            <li><a href="https://www.airbnb.com/" target="_blank" rel="noopener">Airbnb</a> — Farmhouses, villas, and group stays.</li>
+            <li><a href="https://www.visitgozo.com/" target="_blank" rel="noopener">VisitGozo.com</a> — Curated official listings.</li>
+            <li><a href="https://www.baronholidayhomes.com/" target="_blank" rel="noopener">Baron Holiday Homes</a> — Villas and farmhouses with pools.</li>
+            <li><a href="https://www.gozofarmhouses.com/" target="_blank" rel="noopener">GozoFarmhouses.com</a> — Traditional stone farmhouses.</li>
+            <li><a href="https://www.trivago.com/" target="_blank" rel="noopener">Trivago</a> — Compare hotel prices quickly.</li>
+            <li><a href="https://www.mrandmrssmith.com/" target="_blank" rel="noopener">Mr &amp; Mrs Smith</a> and <a href="https://slh.com" target="_blank" rel="noopener">Small Luxury Hotels</a> — Boutique and luxury picks.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP (enhanced: attendance + conditional menu options) -->
   <section id="rsvp" class="section rsvp" aria-labelledby="rsvp-title">
     <div class="container">
       <h2 id="rsvp-title">RSVP</h2>
       <p class="accent">Pack your sunglasses — Gozo awaits!</p>
-      <p style="text-align:center;font-weight:600">We can't wait to celebrate with you!</p>
-      <form id="rsvp-form" class="reveal" method="post" action="<Replace this text with the RSVP FORM ENDPOINT or upload a file>">
-        <label>Full name<input type="text" name="name" required placeholder="Your name" autocomplete="name" /></label>
-        <label>Email<input type="email" name="email" required placeholder="you@example.com" autocomplete="email" /></label>
+      <p style="text-align:center;font-weight:600">Please let us know if you can make it. If you’re joining us, you’ll be able to choose your menu.</p>
+
+      <!-- NOTE: If you prefer Google Forms, replace form action with the Google Form endpoint.
+           We've kept it POST + placeholders and added conditional fields for menu selection when 'Yes' is chosen. -->
+      <form id="rsvp-form" class="reveal" method="post" action="<!-- Replace with your RSVP endpoint or Google Form prefill URL -->" novalidate>
+        <!-- honeypot -->
+        <input type="text" name="company" autocomplete="organization" tabindex="-1" style="position:absolute;left:-9999px" aria-hidden="true">
+
+        <label>Full name
+          <input type="text" name="name" required placeholder="Your name" autocomplete="name" />
+        </label>
+
+        <label>Email
+          <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+        </label>
+
         <label>Will you join us?
-          <select name="attendance" required>
+          <select name="attendance" id="attendance" required aria-describedby="attendHelp">
             <option value="">Select…</option>
-            <option>Joyfully accepts</option>
-            <option>Regretfully declines</option>
+            <option value="yes">Joyfully accepts</option>
+            <option value="no">Regretfully declines</option>
           </select>
         </label>
-        <label>Dietary notes<textarea name="diet" rows="4" placeholder="Vegetarian, allergies, etc."></textarea></label>
-        <button class="btn" type="submit">Join us under the Gozo sun</button>
+        <p id="attendHelp" style="margin:-6px 0 6px;font-size:.9rem;opacity:.8">Choosing “accepts” will reveal menu options.</p>
+
+        <!-- Conditional: menu selection (shown only if attendance = yes) -->
+        <fieldset class="fieldset hidden" id="menuFieldset">
+          <legend>Menu preferences (for guests attending)</legend>
+          <!-- These are placeholder options. Replace labels/options with your actual menu when ready. -->
+          <label>Starter
+            <select name="starter">
+              <option value="">Select…</option>
+              <option value="caprese">Caprese salad</option>
+              <option value="prawn">Garlic prawns</option>
+              <option value="bruschetta">Tomato bruschetta (vegan)</option>
+            </select>
+          </label>
+
+          <label>Main
+            <select name="main">
+              <option value="">Select…</option>
+              <option value="seabass">Seabass with lemon &amp; capers</option>
+              <option value="ribeye">Grilled ribeye</option>
+              <option value="aubergine">Stuffed aubergine (vegan)</option>
+            </select>
+          </label>
+
+          <label>Dessert
+            <select name="dessert">
+              <option value="">Select…</option>
+              <option value="tiramisu">Tiramisu</option>
+              <option value="panna">Panna cotta</option>
+              <option value="sorbet">Citrus sorbet (vegan)</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <label>Dietary notes
+          <textarea name="diet" rows="4" placeholder="Vegetarian, allergies, etc."></textarea>
+        </label>
+
+        <button class="btn" type="submit">Send RSVP</button>
+        <p id="rsvp-status" role="status" aria-live="polite" style="text-align:center;margin:6px 0 0"></p>
+
+        <!-- Optional helper: link out to Google Form if preferred -->
+        <p style="text-align:center;margin:8px 0 0">
+          Prefer a form? <a href="#" id="googleFormLink" target="_blank" rel="noopener">Open the RSVP Google Form</a>
+        </p>
       </form>
     </div>
   </section>
@@ -411,20 +607,26 @@
 
   <div class="audio-toggle" role="region" aria-label="Audio controls">
     <span>Waves</span>
-    <button id="audioBtn" type="button">Sound off</button>
+    <button id="audioBtn" type="button" aria-pressed="false" aria-controls="waves">Sound off</button>
   </div>
 
   <script>
+    document.documentElement.classList.remove('no-js');
+
     const CONFIG={ WEDDING_DATE:'2026-09-10T14:00:00+02:00' };
 
     /* Mobile menu */
     const burger=document.querySelector('.burger');
     const menu=document.getElementById('menu');
     burger?.addEventListener('click',()=>{
-      menu.classList.toggle('open');
-      const ex=burger.getAttribute('aria-expanded')==='true';
+      const isOpen = menu.classList.toggle('open');
+      const ex = burger.getAttribute('aria-expanded')==='true';
       burger.setAttribute('aria-expanded',String(!ex));
+      burger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     });
+    // Close menu when clicking a link or pressing Escape
+    menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') menu.classList.remove('open'); });
 
     /* Reveal on scroll */
     const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:.18});
@@ -436,9 +638,48 @@
     const tl=document.getElementById('timeline-wedding-date'); if(tl) tl.textContent=target.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
     function tick(){const now=new Date();const diff=Math.max(0,target-now);$d.textContent=Math.floor(diff/86400000);$h.textContent=Math.floor((diff/3600000)%24);$m.textContent=Math.floor((diff/60000)%60);$s.textContent=Math.floor((diff/1000)%60);} tick(); setInterval(tick,1000);
 
+    /* Add-to-calendar (ICS) */
+    (function(){
+      const icsLink=document.getElementById('ics');
+      if(!icsLink) return;
+      const dtStart=new Date(CONFIG.WEDDING_DATE); // 14:00 +02:00
+      const dtEnd=new Date(dtStart.getTime()+6*60*60*1000); // +6h
+      function toICS(dt){
+        const pad=n=>String(n).padStart(2,'0');
+        const y=dt.getUTCFullYear();
+        const mo=pad(dt.getUTCMonth()+1);
+        const d=pad(dt.getUTCDate());
+        const h=pad(dt.getUTCFullYear()?dt.getUTCHours():0); // guard
+        const mi=pad(dt.getUTCMinutes());
+        const s=pad(dt.getUTCSeconds());
+        return `${y}${mo}${d}T${h}${mi}${s}Z`;
+      }
+      // Correct hour (above guard was over-defensive; ensure using actual)
+      function toICSFixed(dt){
+        const pad=n=>String(n).padStart(2,'0');
+        return `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}${pad(dt.getUTCSeconds())}Z`;
+      }
+      const ics=`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sam & Georgia//Gozo Wedding//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:sam-georgia-gozo-20260910@example.com
+DTSTAMP:${toICSFixed(new Date())}
+DTSTART:${toICSFixed(dtStart)}
+DTEND:${toICSFixed(dtEnd)}
+SUMMARY:Sam & Georgia — Wedding (Gozo)
+LOCATION:Kantra Beach Club\\, Triq Ta’ Ċenċ (by Mġarr ix-Xini)\\, Sannat\\, Gozo
+DESCRIPTION:Full details and RSVP on the website.
+END:VEVENT
+END:VCALENDAR`;
+      icsLink.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
+    })();
+
     /* Sunlight pointer */
     const light=document.querySelector('.sunlight');
-    function setLight(x,y){light.style.setProperty('--x',x+'px');light.style.setProperty('--y',y+'px');}
+    function setLight(x,y){ if(!light) return; light.style.setProperty('--x',x+'px');light.style.setProperty('--y',y+'px'); }
     window.addEventListener('pointermove',e=>setLight(e.clientX,e.clientY));
     window.addEventListener('pointerdown',e=>setLight(e.clientX,e.clientY));
 
@@ -458,7 +699,7 @@
 
       async function enableSound(){
         if (audible) return;
-        try { audio.muted=false; audio.volume=0.35; await audio.play(); audible=true; updateBtn(); }
+        try { audio.muted=false; audio.volume=0.35; await audio.play(); audible=true; updateBtn(); btn.setAttribute('aria-pressed','true'); }
         catch(e){ console.info('Waves: unmute failed', e); }
       }
 
@@ -467,7 +708,7 @@
 
       btn.addEventListener('click', async ()=>{
         if (!audible) return enableSound();
-        if (!audio.paused){ audio.pause(); audible=false; }
+        if (!audio.paused){ audio.pause(); audible=false; btn.setAttribute('aria-pressed','false'); }
         else { await enableSound(); }
         updateBtn();
       });
@@ -479,6 +720,96 @@
         if (!document.hidden && audible) audio.play().catch(()=>{});
       });
     })();
+
+    /* RSVP: conditional menu reveal + basic guard */
+    const rsvpForm=document.getElementById('rsvp-form');
+    const attendance=document.getElementById('attendance');
+    const menuFieldset=document.getElementById('menuFieldset');
+    const statusEl=document.getElementById('rsvp-status');
+    const googleFormLink=document.getElementById('googleFormLink');
+
+    // Update this link to your actual Google Form if you choose to use it
+    googleFormLink?.addEventListener('click',(e)=>{
+      if(googleFormLink.getAttribute('href')==='#'){
+        e.preventDefault();
+        alert('Replace the Google Form link in the RSVP section when ready.');
+      }
+    });
+
+    function updateMenuVisibility(){
+      const show = attendance?.value === 'yes';
+      if(show){ menuFieldset?.classList.remove('hidden'); }
+      else { menuFieldset?.classList.add('hidden'); }
+    }
+    attendance?.addEventListener('change', updateMenuVisibility);
+    updateMenuVisibility();
+
+    if(rsvpForm){
+      rsvpForm.addEventListener('submit', (e)=>{
+        if(rsvpForm.action.includes('Replace') || rsvpForm.action.trim()==='' || rsvpForm.action.includes('<!--')){
+          e.preventDefault();
+          statusEl.textContent='Add a real form endpoint (or Google Form URL) to enable submissions.';
+          return;
+        }
+        // If attending, ensure menu choices selected (light validation)
+        if(attendance?.value==='yes'){
+          const requiredMenus=['starter','main','dessert'];
+          const missing = requiredMenus.some(name => (rsvpForm.elements[name]?.value ?? '')==='');
+          if(missing){
+            e.preventDefault();
+            statusEl.textContent='Please choose your menu options before submitting.';
+            return;
+          }
+        }
+        statusEl.textContent='Sending…';
+      });
+    }
+
+    /* Mobile fish effect: spawn a small fish at touch point that swims and disappears */
+    const fishSVG = `
+      <svg viewBox="0 0 60 40" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#83B8B4"/><stop offset="100%" stop-color="#2F4A4E"/>
+          </linearGradient>
+        </defs>
+        <path d="M40 20c0 6-8 12-18 12-4 0-8-2-10-4l-6 2 3-6c-1-1-1-2-1-4s0-3 1-4l-3-6 6 2c2-2 6-4 10-4 10 0 18 6 18 12Z" fill="url(#g)"/>
+        <circle cx="38" cy="18" r="2" fill="#fff"/><circle cx="39" cy="18" r="1" fill="#243133"/>
+        <path d="M54 20l6 6-10-2 0-8 10-2-6 6Z" fill="#A75A32"/>
+      </svg>`;
+
+    function spawnFish(x,y){
+      if(window.matchMedia('(min-width:768px)').matches) return; // mobile only
+      const el = document.createElement('div');
+      el.className = 'fish';
+      el.innerHTML = fishSVG;
+
+      // Randomise trajectory & rotation a little
+      const dx = (Math.random() * 120 + 40) * (Math.random() > .5 ? 1 : -1);
+      const dy = (Math.random() * 60 - 30);
+      const rot = (Math.atan2(dy, dx) * 180 / Math.PI);
+      const spin = (Math.random() * 24 - 12);
+      const dur = Math.round(Math.random()*400 + 800); // 800–1200ms
+
+      el.style.setProperty('--x', (x - 9) + 'px');
+      el.style.setProperty('--y', (y - 6) + 'px');
+      el.style.setProperty('--dx', dx + 'px');
+      el.style.setProperty('--dy', dy + 'px');
+      el.style.setProperty('--rot', rot + 'deg');
+      el.style.setProperty('--spin', spin + 'deg');
+      el.style.setProperty('--dur', dur + 'ms');
+
+      document.body.appendChild(el);
+      // Remove after animation
+      setTimeout(()=>{ el.remove(); }, dur + 400);
+    }
+    // Trigger on taps/clicks/press on mobile
+    ['touchstart','pointerdown'].forEach(ev=>{
+      window.addEventListener(ev, (e)=>{
+        const pt = e.touches ? e.touches[0] : e;
+        spawnFish(pt.clientX, pt.clientY);
+      }, {passive:true});
+    });
   </script>
 </body>
 </html>
