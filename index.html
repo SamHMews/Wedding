@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-  <!-- Sam & Georgia — Gozo Wedding (single-file site, updated with content + RSVP logic + mobile fish) -->
+  <!-- Sam & Georgia — Gozo Wedding (single-file site, updated: Google Maps + goldfish + RSVP menu) -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#F9F6F0" />
@@ -28,7 +28,6 @@
     :root{
       --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F; --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
       --maxw:1100px; --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
-      /* Hero artwork (sea/sky + sun) */
       --hero-image:url('data:image/svg+xml;utf8,\
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">\
           <defs>\
@@ -112,20 +111,21 @@
     .media img{width:100%;height:auto;display:block}
     .pill{display:inline-block;border-radius:999px;border:1px solid var(--seafoam);padding:6px 12px;font-size:.9rem;color:var(--teal);background:#ffffffb3;margin-right:6px}
 
-    /* Dates & Map */
+    /* Dates */
     .dates{background:linear-gradient(180deg,#fff,#f6f2ea)}
     .dates-grid{display:grid;gap:22px}
     @media(min-width:980px){.dates-grid{grid-template-columns:1.1fr .9fr;gap:32px}}
-    .map-card{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-    .map-svg{width:100%;height:auto;display:block}
-    .pin{fill:var(--terracotta);stroke:#fff;stroke-width:2}
+    .map-card{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:12px;box-shadow:var(--shadow)}
+    .map-embed{border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#e8f3f2}
+    .map-embed iframe{width:100%;height:100%;border:0;display:block}
+    .map-legend{position:absolute;left:14px;bottom:12px;background:#ffffffd8;border:1px solid #eadfcd;border-radius:12px;padding:6px 10px;font-size:.85rem;color:#2F4A4E}
+    .map-dot{display:inline-block;width:10px;height:10px;background:#A75A32;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #A75A32;margin-right:.4rem}
 
-    /* Travel / Stay grids */
+    /* Travel / Stay */
     .travel-grid{display:grid;gap:22px}
     @media(min-width:900px){.travel-grid{grid-template-columns:repeat(3,1fr)}}
     .tip{background:#fff;border:1px solid #efe9de;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
 
-    /* New: Accommodation detail section */
     .stay-grid{display:grid;gap:22px}
     @media(min-width:980px){.stay-grid{grid-template-columns:1.1fr .9fr;gap:28px}}
     .stay-list{margin:0;padding-left:18px}
@@ -163,27 +163,26 @@
     .audio-toggle{position:fixed;right:14px;bottom:14px;z-index:1200;background:#fff;border:1px solid #e5ded2;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:.5rem;align-items:center}
     .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:var(--terracotta)}
 
-    /* Mobile fish effect */
-  /* Mobile gold fish effect (singleton) */
-.goldfish{
-  position:fixed;left:0;top:0;pointer-events:none;z-index:6;
-  width:120px;height:72px; /* bigger */
-  transform:translate(var(--x,0px),var(--y,0px));
-  filter: drop-shadow(0 3px 6px rgba(0,0,0,.22));
-  opacity:0;
-  animation: gold-bob var(--dur,7s) ease-in forwards;
-  will-change: transform, opacity;
-}
-.goldfish svg{display:block;width:100%;height:100%}
-@keyframes gold-bob{
-  0%   { transform: translate(var(--x), var(--y)); opacity: .95; }
-  20%  { transform: translate(calc(var(--x) + 12px), calc(var(--y) - 10vh)); }
-  40%  { transform: translate(calc(var(--x) - 10px), calc(var(--y) - 25vh)); }
-  60%  { transform: translate(calc(var(--x) + 8px),  calc(var(--y) - 45vh)); }
-  80%  { transform: translate(calc(var(--x) - 6px),  calc(var(--y) - 65vh)); }
-  100% { transform: translate(var(--x), calc(var(--y) - 90vh)); opacity: 0; }
-}
-@media(min-width:768px){ .goldfish{ display:none } } /* mobile-only */
+    /* Mobile gold fish effect (singleton) */
+    .goldfish{
+      position:fixed;left:0;top:0;pointer-events:none;z-index:7;
+      width:140px;height:84px; /* larger */
+      transform:translate(var(--x,0px),var(--y,0px));
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,.22));
+      opacity:0;
+      will-change: transform, opacity;
+    }
+    .goldfish svg{display:block;width:100%;height:100%}
+    @keyframes gold-bob{
+      0%   { transform: translate(var(--x), var(--y)); opacity: .98; }
+      20%  { transform: translate(calc(var(--x) + 12px), calc(var(--y) - 10vh)); }
+      40%  { transform: translate(calc(var(--x) - 10px), calc(var(--y) - 25vh)); }
+      60%  { transform: translate(calc(var(--x) + 8px),  calc(var(--y) - 45vh)); }
+      80%  { transform: translate(calc(var(--x) - 6px),  calc(var(--y) - 65vh)); }
+      100% { transform: translate(var(--x), calc(var(--y) - 90vh)); opacity: 0; }
+    }
+    @media(min-width:768px){ .goldfish{ display:none } } /* mobile-only */
+  </style>
 
   <!-- Event structured data -->
   <script type="application/ld+json">
@@ -261,7 +260,7 @@
       <div class="story-grid reveal">
         <div class="card">
           <h3>From Bristol to Gozo</h3>
-          <p><strong>How we met: </strong>change We met at LeoVegas, G fell in love with Sam because he is an absolute unit and really cool.</p>
+          <p><strong>How we met: </strong> We met at LeoVegas, G fell in love with Sam because he is an absolute unit and really cool.</p>
           <p><strong>The engagement: Bare romance</strong> &ndash; we’ll fill this in soon.</p>
           <div style="margin-top:10px">
             <span class="pill">Golden beaches</span>
@@ -284,28 +283,11 @@
     </div>
   </section>
 
-  <!-- Wedding Dates & Abstract Coastline Map -->
+  <!-- Wedding Dates with Google Maps -->
   <section id="dates" class="section dates" aria-labelledby="dates-title">
-    <style>
-      /* Scoped styles for this map */
-      .km-wrap{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(47,74,78,.12)}
-      .km{width:100%;height:auto;display:block}
-      .km-sea{fill:#bfe0dd}
-      .km-land{fill:#f5efe4;stroke:#d8d0c1;stroke-width:2}
-      .km-cut{fill:#bfe0dd}
-      .km-sand{fill:#efe4c8;opacity:.85}
-      .km-shelf{fill:none;stroke:#9cc7c2;stroke-width:3;opacity:.35}
-      .km-track{fill:none;stroke:#c9b49e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.7}
-      .km-pin{fill:#A75A32;stroke:#fff;stroke-width:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
-      .km-pulse{fill:rgba(167,90,50,.25);animation:kmp 2.4s infinite ease-out}
-      @keyframes kmp{0%{r:2;opacity:.7}70%{r:18;opacity:0}100%{r:18;opacity:0}}
-      .km-label{font:600 12px Raleway,system-ui,sans-serif;fill:#2F4A4E}
-      .km-legend{position:absolute;left:14px;bottom:12px;background:#ffffffd8;border:1px solid #eadfcd;border-radius:12px;padding:6px 10px;font-size:.85rem;color:#2F4A4E}
-      .km-dot{display:inline-block;width:10px;height:10px;background:#A75A32;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #A75A32;margin-right:.4rem}
-    </style>
-
     <div class="container">
       <h2 id="dates-title">The Wedding Dates</h2>
+
       <div class="dates-grid">
         <!-- Left: details -->
         <div class="card reveal">
@@ -325,81 +307,32 @@
             <li>Ramla Bay — red sand beach</li>
             <li>Xlendi — sunsets &amp; seafront strolls</li>
           </ul>
+
+          <p style="margin-top:14px">
+            <a class="btn alt" href="https://www.google.com/maps?q=36.017361,14.271833" target="_blank" rel="noopener">
+              View in Google Maps
+            </a>
+          </p>
         </div>
 
-        <!-- Right: abstract coastline (aligned to area) -->
-        <div class="km-wrap reveal" aria-label="Abstract coastline of Mġarr ix-Xini and Ta’ Ċenċ Il-Kantra">
-          <svg class="km" viewBox="0 0 520 420" role="img" aria-labelledby="kmTitle kmDesc">
-            <title id="kmTitle">Ta’ Ċenċ Il-Kantra — abstract coastline</title>
-            <desc id="kmDesc">
-              Simplified outline of the Ta’ Ċenċ headland with the narrow north-to-south Mġarr ix-Xini inlet.
-              Pin marks Kantra on the south-eastern lip of the inlet mouth.
-            </desc>
-
-            <!-- Sea background -->
-            <rect width="520" height="420" class="km-sea"/>
-
-            <!-- Land mass -->
-            <path class="km-land" d="
-              M 36,120
-              C 84,92 150,78 216,96
-              C 268,110 300,138 324,170
-              C 336,186 348,206 365,216
-              C 390,231 426,236 470,228
-              L 494,314
-              C 448,332 404,345 360,350
-              C 300,356 246,350 204,334
-              C 160,318 128,296 102,270
-              C 68,236 48,202 38,172
-              C 30,148 30,132 36,120 Z" />
-
-            <!-- Inlet cut -->
-            <path class="km-cut" d="
-              M 260,118
-              C 272,126 284,140 292,154
-              C 302,172 316,194 338,210
-              C 354,222 378,230 408,232
-              C 418,232 430,232 446,230
-              C 430,240 410,248 388,254
-              C 362,260 336,260 316,254
-              C 294,248 276,236 262,220
-              C 246,202 236,182 232,162
-              C 230,148 238,128 260,118 Z" />
-
-            <!-- Sand / shelf at the mouth -->
-            <path class="km-sand" d="
-              M 420,270
-              C 398,278 376,284 354,286
-              C 344,287 334,286 324,285
-              C 348,282 368,276 392,266
-              C 404,262 412,258 426,252
-              L 438,284
-              C 432,286 426,288 420,290 Z" />
-
-            <!-- Subtle coastal shelf lines -->
-            <path class="km-shelf" d="M 436,250 Q 404,264 370,274" />
-            <path class="km-shelf" d="M 332,206 Q 350,220 376,226" />
-
-            <!-- Tracks -->
-            <path class="km-track" d="M 302,156 Q 292,142 276,132 Q 254,120 230,114" />
-            <path class="km-track" d="M 332,206 Q 320,196 306,178" />
-
-            <!-- Pin -->
-            <circle class="km-pulse" cx="436" cy="282" r="10"/>
-            <g transform="translate(436,282)">
-              <circle class="km-pin" r="8"/>
-              <path class="km-pin" d="M 0,8 L 0,18"/>
-            </g>
-            <text class="km-label" x="446" y="278">Ta’ Ċenċ Il-Kantra</text>
-          </svg>
-
-          <div class="km-legend"><span class="km-dot"></span>Reception</div>
+        <!-- Right: Google Maps widget -->
+        <div class="map-card reveal" aria-label="Google map of Kantra Beach Club, Gozo">
+          <div class="map-embed">
+            <iframe
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=36.017361,14.271833&z=16&output=embed"
+              title="Kantra Beach Club location on Google Maps">
+            </iframe>
+          </div>
+          <div class="map-legend"><span class="map-dot"></span>Reception</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Travel (How to Get There) -->
+  <!-- How to Get There -->
   <section id="travel" class="section" aria-labelledby="travel-title">
     <div class="container">
       <h2 id="travel-title">How to Get There</h2>
@@ -455,7 +388,7 @@
     </div>
   </section>
 
-  <!-- NEW: Where to Stay (full content integration) -->
+  <!-- Where to Stay -->
   <section id="stay" class="section" aria-labelledby="stay-title">
     <div class="container">
       <h2 id="stay-title">🌿 Where to Stay on Gozo</h2>
@@ -500,22 +433,20 @@
             <li><a href="https://www.baronholidayhomes.com/" target="_blank" rel="noopener">Baron Holiday Homes</a> — Villas and farmhouses with pools.</li>
             <li><a href="https://www.gozofarmhouses.com/" target="_blank" rel="noopener">GozoFarmhouses.com</a> — Traditional stone farmhouses.</li>
             <li><a href="https://www.trivago.com/" target="_blank" rel="noopener">Trivago</a> — Compare hotel prices quickly.</li>
-            <li><a href="https://www.mrandmrssmith.com/" target="_blank" rel="noopener">Mr &amp; Mrs Smith</a> and <a href="https://slh.com" target="_blank" rel="noopener">Small Luxury Hotels</a> — Boutique and luxury picks.</li>
+            <li><a href="https://www.mrandmrssmith.com/" target="_blank" rel="noopener">Mr &amp; Mrs Smith</a> &amp; <a href="https://slh.com" target="_blank" rel="noopener">Small Luxury Hotels</a> — Boutique and luxury picks.</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- RSVP (enhanced: attendance + conditional menu options) -->
+  <!-- RSVP -->
   <section id="rsvp" class="section rsvp" aria-labelledby="rsvp-title">
     <div class="container">
       <h2 id="rsvp-title">RSVP</h2>
       <p class="accent">Pack your sunglasses — Gozo awaits!</p>
       <p style="text-align:center;font-weight:600">Please let us know if you can make it. If you’re joining us, you’ll be able to choose your menu.</p>
 
-      <!-- NOTE: If you prefer Google Forms, replace form action with the Google Form endpoint.
-           We've kept it POST + placeholders and added conditional fields for menu selection when 'Yes' is chosen. -->
       <form id="rsvp-form" class="reveal" method="post" action="<!-- Replace with your RSVP endpoint or Google Form prefill URL -->" novalidate>
         <!-- honeypot -->
         <input type="text" name="company" autocomplete="organization" tabindex="-1" style="position:absolute;left:-9999px" aria-hidden="true">
@@ -537,10 +468,8 @@
         </label>
         <p id="attendHelp" style="margin:-6px 0 6px;font-size:.9rem;opacity:.8">Choosing “accepts” will reveal menu options.</p>
 
-        <!-- Conditional: menu selection (shown only if attendance = yes) -->
         <fieldset class="fieldset hidden" id="menuFieldset">
           <legend>Menu preferences (for guests attending)</legend>
-          <!-- These are placeholder options. Replace labels/options with your actual menu when ready. -->
           <label>Starter
             <select name="starter">
               <option value="">Select…</option>
@@ -576,7 +505,6 @@
         <button class="btn" type="submit">Send RSVP</button>
         <p id="rsvp-status" role="status" aria-live="polite" style="text-align:center;margin:6px 0 0"></p>
 
-        <!-- Optional helper: link out to Google Form if preferred -->
         <p style="text-align:center;margin:8px 0 0">
           Prefer a form? <a href="#" id="googleFormLink" target="_blank" rel="noopener">Open the RSVP Google Form</a>
         </p>
@@ -629,7 +557,6 @@
       burger.setAttribute('aria-expanded',String(!ex));
       burger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     });
-    // Close menu when clicking a link or pressing Escape
     menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
     window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') menu.classList.remove('open'); });
 
@@ -647,23 +574,10 @@
     (function(){
       const icsLink=document.getElementById('ics');
       if(!icsLink) return;
-      const dtStart=new Date(CONFIG.WEDDING_DATE); // 14:00 +02:00
-      const dtEnd=new Date(dtStart.getTime()+6*60*60*1000); // +6h
-      function toICS(dt){
-        const pad=n=>String(n).padStart(2,'0');
-        const y=dt.getUTCFullYear();
-        const mo=pad(dt.getUTCMonth()+1);
-        const d=pad(dt.getUTCDate());
-        const h=pad(dt.getUTCFullYear()?dt.getUTCHours():0); // guard
-        const mi=pad(dt.getUTCMinutes());
-        const s=pad(dt.getUTCSeconds());
-        return `${y}${mo}${d}T${h}${mi}${s}Z`;
-      }
-      // Correct hour (above guard was over-defensive; ensure using actual)
-      function toICSFixed(dt){
-        const pad=n=>String(n).padStart(2,'0');
-        return `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}${pad(dt.getUTCSeconds())}Z`;
-      }
+      const dtStart=new Date(CONFIG.WEDDING_DATE);
+      const dtEnd=new Date(dtStart.getTime()+6*60*60*1000);
+      const pad=n=>String(n).padStart(2,'0');
+      const toICS=(dt)=>`${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}${pad(dt.getUTCSeconds())}Z`;
       const ics=`BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Sam & Georgia//Gozo Wedding//EN
@@ -671,9 +585,9 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:sam-georgia-gozo-20260910@example.com
-DTSTAMP:${toICSFixed(new Date())}
-DTSTART:${toICSFixed(dtStart)}
-DTEND:${toICSFixed(dtEnd)}
+DTSTAMP:${toICS(new Date())}
+DTSTART:${toICS(dtStart)}
+DTEND:${toICS(dtEnd)}
 SUMMARY:Sam & Georgia — Wedding (Gozo)
 LOCATION:Kantra Beach Club\\, Triq Ta’ Ċenċ (by Mġarr ix-Xini)\\, Sannat\\, Gozo
 DESCRIPTION:Full details and RSVP on the website.
@@ -699,7 +613,7 @@ END:VCALENDAR`;
         const buf = await res.arrayBuffer();
         const blob = new Blob([buf], { type:'audio/wav' });
         audio.src  = URL.createObjectURL(blob);
-        await audio.play(); // plays because it's muted
+        await audio.play(); // muted autoplay
       } catch (e) { console.info('Waves: muted autoplay failed', e); }
 
       async function enableSound(){
@@ -707,7 +621,6 @@ END:VCALENDAR`;
         try { audio.muted=false; audio.volume=0.35; await audio.play(); audible=true; updateBtn(); btn.setAttribute('aria-pressed','true'); }
         catch(e){ console.info('Waves: unmute failed', e); }
       }
-
       function updateBtn(){ btn.textContent = audible ? 'Sound on' : 'Sound off'; }
       updateBtn();
 
@@ -733,7 +646,6 @@ END:VCALENDAR`;
     const statusEl=document.getElementById('rsvp-status');
     const googleFormLink=document.getElementById('googleFormLink');
 
-    // Update this link to your actual Google Form if you choose to use it
     googleFormLink?.addEventListener('click',(e)=>{
       if(googleFormLink.getAttribute('href')==='#'){
         e.preventDefault();
@@ -756,7 +668,6 @@ END:VCALENDAR`;
           statusEl.textContent='Add a real form endpoint (or Google Form URL) to enable submissions.';
           return;
         }
-        // If attending, ensure menu choices selected (light validation)
         if(attendance?.value==='yes'){
           const requiredMenus=['starter','main','dessert'];
           const missing = requiredMenus.some(name => (rsvpForm.elements[name]?.value ?? '')==='');
@@ -770,49 +681,66 @@ END:VCALENDAR`;
       });
     }
 
-    /* Mobile fish effect: spawn a small fish at touch point that swims and disappears */
-    const fishSVG = `
-      <svg viewBox="0 0 60 40" aria-hidden="true">
+    /* Mobile gold fish effect: single large gold fish that slowly bobs upward and fades */
+    const goldFishSVG = `
+      <svg viewBox="0 0 160 96" aria-hidden="true">
         <defs>
-          <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#83B8B4"/><stop offset="100%" stop-color="#2F4A4E"/>
+          <linearGradient id="goldBody" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#E6B655"/><stop offset="100%" stop-color="#D6A248"/>
           </linearGradient>
         </defs>
-        <path d="M40 20c0 6-8 12-18 12-4 0-8-2-10-4l-6 2 3-6c-1-1-1-2-1-4s0-3 1-4l-3-6 6 2c2-2 6-4 10-4 10 0 18 6 18 12Z" fill="url(#g)"/>
-        <circle cx="38" cy="18" r="2" fill="#fff"/><circle cx="39" cy="18" r="1" fill="#243133"/>
-        <path d="M54 20l6 6-10-2 0-8 10-2-6 6Z" fill="#A75A32"/>
+        <!-- Body -->
+        <ellipse cx="72" cy="48" rx="52" ry="30" fill="url(#goldBody)" />
+        <!-- Tail -->
+        <path d="M108 48 L150 72 Q144 48 150 24 Z" fill="#E6B655" />
+        <!-- Fin (top) -->
+        <path d="M56 36 Q72 18 88 30 L72 40 Z" fill="#E6B655" opacity=".9"/>
+        <!-- Fin (bottom) -->
+        <path d="M56 60 Q72 78 88 66 L72 56 Z" fill="#E6B655" opacity=".9"/>
+        <!-- Eye -->
+        <circle cx="52" cy="44" r="6" fill="#fff"/><circle cx="53" cy="44" r="3" fill="#243133"/>
+        <!-- Mouth hint -->
+        <path d="M44 54 q8 6 16 0" stroke="#A75A32" stroke-width="3" fill="none" stroke-linecap="round"/>
       </svg>`;
 
-    function spawnFish(x,y){
-      if(window.matchMedia('(min-width:768px)').matches) return; // mobile only
-      const el = document.createElement('div');
-      el.className = 'fish';
-      el.innerHTML = fishSVG;
+    let goldFishEl = null;
 
-      // Randomise trajectory & rotation a little
-      const dx = (Math.random() * 120 + 40) * (Math.random() > .5 ? 1 : -1);
-      const dy = (Math.random() * 60 - 30);
-      const rot = (Math.atan2(dy, dx) * 180 / Math.PI);
-      const spin = (Math.random() * 24 - 12);
-      const dur = Math.round(Math.random()*400 + 800); // 800–1200ms
+    function ensureGoldFish(){
+      if (!goldFishEl){
+        goldFishEl = document.createElement('div');
+        goldFishEl.className = 'goldfish';
+        goldFishEl.innerHTML = goldFishSVG;
+        document.body.appendChild(goldFishEl);
+      }
+      return goldFishEl;
+    }
 
-      el.style.setProperty('--x', (x - 9) + 'px');
-      el.style.setProperty('--y', (y - 6) + 'px');
-      el.style.setProperty('--dx', dx + 'px');
-      el.style.setProperty('--dy', dy + 'px');
-      el.style.setProperty('--rot', rot + 'deg');
-      el.style.setProperty('--spin', spin + 'deg');
+    function launchGoldFish(x, y){
+      if (window.matchMedia('(min-width:768px)').matches) return; // mobile only
+
+      const el = ensureGoldFish();
+
+      // position at touch point (centre-ish)
+      el.style.setProperty('--x', (x - 70) + 'px');
+      el.style.setProperty('--y', (y - 42) + 'px');
+
+      // duration (slow)
+      const dur = 8000; // 8s
       el.style.setProperty('--dur', dur + 'ms');
 
-      document.body.appendChild(el);
-      // Remove after animation
-      setTimeout(()=>{ el.remove(); }, dur + 400);
+      // restart animation explicitly
+      el.style.animation = 'none';
+      // force reflow to reset
+      void el.offsetWidth;
+      el.style.animation = `gold-bob var(--dur,8s) ease-in forwards`;
+      // also force initial opacity so first frame is visible immediately
+      el.style.opacity = '0.98';
     }
-    // Trigger on taps/clicks/press on mobile
+
     ['touchstart','pointerdown'].forEach(ev=>{
       window.addEventListener(ev, (e)=>{
         const pt = e.touches ? e.touches[0] : e;
-        spawnFish(pt.clientX, pt.clientY);
+        launchGoldFish(pt.clientX, pt.clientY);
       }, {passive:true});
     });
   </script>
