@@ -191,15 +191,17 @@
 
     /* main swim: darts to the touch point, then bolts off-screen */
     .goldfish.swimming{
-      animation:
-        fish-appear 120ms ease-out forwards,
-        fish-path var(--dur, 1800ms) cubic-bezier(.2,.8,.2,1) forwards,
-        fish-fade 260ms ease-in forwards;
-      animation-delay:
-        0ms,
-        70ms,
-        calc(var(--dur, 1800ms) - 240ms);
-    }
+  animation:
+    fish-appear 120ms ease-out forwards,
+    fish-approach 420ms cubic-bezier(.2,.8,.2,1) forwards,
+    fish-escape var(--dur, 3200ms) cubic-bezier(.2,.8,.2,1) forwards,
+    fish-fade 280ms ease-in forwards;
+  animation-delay:
+    0ms,
+    70ms,
+    520ms,
+    calc(var(--dur, 3200ms) + 520ms - 260ms);
+}
 
     /* subtle up/down as it swims */
     .goldfish.swimming .fish-wrap{
@@ -630,239 +632,205 @@ section .container {
   </div>
 
   <script>
-    document.documentElement.classList.remove('no-js');
+(() => {
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 
-    const CONFIG={ WEDDING_DATE:'2026-09-10T14:00:00+02:00' };
+  // Reveal on scroll (keeps images/maps/cards visible once in view)
+  const reveals = $$('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('visible'));
+  }
 
-    /* Mobile menu */
-    const burger=document.querySelector('.burger');
-    const menu=document.getElementById('menu');
-    burger?.addEventListener('click',()=>{
-      const isOpen = menu.classList.toggle('open');
-      const ex = burger.getAttribute('aria-expanded')==='true';
-      burger.setAttribute('aria-expanded',String(!ex));
-      burger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-    });
-    menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
-    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') menu.classList.remove('open'); });
+  // Countdown
+  const elD = $('#d'), elH = $('#h'), elM = $('#m'), elS = $('#s');
+  // Update this if needed:
+  const WEDDING_ISO = '2026-09-10T14:00:00+02:00';
+  const target = new Date(WEDDING_ISO).getTime();
 
-    /* Reveal on scroll */
-    const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:.18});
-    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  function pad(n){ return String(n).padStart(2,'0'); }
 
-    /* Countdown */
-    const $d=document.getElementById('d'),$h=document.getElementById('h'),$m=document.getElementById('m'),$s=document.getElementById('s');
-    const target=new Date(CONFIG.WEDDING_DATE);
-    const tl=document.getElementById('timeline-wedding-date'); if(tl) tl.textContent=target.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
-    function tick(){const now=new Date();const diff=Math.max(0,target-now);$d.textContent=Math.floor(diff/86400000);$h.textContent=Math.floor((diff/3600000)%24);$m.textContent=Math.floor((diff/60000)%60);$s.textContent=Math.floor((diff/1000)%60);} tick(); setInterval(tick,1000);
+  function tick(){
+    if (!elD || !elH || !elM || !elS) return;
+    const now = Date.now();
+    let diff = target - now;
 
-    /* Add-to-calendar (ICS) */
-    (function(){
-      const icsLink=document.getElementById('ics');
-      if(!icsLink) return;
-      const dtStart=new Date(CONFIG.WEDDING_DATE);
-      const dtEnd=new Date(dtStart.getTime()+6*60*60*1000);
-      const pad=n=>String(n).padStart(2,'0');
-      const toICS=(dt)=>`${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}${pad(dt.getUTCSeconds())}Z`;
-      const ics=`BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Sam & Georgia//Gozo Wedding//EN
-CALSCALE:GREGORIAN
-METHOD:PUBLISH
-BEGIN:VEVENT
-UID:sam-georgia-gozo-20260910@example.com
-DTSTAMP:${toICS(new Date())}
-DTSTART:${toICS(dtStart)}
-DTEND:${toICS(dtEnd)}
-SUMMARY:Sam & Georgia — Wedding (Gozo)
-LOCATION:Kantra Beach Club\\, Triq Ta’ Ċenċ (by Mġarr ix-Xini)\\, Sannat\\, Gozo
-DESCRIPTION:Full details and RSVP on the website.
-END:VEVENT
-END:VCALENDAR`;
-      icsLink.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
-    })();
+    if (!Number.isFinite(diff)) {
+      elD.textContent = elH.textContent = elM.textContent = elS.textContent = '—';
+      return;
+    }
 
-    /* Sunlight pointer */
-    const light=document.querySelector('.sunlight');
-    function setLight(x,y){ if(!light) return; light.style.setProperty('--x',x+'px');light.style.setProperty('--y',y+'px'); }
-    window.addEventListener('pointermove',e=>setLight(e.clientX,e.clientY));
-    window.addEventListener('pointerdown',e=>setLight(e.clientX,e.clientY));
+    if (diff <= 0) {
+      elD.textContent = '0';
+      elH.textContent = '00';
+      elM.textContent = '00';
+      elS.textContent = '00';
+      return;
+    }
 
-    /* Waves: fetch online + autoplay muted, unmute on first interaction */
-    (async function setupWaves(){
-      const audio = document.getElementById('waves');
-      const btn   = document.getElementById('audioBtn');
-      let audible = false;
+    const sec = Math.floor(diff / 1000);
+    const days = Math.floor(sec / 86400);
+    const hours = Math.floor((sec % 86400) / 3600);
+    const mins = Math.floor((sec % 3600) / 60);
+    const secs = sec % 60;
 
+    elD.textContent = String(days);
+    elH.textContent = pad(hours);
+    elM.textContent = pad(mins);
+    elS.textContent = pad(secs);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // Mobile waves audio (safe, non-blocking)
+  const btn = $('#soundToggle');
+  const audio = $('#wavesAudio');
+  if (btn && audio) {
+    let audible = false;
+
+    function updateBtn() {
+      btn.textContent = audible ? 'Sound on' : 'Sound off';
+      btn.setAttribute('aria-pressed', audible ? 'true' : 'false');
+    }
+    updateBtn();
+
+    async function enableSound(){
+      if (audible) return;
       try {
-        const res = await fetch('https://upload.wikimedia.org/wikipedia/commons/8/84/Sea_waves.wav', { mode:'cors' });
-        const buf = await res.arrayBuffer();
-        const blob = new Blob([buf], { type:'audio/wav' });
-        audio.src  = URL.createObjectURL(blob);
-        await audio.play(); // muted autoplay
-      } catch (e) { console.info('Waves: muted autoplay failed', e); }
-
-      async function enableSound(){
-        if (audible) return;
-        try { audio.muted=false; audio.volume=0.35; await audio.play(); audible=true; updateBtn(); btn.setAttribute('aria-pressed','true'); }
-        catch(e){ console.info('Waves: unmute failed', e); }
-      }
-      function updateBtn(){ btn.textContent = audible ? 'Sound on' : 'Sound off'; }
-      updateBtn();
-
-      btn.addEventListener('click', async ()=>{
-        if (!audible) return enableSound();
-        if (!audio.paused){ audio.pause(); audible=false; btn.setAttribute('aria-pressed','false'); }
-        else { await enableSound(); }
+        audio.muted = false;
+        audio.volume = 0.35;
+        await audio.play();
+        audible = true;
         updateBtn();
-      });
-
-      ['pointerdown','touchstart','click','keydown','scroll','wheel']
-        .forEach(ev => window.addEventListener(ev, enableSound, { once:true, passive:true }));
-
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden && audible) audio.play().catch(()=>{});
-      });
-    })();
-
-    }
-    updateMenuVisibility();
-
-          e.preventDefault();
-          return;
-        }
-          const requiredMenus=['starter','main','dessert'];
-          if(missing){
-            e.preventDefault();
-            return;
-          }
-        }
-      });
+      } catch {}
     }
 
-        /* Mobile gold fish effect: small fish darts to your tap, then bolts away */
-    const goldFishSVG = `
-      <svg viewBox="0 0 160 96" aria-hidden="true">
-        <defs>
-          <linearGradient id="goldBody" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#E6B655"/><stop offset="100%" stop-color="#D6A248"/>
-          </linearGradient>
-        </defs>
-
-        <g class="fish-wrap">
-          <!-- Body -->
-          <ellipse cx="78" cy="48" rx="46" ry="26" fill="url(#goldBody)"/>
-          <!-- Tail (wiggles) -->
-          <g class="tail">
-            <path d="M112 48 L152 72 Q145 48 152 24 Z" fill="#E6B655"/>
-          </g>
-          <!-- Fins (flutter) -->
-          <path class="fin" d="M68 34 Q84 18 98 30 L84 40 Z" fill="#E6B655"/>
-          <path class="fin" d="M68 62 Q84 78 98 66 L84 56 Z" fill="#E6B655"/>
-          <!-- Eye -->
-          <circle cx="58" cy="44" r="6" fill="#fff"/><circle cx="59" cy="44" r="3" fill="#243133"/>
-          <!-- Mouth hint -->
-          <path d="M50 54 q8 6 16 0" stroke="#A75A32" stroke-width="3" fill="none" stroke-linecap="round"/>
-        </g>
-      </svg>`;
-
-    let goldFishEl = null;
-    let lastFishAt = 0;
-
-    function isMobileFishEnabled(){
-      // Mobile-only: small screens + coarse pointer tends to mean touch devices.
-      const mqSize = window.matchMedia('(max-width: 767.98px)').matches;
-      const mqCoarse = window.matchMedia('(pointer: coarse)').matches;
-      return mqSize || mqCoarse;
-    }
-
-    function ensureGoldFish(){
-      if (!goldFishEl){
-        goldFishEl = document.createElement('div');
-        goldFishEl.className = 'goldfish';
-        goldFishEl.innerHTML = goldFishSVG;
-        document.body.appendChild(goldFishEl);
-
-        // Cleanup after each run
-        goldFishEl.addEventListener('animationend', (e) => {
-          if (e.animationName === 'fish-fade'){
-            goldFishEl.classList.remove('swimming');
-            goldFishEl.style.opacity = '0';
-          }
-        });
-      }
-      return goldFishEl;
-    }
-
-    function shouldIgnoreTarget(target){
-      // Avoid spawning fish when the user is interacting with UI controls/links.
-      return !!target?.closest?.('a, button, input, select, textarea, label');
-    }
-
-    function launchGoldFish(x, y){
-      if (!isMobileFishEnabled()) return;
-
-      const now = performance.now();
-      if (now - lastFishAt < 650) return; // cooldown
-      lastFishAt = now;
-
-      const el = ensureGoldFish();
-
-      // Escape direction: left or right
-      const goRight = false; // always escape left
-
-      // The fish starts just off-screen at the bottom (with some X variation),
-      // darts to the tap point, pauses a beat, then bolts off-screen.
-      const startX = Math.max(-80, Math.min(window.innerWidth - 20, x + (Math.random() * 240 - 120))) - 40;
-      const startY = window.innerHeight + 120;
-
-      // Tap point (centre-ish)
-      const midX = x - 40;
-      const midY = y - 28;
-
-      // Escape off-screen with some vertical variation
-      const offscreenX = goRight ? (window.innerWidth + 160) : (-220);
-      const driftY = (Math.random() * 140) - 70; // -70..+70
-      const endY = Math.max(20, Math.min(window.innerHeight - 80, midY + driftY));
-
-      // Speed variation (snappy dart + escape)
-      const dur = 1300 + Math.floor(Math.random() * 900); // 1300–2200ms
-
-      el.style.setProperty('--sx', `${startX}px`);
-      el.style.setProperty('--sy', `${startY}px`);
-      el.style.setProperty('--mx', `${midX}px`);
-      el.style.setProperty('--my', `${midY}px`);
-      el.style.setProperty('--ex', `${offscreenX}px`);
-      el.style.setProperty('--ey', `${endY}px`);
-      el.style.setProperty('--dur', `${dur}ms`);
-      el.style.setProperty('--flip', '-1'); // face left
-
-      // Restart animation
-      el.classList.remove('swimming');
-      el.style.animation = 'none';
-      void el.offsetWidth; // force reflow
-      el.style.animation = '';
-      el.classList.add('swimming');
-    }
-
-    ['pointerdown','touchstart'].forEach(ev=>{
-      window.addEventListener(ev, (e)=>{
-        if (shouldIgnoreTarget(e.target)) return;
-        const pt = e.touches ? e.touches[0] : e;
-        launchGoldFish(pt.clientX, pt.clientY);
-      }, { passive:true });
-    });
-
-    /* RSVP Google Form: guard placeholder link */
-    const googleFormBtn = document.getElementById('googleFormBtn');
-    googleFormBtn?.addEventListener('click', (e) => {
-      const href = googleFormBtn.getAttribute('href') || '';
-      if (href.includes('REPLACE_ME')) {
-        e.preventDefault();
-        alert('Replace the RSVP Google Form link (href) in the RSVP section.');
+    btn.addEventListener('click', async () => {
+      if (!audible) return enableSound();
+      if (!audio.paused) {
+        audio.pause();
+        audible = false;
+        updateBtn();
+      } else {
+        await enableSound();
       }
     });
 
-  </script>
+    ['pointerdown','touchstart','click','keydown']
+      .forEach(ev => window.addEventListener(ev, enableSound, { once:true, passive:true }));
+  }
+
+  // Mobile gold fish: darts towards your tap, then bolts away LEFT (slower)
+  const goldFishSVG = `
+  <svg viewBox="0 0 160 96" aria-hidden="true">
+    <defs>
+      <linearGradient id="goldBody" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#E6B655"/><stop offset="100%" stop-color="#D6A248"/>
+      </linearGradient>
+    </defs>
+
+    <g class="fish-wrap">
+      <ellipse cx="78" cy="48" rx="46" ry="26" fill="url(#goldBody)"/>
+      <g class="tail">
+        <path d="M112 48 L152 72 Q145 48 152 24 Z" fill="#E6B655"/>
+      </g>
+      <path class="fin" d="M68 34 Q84 18 98 30 L84 40 Z" fill="#E6B655"/>
+      <path class="fin" d="M68 62 Q84 78 98 66 L84 56 Z" fill="#E6B655"/>
+      <circle cx="58" cy="44" r="6" fill="#fff"/><circle cx="59" cy="44" r="3" fill="#243133"/>
+      <path d="M50 54 q8 6 16 0" stroke="#A75A32" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>`;
+
+  let fishEl = null;
+  let lastFishAt = 0;
+
+  function isMobile(){
+    return window.matchMedia('(max-width: 767.98px)').matches ||
+           window.matchMedia('(pointer: coarse)').matches;
+  }
+
+  function ensureFish(){
+    if (!fishEl){
+      fishEl = document.createElement('div');
+      fishEl.className = 'goldfish';
+      fishEl.innerHTML = goldFishSVG;
+      document.body.appendChild(fishEl);
+
+      fishEl.addEventListener('animationend', (e) => {
+        if (e.animationName === 'fish-fade'){
+          fishEl.classList.remove('swimming');
+          fishEl.style.opacity = '0';
+        }
+      });
+    }
+    return fishEl;
+  }
+
+  function shouldIgnoreTarget(target){
+    return !!target?.closest?.('a, button, input, select, textarea, label');
+  }
+
+  function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+  function launchFish(x, y){
+    if (!isMobile()) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const now = performance.now();
+    if (now - lastFishAt < 800) return; // anti-spam
+    lastFishAt = now;
+
+    const el = ensureFish();
+
+    // Fish is smaller; centre around the tap
+    const midX = x - 40;
+    const midY = y - 28;
+
+    // Start off-screen right so it "darts in" towards the tap
+    const startX = window.innerWidth + 120;
+    const startY = clamp(midY + (Math.random()*120 - 60), 20, window.innerHeight - 80);
+
+    // Escape off-screen left with slight vertical drift
+    const endX = -220;
+    const endY = clamp(midY + (Math.random()*140 - 70), 20, window.innerHeight - 80);
+
+    const dur = 2800 + Math.floor(Math.random() * 1600); // 2800–4400ms (slower)
+
+    el.style.setProperty('--sx', `${startX}px`);
+    el.style.setProperty('--sy', `${startY}px`);
+    el.style.setProperty('--mx', `${midX}px`);
+    el.style.setProperty('--my', `${midY}px`);
+    el.style.setProperty('--ex', `${endX}px`);
+    el.style.setProperty('--ey', `${endY}px`);
+    el.style.setProperty('--dur', `${dur}ms`);
+    el.style.setProperty('--flip', '-1'); // face left
+
+    el.classList.remove('swimming');
+    el.style.animation = 'none';
+    void el.offsetWidth; // reflow
+    el.style.animation = '';
+    el.classList.add('swimming');
+  }
+
+  ['pointerdown','touchstart'].forEach(ev=>{
+    window.addEventListener(ev, (e)=>{
+      if (shouldIgnoreTarget(e.target)) return;
+      const pt = e.touches ? e.touches[0] : e;
+      launchFish(pt.clientX, pt.clientY);
+    }, { passive:true });
+  });
+
+})();
+</script>
 </body>
 </html>
