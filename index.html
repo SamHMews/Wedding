@@ -193,17 +193,15 @@
     .goldfish.swimming{
   animation:
     fish-appear 120ms ease-out forwards,
-    fish-approach 420ms cubic-bezier(.2,.8,.2,1) forwards,
-    fish-escape var(--dur, 3200ms) cubic-bezier(.2,.8,.2,1) forwards,
+    fish-path var(--dur, 3200ms) cubic-bezier(.2,.8,.2,1) forwards,
     fish-fade 280ms ease-in forwards;
   animation-delay:
     0ms,
     70ms,
-    520ms,
-    calc(var(--dur, 3200ms) + 520ms - 260ms);
+    calc(var(--dur, 3200ms) - 260ms);
 }
 
-    /* subtle up/down as it swims */
+/* subtle up/down as it swims */
     .goldfish.swimming .fish-wrap{
       animation: fish-bob 520ms ease-in-out infinite;
     }
