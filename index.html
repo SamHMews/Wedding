@@ -162,26 +162,87 @@
     /* Audio toggle */
     .audio-toggle{position:fixed;right:14px;bottom:14px;z-index:1200;background:#fff;border:1px solid #e5ded2;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:.5rem;align-items:center}
     .audio-toggle button{all:unset;cursor:pointer;font-weight:700;color:var(--terracotta)}
-
-    /* Mobile gold fish effect (singleton) */
+    /* Mobile gold fish effect (mobile-only, touch-trigger) */
     .goldfish{
-      position:fixed;left:0;top:0;pointer-events:none;z-index:7;
-      width:140px;height:84px; /* larger */
-      transform:translate(var(--x,0px),var(--y,0px));
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,.22));
+      position:fixed; left:0; top:0;
+      pointer-events:none;
+      z-index:9999;
+      width:82px; height:auto;          /* smaller + more realistic */
       opacity:0;
+      transform:translate3d(var(--sx,0px), var(--sy,0px), 0) scale(var(--sc,1));
       will-change: transform, opacity;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.18));
     }
-    .goldfish svg{display:block;width:100%;height:100%}
-    @keyframes gold-bob{
-      0%   { transform: translate(var(--x), var(--y)); opacity: .98; }
-      20%  { transform: translate(calc(var(--x) + 12px), calc(var(--y) - 10vh)); }
-      40%  { transform: translate(calc(var(--x) - 10px), calc(var(--y) - 25vh)); }
-      60%  { transform: translate(calc(var(--x) + 8px),  calc(var(--y) - 45vh)); }
-      80%  { transform: translate(calc(var(--x) - 6px),  calc(var(--y) - 65vh)); }
-      100% { transform: translate(var(--x), calc(var(--y) - 90vh)); opacity: 0; }
+
+    .goldfish svg{ display:block; width:100%; height:auto; }
+    .goldfish .fish-wrap{
+      transform-origin: 50% 50%;
+      transform: scaleX(var(--flip, 1));
     }
+    .goldfish .tail{
+      transform-origin: 12% 50%;
+      animation: fish-tail 220ms ease-in-out infinite;
+    }
+    .goldfish .fin{
+      transform-origin: 40% 50%;
+      animation: fish-fin 380ms ease-in-out infinite;
+      opacity: .85;
+    }
+
+    /* main swim: darts to the touch point, then bolts off-screen */
+    .goldfish.swimming{
+      animation:
+        fish-appear 120ms ease-out forwards,
+        fish-path var(--dur, 1800ms) cubic-bezier(.2,.8,.2,1) forwards,
+        fish-fade 260ms ease-in forwards;
+      animation-delay:
+        0ms,
+        70ms,
+        calc(var(--dur, 1800ms) - 240ms);
+    }
+
+    /* subtle up/down as it swims */
+    .goldfish.swimming .fish-wrap{
+      animation: fish-bob 520ms ease-in-out infinite;
+    }
+
+    @keyframes fish-appear{
+      from{ opacity:0; transform:translate3d(var(--sx), var(--sy), 0) scale(.92); }
+      to  { opacity:.98; transform:translate3d(var(--sx), var(--sy), 0) scale(1); }
+    }
+
+    /* keyframe path with a "curious dart" to the tap point, micro-pause, then escape */
+    @keyframes fish-path{
+      0%   { transform:translate3d(var(--sx), var(--sy), 0) scale(1); }
+      18%  { transform:translate3d(var(--mx), var(--my), 0) scale(1); }
+      24%  { transform:translate3d(var(--mx), var(--my), 0) scale(1); }
+      100% { transform:translate3d(var(--ex), var(--ey), 0) scale(.96); }
+    }
+
+    @keyframes fish-fade{
+      from{ opacity:.98; }
+      to  { opacity:0; }
+    }
+    @keyframes fish-bob{
+      0%   { transform:translate3d(0,0,0) rotate(-1deg); }
+      50%  { transform:translate3d(0,-8px,0) rotate(1deg); }
+      100% { transform:translate3d(0,0,0) rotate(-1deg); }
+    }
+    @keyframes fish-tail{
+      0%   { transform:rotate(10deg); }
+      50%  { transform:rotate(-14deg); }
+      100% { transform:rotate(10deg); }
+    }
+    @keyframes fish-fin{
+      0%   { transform:rotate(6deg); }
+      50%  { transform:rotate(-10deg); }
+      100% { transform:rotate(6deg); }
+    }
+
     @media(min-width:768px){ .goldfish{ display:none } } /* mobile-only */
+    @media (prefers-reduced-motion: reduce){
+      .goldfish, .goldfish *{ animation:none !important; }
+    }
   </style>
 
   <!-- Event structured data -->
@@ -681,7 +742,7 @@ END:VCALENDAR`;
       });
     }
 
-    /* Mobile gold fish effect: single large gold fish that slowly bobs upward and fades */
+        /* Mobile gold fish effect: small fish darts to your tap, then bolts away */
     const goldFishSVG = `
       <svg viewBox="0 0 160 96" aria-hidden="true">
         <defs>
@@ -689,21 +750,33 @@ END:VCALENDAR`;
             <stop offset="0%" stop-color="#E6B655"/><stop offset="100%" stop-color="#D6A248"/>
           </linearGradient>
         </defs>
-        <!-- Body -->
-        <ellipse cx="72" cy="48" rx="52" ry="30" fill="url(#goldBody)" />
-        <!-- Tail -->
-        <path d="M108 48 L150 72 Q144 48 150 24 Z" fill="#E6B655" />
-        <!-- Fin (top) -->
-        <path d="M56 36 Q72 18 88 30 L72 40 Z" fill="#E6B655" opacity=".9"/>
-        <!-- Fin (bottom) -->
-        <path d="M56 60 Q72 78 88 66 L72 56 Z" fill="#E6B655" opacity=".9"/>
-        <!-- Eye -->
-        <circle cx="52" cy="44" r="6" fill="#fff"/><circle cx="53" cy="44" r="3" fill="#243133"/>
-        <!-- Mouth hint -->
-        <path d="M44 54 q8 6 16 0" stroke="#A75A32" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+        <g class="fish-wrap">
+          <!-- Body -->
+          <ellipse cx="78" cy="48" rx="46" ry="26" fill="url(#goldBody)"/>
+          <!-- Tail (wiggles) -->
+          <g class="tail">
+            <path d="M112 48 L152 72 Q145 48 152 24 Z" fill="#E6B655"/>
+          </g>
+          <!-- Fins (flutter) -->
+          <path class="fin" d="M68 34 Q84 18 98 30 L84 40 Z" fill="#E6B655"/>
+          <path class="fin" d="M68 62 Q84 78 98 66 L84 56 Z" fill="#E6B655"/>
+          <!-- Eye -->
+          <circle cx="58" cy="44" r="6" fill="#fff"/><circle cx="59" cy="44" r="3" fill="#243133"/>
+          <!-- Mouth hint -->
+          <path d="M50 54 q8 6 16 0" stroke="#A75A32" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
       </svg>`;
 
     let goldFishEl = null;
+    let lastFishAt = 0;
+
+    function isMobileFishEnabled(){
+      // Mobile-only: small screens + coarse pointer tends to mean touch devices.
+      const mqSize = window.matchMedia('(max-width: 767.98px)').matches;
+      const mqCoarse = window.matchMedia('(pointer: coarse)').matches;
+      return mqSize || mqCoarse;
+    }
 
     function ensureGoldFish(){
       if (!goldFishEl){
@@ -711,38 +784,76 @@ END:VCALENDAR`;
         goldFishEl.className = 'goldfish';
         goldFishEl.innerHTML = goldFishSVG;
         document.body.appendChild(goldFishEl);
+
+        // Cleanup after each run
+        goldFishEl.addEventListener('animationend', (e) => {
+          if (e.animationName === 'fish-fade'){
+            goldFishEl.classList.remove('swimming');
+            goldFishEl.style.opacity = '0';
+          }
+        });
       }
       return goldFishEl;
     }
 
+    function shouldIgnoreTarget(target){
+      // Avoid spawning fish when the user is interacting with UI controls/links.
+      return !!target?.closest?.('a, button, input, select, textarea, label');
+    }
+
     function launchGoldFish(x, y){
-      if (window.matchMedia('(min-width:768px)').matches) return; // mobile only
+      if (!isMobileFishEnabled()) return;
+
+      const now = performance.now();
+      if (now - lastFishAt < 650) return; // cooldown
+      lastFishAt = now;
 
       const el = ensureGoldFish();
 
-      // position at touch point (centre-ish)
-      el.style.setProperty('--x', (x - 70) + 'px');
-      el.style.setProperty('--y', (y - 42) + 'px');
+      // Escape direction: left or right
+      const goRight = Math.random() > 0.5;
 
-      // duration (slow)
-      const dur = 8000; // 8s
-      el.style.setProperty('--dur', dur + 'ms');
+      // The fish starts just off-screen at the bottom (with some X variation),
+      // darts to the tap point, pauses a beat, then bolts off-screen.
+      const startX = Math.max(-80, Math.min(window.innerWidth - 20, x + (Math.random() * 240 - 120))) - 40;
+      const startY = window.innerHeight + 120;
 
-      // restart animation explicitly
+      // Tap point (centre-ish)
+      const midX = x - 40;
+      const midY = y - 28;
+
+      // Escape off-screen with some vertical variation
+      const offscreenX = goRight ? (window.innerWidth + 160) : (-220);
+      const driftY = (Math.random() * 140) - 70; // -70..+70
+      const endY = Math.max(20, Math.min(window.innerHeight - 80, midY + driftY));
+
+      // Speed variation (snappy dart + escape)
+      const dur = 1300 + Math.floor(Math.random() * 900); // 1300–2200ms
+
+      el.style.setProperty('--sx', `${startX}px`);
+      el.style.setProperty('--sy', `${startY}px`);
+      el.style.setProperty('--mx', `${midX}px`);
+      el.style.setProperty('--my', `${midY}px`);
+      el.style.setProperty('--ex', `${offscreenX}px`);
+      el.style.setProperty('--ey', `${endY}px`);
+      el.style.setProperty('--dur', `${dur}ms`);
+      el.style.setProperty('--flip', goRight ? '1' : '-1');
+
+      // Restart animation
+      el.classList.remove('swimming');
       el.style.animation = 'none';
-      // force reflow to reset
-      void el.offsetWidth;
-      el.style.animation = `gold-bob var(--dur,8s) ease-in forwards`;
-      // also force initial opacity so first frame is visible immediately
-      el.style.opacity = '0.98';
+      void el.offsetWidth; // force reflow
+      el.style.animation = '';
+      el.classList.add('swimming');
     }
 
-    ['touchstart','pointerdown'].forEach(ev=>{
+    ['pointerdown','touchstart'].forEach(ev=>{
       window.addEventListener(ev, (e)=>{
+        if (shouldIgnoreTarget(e.target)) return;
         const pt = e.touches ? e.touches[0] : e;
         launchGoldFish(pt.clientX, pt.clientY);
-      }, {passive:true});
+      }, { passive:true });
     });
-  </script>
+</script>
 </body>
 </html>
