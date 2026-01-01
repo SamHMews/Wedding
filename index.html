@@ -243,7 +243,22 @@
     @media (prefers-reduced-motion: reduce){
       .goldfish, .goldfish *{ animation:none !important; }
     }
-  </style>
+  
+/* Visibility safeguard */
+section p,
+section ul,
+section ol,
+section li,
+section figure,
+section img,
+section .card,
+section .container {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+</style>
 
   <!-- Event structured data -->
   <script type="application/ld+json">
@@ -278,19 +293,7 @@
         <span>Sam &amp; Georgia</span>
       </a>
       <button class="burger" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><span></span></button>
-      <nav>
-        <ul id="menu">
-          <li><a href="#story">Our Story</a></li>
-          <li><a href="#dates">Wedding Dates</a></li>
-          <li><a href="#travel">How to Get There</a></li>
-          <li><a href="#stay">Where to Stay</a></li>
-          <li><a href="#getting-around">Getting Around</a></li>
-          <li><a href="#weather">Weather</a></li>
-          <li><a href="#attire">Wedding Attire</a></li>
-          <li><a href="#tips">Bonus Tips</a></li>
-          <li><a href="#rsvp">RSVP</a></li>
-</ul>
-      </nav>
+      
     </div>
   </header>
 
