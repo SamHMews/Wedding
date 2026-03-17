@@ -709,6 +709,40 @@ footer{
 .card .section-divider{
   margin:22px 0 !important;
 }
+
+
+/* Center list content properly */
+.stay-list,
+.stay-list li{
+  text-align: center !important;
+  list-style-position: inside !important;
+}
+
+/* Ensure all unordered lists are centered */
+.card ul{
+  text-align: center !important;
+  padding-left: 0 !important;
+}
+
+/* Increase spacing between subheadings and content */
+.card h3{
+  margin-top:16px !important;
+  margin-bottom:18px !important;
+}
+
+.card h3 + *{
+  margin-top:12px !important;
+}
+
+/* Add extra breathing room specifically for lists under headings */
+.card h3 + ul{
+  margin-top:14px !important;
+}
+
+/* Slightly more vertical rhythm overall */
+.card{
+  line-height:1.7;
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
