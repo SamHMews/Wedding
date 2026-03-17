@@ -836,6 +836,36 @@ footer{
   10%{opacity:.9}
   100%{transform:translate3d(var(--dx,0px), calc(-1 * var(--dy,120px)), 0) scale(1.2);opacity:0}
 }
+
+
+/* Gold borders for inner cards (Choose an area boxes) */
+.inner-card{
+  border:1px solid var(--gold) !important;
+}
+
+/* Force consistent spacing between ALL sections/cards on desktop */
+@media(min-width:900px){
+  .section > .container{
+    gap:var(--card-gap) !important;
+  }
+
+  .container > *{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+
+  .container > * + *{
+    margin-top:var(--card-gap) !important;
+  }
+
+  .section{
+    padding:40px 0 !important;
+  }
+
+  .section + .section{
+    margin-top:0 !important;
+  }
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -927,7 +957,6 @@ footer{
 <h2 id="travel-title">How to Get There</h2>
 <p class="accent">Three simple steps — fly to Malta, get to the right terminal, then hop over to Gozo.</p>
 <div aria-label="Travel steps slider" class="travel-slider reveal">
-
 <div class="travel-slides">
 <article class="slide-card" id="travel-slide-1">
 <h3>Step 1: Fly to Malta (MLA)</h3>
@@ -948,7 +977,6 @@ footer{
 </ul>
 </article>
 </div>
-
 <div class="slider-controls"><button aria-label="Previous travel step" class="slider-arrow prev" type="button">‹</button><button aria-label="Next travel step" class="slider-arrow next" type="button">›</button></div></div>
 </div>
 </div>
