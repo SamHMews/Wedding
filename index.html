@@ -420,6 +420,35 @@ footer{
     min-height: 360px !important;
   }
 }
+
+
+.map-card{
+  padding:16px !important;
+}
+.map-embed{
+  width:100% !important;
+  margin:0 !important;
+}
+.map-embed iframe{
+  width:100% !important;
+  height:100% !important;
+  display:block !important;
+}
+
+
+/* Refined map edge treatment */
+.map-card{
+  border-radius: 20px !important;
+  overflow: hidden !important;
+}
+.map-embed{
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
+}
+.map-embed iframe{
+  border-radius: 14px !important;
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -497,11 +526,11 @@ footer{
 </p>
 </div>
 <div class="dates-grid">
-<div aria-label="Google map of Il Kantra Beach Club, Gozo" class="map-card reveal">
-<div class="map-embed">
+<div aria-label="Google map of Il Kantra Beach Club, Gozo" class="map-card reveal" style="padding:16px">
+<div class="map-embed" style="width:100%;margin:0;border-radius:12px;overflow:hidden">
 <iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=36.017361,14.271833&amp;z=16&amp;output=embed" title="Il Kantra Beach Club location on Google Maps"></iframe>
 </div>
-<div class="map-legend"><span class="map-dot"></span>Reception</div>
+<div class="map-legend"><span class="map-dot"></span></div>
 </div>
 </div>
 </div>
