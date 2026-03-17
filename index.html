@@ -22,6 +22,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&amp;family=Parisienne&amp;family=Raleway:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
     :root{
+      --card-bg: rgba(249,246,240,.94);
+      --card-width: 760px;
+      --card-gap: 20px;
       --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F; --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
       --maxw:1100px; --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
       --hero-image:url("assets/images/Sunny%20beach%20with%20turquoise%20waves%20(1).png");
@@ -71,10 +74,18 @@
     .accent{font-family:'Parisienne',cursive;font-size:clamp(24px,3vw,42px);color:var(--terracotta)}
     .story-grid{display:grid;gap:24px}
     @media(min-width:900px){.story-grid{grid-template-columns:1.2fr 1fr;align-items:center;gap:42px}}
-    .card{margin-left:auto;margin-right:auto;text-align:center;max-width:100%;background:#fff;border:1px solid #efe9de;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+    .card{margin:0 auto;text-align:center;max-width:var(--card-width);width:100%;background:var(--card-bg);border:1px solid #efe9de;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
     .title-card{padding:26px 22px}
+    .inner-card{max-width:100%;background:rgba(255,255,255,.42);box-shadow:none}
     .title-card .accent{margin:0}
-    @media(max-width:767px){body{background-attachment:scroll;background-size:auto 100vh}.hero .display{font-size:clamp(38px,13vw,58px)}.countdown{gap:10px}.countdown .unit{min-width:0;width:100%;max-width:92px;padding:8px 10px}.cta-row{width:100%;max-width:320px}.btn{width:100%}.card,.tip,.map-card{padding:18px}.map-embed{aspect-ratio:1/1.08}}
+        
+    .travel-slider{max-width:var(--card-width);margin:var(--card-gap) auto 0}
+    .travel-slides{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+    .travel-slides::-webkit-scrollbar{display:none}
+    .slide-card{flex:0 0 100%;scroll-snap-align:start;box-sizing:border-box}
+    .slider-dots{display:flex;justify-content:center;gap:10px;margin-top:14px}
+    .slider-dots a{width:10px;height:10px;border-radius:999px;background:rgba(47,74,78,.22);display:block;text-decoration:none}
+
     .media{position:relative;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow)}
     .media img{width:100%;height:auto;display:block}
     .pill{display:inline-block;border-radius:999px;border:1px solid var(--seafoam);padding:6px 12px;font-size:.9rem;color:var(--teal);background:#ffffffb3;margin-right:6px}
@@ -82,7 +93,7 @@
     /* Dates */
     .dates{background:transparent}
     .dates-grid{display:grid;gap:22px;grid-template-columns:1fr;justify-items:center}
-    @media(min-width:980px){.dates-grid{grid-template-columns:1fr;gap:24px}}
+    
     .map-card{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:12px;box-shadow:var(--shadow);max-width:760px;margin:0 auto}
     .map-embed{border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#e8f3f2}
     .map-embed iframe{width:100%;height:100%;border:0;display:block}
@@ -91,11 +102,11 @@
 
     /* Travel / Stay */
     .travel-grid{display:grid;gap:22px;grid-template-columns:1fr}
-    @media(min-width:900px){.travel-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}}
-    .tip{background:#fff;border:1px solid #efe9de;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);width:100%;margin:0 auto}
+    
+    .tip,.map-card,.slide-card{background:var(--card-bg);border:1px solid #efe9de;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);width:100%;max-width:var(--card-width);margin:0 auto}
 
     .stay-grid{display:grid;gap:22px;grid-template-columns:1fr;justify-items:center}
-    @media(min-width:980px){.stay-grid{grid-template-columns:1fr;gap:24px}}
+    
     .stay-list{margin:0;padding-left:0;list-style-position:inside;text-align:center}
     .stay-list li{margin:8px 0}
 
@@ -126,6 +137,22 @@
       radial-gradient(800px 800px at var(--x,50%) var(--y,50%), rgba(255,255,220,.15), rgba(255,255,220,0) 50%);
       transition:background .08s ease}
     @media(prefers-reduced-motion:reduce){.sunlight{transition:none;display:none}}
+
+    @media(max-width:767px){
+      body{background-attachment:scroll;background-size:auto 100vh}
+      .container{padding:0 16px}
+      .section{padding:36px 0}
+      .hero{min-height:100svh;padding:78px 16px 34px}
+      .hero .display{font-size:clamp(38px,13vw,58px)}
+      .hero .tagline{max-width:22rem}
+      .countdown{gap:10px}
+      .countdown .unit{min-width:0;width:100%;max-width:92px;padding:8px 10px}
+      .cta-row{width:100%;max-width:320px}
+      .btn{width:100%}
+      .card,.tip,.map-card,.slide-card{padding:18px}
+      .map-embed{aspect-ratio:1/1.08}
+    }
+
 
     /* Audio toggle */
     .audio-toggle{position:fixed;right:14px;bottom:14px;z-index:1200;background:#fff;border:1px solid #e5ded2;border-radius:999px;padding:10px 14px;box-shadow:var(--shadow);display:flex;gap:.5rem;align-items:center}
@@ -265,7 +292,6 @@ section .container {
 </div>
 <div class="cta-row"><a class="btn" href="#rsvp">Join us under our sun</a></div>
 <!-- Add-to-calendar quick link -->
-
 </main>
 <!-- Our Story (Replaced) -->
 <section aria-labelledby="story-title" class="section" id="story" style="position:relative; z-index:2;">
@@ -317,28 +343,34 @@ section .container {
 <!-- How to Get There -->
 <section aria-labelledby="travel-title" class="section" id="travel">
 <div class="container">
-<div class="card reveal title-card" style="max-width:760px;">
+<div class="card reveal title-card">
 <h2 id="travel-title">How to Get There</h2>
 <p class="accent">Three simple steps — fly to Malta, get to the right terminal, then hop over to Gozo.</p>
 </div>
-<div class="travel-grid" style="margin-top:20px;">
-<div class="tip reveal">
+<div aria-label="Travel steps slider" class="travel-slider reveal">
+<div class="travel-slides">
+<article class="slide-card" id="travel-slide-1">
 <h3>Step 1: Fly to Malta (MLA)</h3>
 <ul class="stay-list">
 <li>Book flights to <strong>Malta International Airport (MLA)</strong>.</li>
 <li><strong>Car hire:</strong> hiring at the airport is the easiest way to explore Gozo and makes ferry travel straightforward.</li>
 <li>If you’re not hiring a car, taxis and ride-hailing can get you into Valletta for the fast ferry.</li>
 </ul>
-</div>
-<div class="tip reveal">
+</article>
+<article class="slide-card" id="travel-slide-2">
 <h3>Step 2: Ferry options &amp; onward travel</h3>
 <ul class="stay-list">
 <li><strong>Option A — Car ferry terminal (Ċirkewwa):</strong> best if you have a hire car. Drive from the airport to Ċirkewwa and take the <em>Gozo Channel</em> car ferry.</li>
 <li><strong>Option B — Valletta fast ferry:</strong> best if you’re travelling without a car. Head to Valletta and take the <em>Gozo Highspeed</em> passenger ferry.</li>
 <li><strong>Car ferry (Ċirkewwa ↔ Mġarr):</strong> frequent sailings, around 25 minutes.</li>
 <li><strong>Fast ferry (Valletta ↔ Mġarr):</strong> passenger-only, typically around 45 minutes.</li>
-<li><a href="https://www.gozochannel.com/ferry/schedule/" rel="noopener" target="_blank">Gozo Channel timetable</a>  •  <a href="https://gozohighspeed.com/pages/schedule" rel="noopener" target="_blank">Gozo Highspeed timetable</a></li>
+<li><a href="https://www.gozochannel.com/ferry/schedule/" rel="noopener" target="_blank">Gozo Channel timetable</a> • <a href="https://gozohighspeed.com/pages/schedule" rel="noopener" target="_blank">Gozo Highspeed timetable</a></li>
 </ul>
+</article>
+</div>
+<div aria-hidden="true" class="slider-dots">
+<a href="#travel-slide-1"></a>
+<a href="#travel-slide-2"></a>
 </div>
 </div>
 </div>
@@ -367,31 +399,28 @@ section .container {
 </div>
 </section>
 <!-- Weather -->
-
 <!-- Attire -->
-
 <!-- Bonus Tips -->
-
 <!-- Where to Stay -->
 <section aria-labelledby="stay-title" class="section" id="stay">
 <div class="container">
-<div class="card reveal title-card" style="max-width:760px;">
+<div class="card reveal title-card">
 <h2 id="stay-title">🌿 Where to Stay on Gozo</h2>
 <p class="accent">Short distances, big views — pick the vibe you want and everything is a quick drive away.</p>
 </div>
 <div class="stay-grid" style="margin-top:20px;">
-<div class="card reveal" style="max-width:760px;">
+<div class="card reveal">
 <h3>Choose an area</h3>
 <div style="display:grid; gap:14px; margin-top:10px">
-<div class="card" style="padding:16px">
+<div class="card inner-card" style="padding:16px">
 <h4 style="margin:0 0 6px">Victoria (Rabat)</h4>
 <p style="margin:0">The island’s lively hub — cafés, shops, and the easiest base for getting around.</p>
 </div>
-<div class="card" style="padding:16px">
+<div class="card inner-card" style="padding:16px">
 <h4 style="margin:0 0 6px">Xlendi or Marsalforn</h4>
 <p style="margin:0">Seaside villages with promenades, swimming spots, and plenty of restaurants.</p>
 </div>
-<div class="card" style="padding:16px">
+<div class="card inner-card" style="padding:16px">
 <h4 style="margin:0 0 6px">Għarb / San Lawrenz</h4>
 <p style="margin:0">Quiet countryside, stone farmhouses, wide skies — perfect for a slower pace.</p>
 </div>
@@ -404,10 +433,11 @@ section .container {
 </ul>
 <h3 style="margin-top:18px">Handy picks</h3>
 <ul class="stay-list">
-<li><strong>Hotel Ta’ Ċenċ &amp; Spa:</strong> peaceful, elevated setting with spa facilities.</li>
-<li><strong>Kempinski Hotel San Lawrenz:</strong> resort-style comfort in the west of the island.</li>
-<li><strong>Boutique stays in Victoria:</strong> great if you want to walk to cafés and bars.</li>
-<li><strong>Farmhouses near Għarb:</strong> ideal for groups wanting a shared base.</li>
+<li><a href="https://tacenc.com/" rel="noopener" target="_blank"><strong>Hotel Ta’ Ċenċ &amp; Spa</strong></a>: peaceful, elevated setting with spa facilities.</li>
+<li><a href="https://grandhotelmalta.com/en/" rel="noopener" target="_blank"><strong>Grand Hotel Gozo</strong></a>: harbour views and an easy base near the ferry.</li>
+<li><a href="https://hotelcalypsogozo.com/" rel="noopener" target="_blank"><strong>Hotel Calypso</strong></a>: a seafront option in Marsalforn.</li>
+<li><a href="https://www.tamariagozo.com/accomodations/mariagiovanna/" rel="noopener" target="_blank"><strong>Maria Giovanna Guesthouse</strong></a>: a friendly, budget-conscious stay in Marsalforn.</li>
+<li><a href="https://www.tamariagozo.com/" rel="noopener" target="_blank"><strong>Casa Gemelli Boutique Guesthouse</strong></a>: a smaller central option in Victoria.</li>
 </ul>
 <p style="margin-top:10px">If you tell us what vibe you want — quiet vs lively, hotel vs farmhouse — we’ll happily suggest a few options.</p>
 </div>
@@ -427,7 +457,7 @@ section .container {
 </div>
 </section>
 <!-- Footer -->
-<footer role="contentinfo" style="margin-top:32px">
+<footer role="contentinfo" style="margin-top:64px">
 <div aria-hidden="true" class="footer-motif"></div>
 <div class="container footer-inner">
 <p style="text-align:center;margin:0;font-family:'Cormorant Garamond',serif;font-size:1.2rem">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
