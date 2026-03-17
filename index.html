@@ -743,6 +743,99 @@ footer{
 .card{
   line-height:1.7;
 }
+
+
+/* Mobile slider: wider content, arrows beneath */
+@media (max-width: 767px){
+  #travel .travel-slider{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    gap:14px !important;
+    width:100% !important;
+    max-width:100% !important;
+  }
+
+  #travel .travel-slides{
+    width:100% !important;
+    max-width:100% !important;
+    grid-column:auto !important;
+  }
+
+  #travel .slide-card{
+    width:100% !important;
+    max-width:100% !important;
+    padding:20px 18px !important;
+  }
+
+  #travel .slider-controls{
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:16px !important;
+    width:100% !important;
+    margin-top:2px !important;
+  }
+
+  #travel .slider-arrow{
+    position:static !important;
+    width:46px !important;
+    height:46px !important;
+    min-width:46px !important;
+    font-size:1.9rem !important;
+  }
+
+  /* Identical spacing between all cards/blocks on mobile */
+  .section > .container{
+    gap:24px !important;
+  }
+  .section + .section{
+    margin-top:0 !important;
+  }
+  .dates-grid,
+  .stay-grid,
+  .travel-grid{
+    gap:24px !important;
+  }
+  .container > *{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+  .container > * + *{
+    margin-top:24px !important;
+  }
+}
+
+/* Bubble effect */
+.bubble-burst{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:10000;
+}
+.bubble{
+  position:absolute;
+  bottom:0;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(131,184,180,.55);
+  box-shadow:0 0 0 1px rgba(255,255,255,.15) inset;
+  animation:bubble-rise var(--dur,1400ms) ease-out forwards;
+}
+.bubble::after{
+  content:"";
+  position:absolute;
+  inset:2px;
+  border-radius:50%;
+  background:rgba(255,255,255,.32);
+}
+@keyframes bubble-rise{
+  0%{transform:translate3d(0,0,0) scale(.65);opacity:0}
+  10%{opacity:.9}
+  100%{transform:translate3d(var(--dx,0px), calc(-1 * var(--dy,120px)), 0) scale(1.2);opacity:0}
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -834,7 +927,7 @@ footer{
 <h2 id="travel-title">How to Get There</h2>
 <p class="accent">Three simple steps — fly to Malta, get to the right terminal, then hop over to Gozo.</p>
 <div aria-label="Travel steps slider" class="travel-slider reveal">
-<button aria-label="Previous travel step" class="slider-arrow prev" type="button">‹</button>
+
 <div class="travel-slides">
 <article class="slide-card" id="travel-slide-1">
 <h3>Step 1: Fly to Malta (MLA)</h3>
@@ -855,8 +948,8 @@ footer{
 </ul>
 </article>
 </div>
-<button aria-label="Next travel step" class="slider-arrow next" type="button">›</button>
-</div>
+
+<div class="slider-controls"><button aria-label="Previous travel step" class="slider-arrow prev" type="button">‹</button><button aria-label="Next travel step" class="slider-arrow next" type="button">›</button></div></div>
 </div>
 </div>
 </section>
@@ -946,7 +1039,7 @@ footer{
 </div>
 </footer>
 <!-- Waves audio element -->
-<audio id="waves" loop="" muted="" playsinline="" preload="auto"></audio>
+<audio id="waves" loop="" playsinline="" preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 <div aria-label="Audio controls" class="audio-toggle" role="region">
 <span>Waves</span>
 <button aria-controls="waves" aria-pressed="false" id="audioBtn" type="button">Sound off</button>
@@ -1234,6 +1327,90 @@ footer{
 
   next.addEventListener('click', () => {
     track.scrollBy({ left: slideWidth(), behavior: 'smooth' });
+  });
+})();
+
+
+// Waves audio controls fix
+(() => {
+  const btn = document.getElementById('audioBtn');
+  const audio = document.getElementById('waves');
+  if (!btn || !audio) return;
+
+  let audible = false;
+
+  const updateBtn = () => {
+    btn.textContent = audible ? 'Sound on' : 'Sound off';
+    btn.setAttribute('aria-pressed', audible ? 'true' : 'false');
+  };
+
+  const enableSound = async () => {
+    try {
+      audio.muted = false;
+      audio.volume = 0.35;
+      await audio.play();
+      audible = true;
+      updateBtn();
+    } catch (e) {
+      audible = false;
+      updateBtn();
+    }
+  };
+
+  updateBtn();
+
+  btn.addEventListener('click', async () => {
+    if (!audible || audio.paused) {
+      await enableSound();
+    } else {
+      audio.pause();
+      audible = false;
+      updateBtn();
+    }
+  });
+
+  ['pointerdown','touchstart','click','keydown'].forEach(ev => {
+    window.addEventListener(ev, () => {
+      if (!audible && audio.paused) enableSound();
+    }, { once:true, passive:true });
+  });
+})();
+
+// Bubble effect when fish appears
+(() => {
+  const makeBubbles = (x, y) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const burst = document.createElement('div');
+    burst.className = 'bubble-burst';
+    document.body.appendChild(burst);
+
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const b = document.createElement('span');
+      b.className = 'bubble';
+      const startX = x + (Math.random() * 24 - 12);
+      const startY = y + 8 + (Math.random() * 10);
+      b.style.left = `${startX}px`;
+      b.style.top = `${startY}px`;
+      b.style.setProperty('--dx', `${Math.random() * 50 - 25}px`);
+      b.style.setProperty('--dy', `${70 + Math.random() * 70}px`);
+      b.style.setProperty('--dur', `${1100 + Math.random() * 600}ms`);
+      burst.appendChild(b);
+    }
+    setTimeout(() => burst.remove(), 2200);
+  };
+
+  const originalLaunch = window.launchFish;
+  // Hook into touch/pointer using capture since launchFish is scoped
+  ['pointerdown','touchstart'].forEach(ev => {
+    window.addEventListener(ev, (e) => {
+      const target = e.target;
+      if (target && target.closest && target.closest('a, button, input, select, textarea, label')) return;
+      const pt = e.touches ? e.touches[0] : e;
+      if (window.matchMedia('(max-width: 767.98px)').matches || window.matchMedia('(pointer: coarse)').matches) {
+        makeBubbles(pt.clientX + 12, pt.clientY + 6);
+      }
+    }, { passive:true, capture:true });
   });
 })();
 </script>
