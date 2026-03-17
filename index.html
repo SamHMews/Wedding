@@ -23,8 +23,8 @@
 <style>
     :root{
       --card-bg: rgba(249,246,240,.94);
-      --card-width: 760px;
-      --card-gap: 20px;
+      --card-width: 820px;
+      --card-gap: 40px;
       --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F; --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
       --maxw:1100px; --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
       --hero-image:url("assets/images/Sunny%20beach%20with%20turquoise%20waves%20(1).png");
@@ -74,17 +74,44 @@
     .accent{font-family:'Parisienne',cursive;font-size:clamp(24px,3vw,42px);color:var(--terracotta)}
     .story-grid{display:grid;gap:24px}
     @media(min-width:900px){.story-grid{grid-template-columns:1.2fr 1fr;align-items:center;gap:42px}}
-    .card{margin:0 auto;text-align:center;max-width:var(--card-width);width:100%;background:var(--card-bg);border:1px solid #efe9de;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+    .card,.tip,.map-card,.slide-card{margin:0 auto;text-align:center;max-width:var(--card-width);width:100%;background:var(--card-bg);border:1px solid #efe9de;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;box-sizing:border-box}
     .title-card{padding:26px 22px}
-    .inner-card{max-width:100%;background:rgba(255,255,255,.42);box-shadow:none}
+    .inner-card{max-width:100%;width:100%;background:rgba(255,255,255,.42);box-shadow:none;box-sizing:border-box}
     .title-card .accent{margin:0}
         
-    .travel-slider{max-width:var(--card-width);margin:var(--card-gap) auto 0}
+    
+    .title-card,
+    .travel-slider,
+    .dates-grid,
+    .stay-grid,
+    .travel-grid{
+      max-width:var(--card-width);
+      width:100%;
+      margin-left:auto;
+      margin-right:auto;
+      box-sizing:border-box;
+    }
+
+    .travel-slider{max-width:var(--card-width);margin:var(--card-gap) auto 0;display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:12px;align-items:center}
     .travel-slides{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
     .travel-slides::-webkit-scrollbar{display:none}
     .slide-card{flex:0 0 100%;scroll-snap-align:start;box-sizing:border-box}
-    .slider-dots{display:flex;justify-content:center;gap:10px;margin-top:14px}
-    .slider-dots a{width:10px;height:10px;border-radius:999px;background:rgba(47,74,78,.22);display:block;text-decoration:none}
+    .slider-arrow{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;background:var(--card-bg);border:1px solid #e5ded2;box-shadow:var(--shadow);color:var(--terracotta);text-decoration:none;font-size:2rem;line-height:1}
+    .slider-arrow:hover{transform:translateY(-1px)}
+    .slider-arrow.prev{grid-column:1}
+    .travel-slides{grid-column:2}
+    .slider-arrow.next{grid-column:3}
+    @media(max-width:767px){.travel-slider{grid-template-columns:40px minmax(0,1fr) 40px;gap:8px}.slider-arrow{width:40px;height:40px;font-size:1.8rem}}
+
+    
+    .container > * + *{
+      margin-top:var(--card-gap);
+    }
+    .travel-slides > * + *{
+      margin-top:0;
+    }
+
+
 
     .media{position:relative;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow)}
     .media img{width:100%;height:auto;display:block}
@@ -103,7 +130,7 @@
     /* Travel / Stay */
     .travel-grid{display:grid;gap:22px;grid-template-columns:1fr}
     
-    .tip,.map-card,.slide-card{background:var(--card-bg);border:1px solid #efe9de;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);width:100%;max-width:var(--card-width);margin:0 auto}
+    
 
     .stay-grid{display:grid;gap:22px;grid-template-columns:1fr;justify-items:center}
     
@@ -149,7 +176,7 @@
       .countdown .unit{min-width:0;width:100%;max-width:92px;padding:8px 10px}
       .cta-row{width:100%;max-width:320px}
       .btn{width:100%}
-      .card,.tip,.map-card,.slide-card{padding:18px}
+      .card,.tip,.map-card,.slide-card{padding:18px}.travel-slider{margin-top:var(--card-gap)}
       .map-embed{aspect-ratio:1/1.08}
     }
 
@@ -330,7 +357,7 @@ section .container {
 <a class="btn alt" href="https://www.google.com/maps?q=36.017361,14.271833" rel="noopener" target="_blank">View in Google Maps</a>
 </p>
 </div>
-<div class="dates-grid" style="margin-top:20px;">
+<div class="dates-grid" >
 <div aria-label="Google map of Il Kantra Beach Club, Gozo" class="map-card reveal">
 <div class="map-embed">
 <iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=36.017361,14.271833&amp;z=16&amp;output=embed" title="Il Kantra Beach Club location on Google Maps"></iframe>
@@ -382,7 +409,7 @@ section .container {
 <h2 id="around-title">Getting Around Gozo</h2>
 <p class="accent">Gozo is small — you’re never far from the good stuff.</p>
 </div>
-<div class="stay-grid" style="margin-top:20px;">
+<div class="stay-grid" >
 <div class="card reveal" style="max-width:760px;">
 <h3>Best option: car hire</h3>
 <ul class="stay-list">
@@ -408,7 +435,7 @@ section .container {
 <h2 id="stay-title">🌿 Where to Stay on Gozo</h2>
 <p class="accent">Short distances, big views — pick the vibe you want and everything is a quick drive away.</p>
 </div>
-<div class="stay-grid" style="margin-top:20px;">
+<div class="stay-grid" >
 <div class="card reveal">
 <h3>Choose an area</h3>
 <div style="display:grid; gap:14px; margin-top:10px">
@@ -457,7 +484,7 @@ section .container {
 </div>
 </section>
 <!-- Footer -->
-<footer role="contentinfo" style="margin-top:64px">
+<footer role="contentinfo" style="margin-top:72px">
 <div aria-hidden="true" class="footer-motif"></div>
 <div class="container footer-inner">
 <p style="text-align:center;margin:0;font-family:'Cormorant Garamond',serif;font-size:1.2rem">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
