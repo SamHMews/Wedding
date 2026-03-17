@@ -671,6 +671,44 @@ footer{
     font-size: 18px !important;
   }
 }
+
+
+/* Divider color update */
+.section-divider{
+  background: linear-gradient(
+    to right,
+    rgba(230,182,85,0),
+    rgba(230,182,85,0.6),
+    rgba(230,182,85,0)
+  ) !important;
+}
+
+
+/* Force gold dividers (override any previous styles) */
+.section-divider{
+  height:1px !important;
+  background: linear-gradient(
+    to right,
+    rgba(230,182,85,0),
+    rgba(230,182,85,0.9),
+    rgba(230,182,85,0)
+  ) !important;
+}
+
+/* Increase spacing after subheadings */
+.card h3{
+  margin-top:12px !important;
+  margin-bottom:14px !important;
+}
+
+.card h3 + *{
+  margin-top:8px !important;
+}
+
+/* Slightly more breathing room overall */
+.card .section-divider{
+  margin:22px 0 !important;
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -756,9 +794,7 @@ footer{
 </div>
 </div>
 </div>
-</section>
-✈️ How to Get There
-<section aria-labelledby="travel-title" class="section" id="travel">
+</section><section aria-labelledby="travel-title" class="section" id="travel">
 <div class="container">
 <div class="card reveal title-card">
 <h2 id="travel-title">How to Get There</h2>
