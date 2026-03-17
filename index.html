@@ -28,7 +28,7 @@
     :root{
       --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F; --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
       --maxw:1100px; --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
-      --hero-image:url('assets/images/Sunny beach with turquoise waves (1).png');utf8,\
+      --hero-image:url('data:image/svg+xml;utf8,\
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">\
           <defs>\
             <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">\
@@ -77,9 +77,9 @@
       display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
       min-height:90vh;padding:100px 20px 60px;position:relative;overflow:hidden;
       background-image:linear-gradient(to bottom,rgba(249,246,240,.65),rgba(249,246,240,.12)),var(--hero-image);
-      background-size:cover;background-position:center;background-attachment:scroll
+      background-size:contain;background-position:top center;background-repeat:no-repeat;background-attachment:scroll
     }
-    @media(min-width:900px){.hero{min-height:86vh;background-attachment:fixed;padding:160px 20px 100px}}
+    @media(min-width:900px){.hero{min-height:86vh;background-size:cover;background-position:top center;background-attachment:fixed;padding:160px 20px 100px}}
     @media (prefers-reduced-motion: reduce){.hero{background-attachment:scroll}}
     .hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--olive)}
     .hero .display{font-family:'Cormorant Garamond',serif;color:var(--terracotta);font-size:clamp(40px,8vw,72px);margin:12px 0 8px}
