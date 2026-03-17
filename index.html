@@ -238,6 +238,188 @@ section .container {
 
     #story.section{margin-top:calc(var(--card-gap) * -0.5)}
     @media(max-width:767px){#story.section{margin-top:calc(var(--card-gap) * -0.25)}}
+
+
+/* ===== Final layout overrides ===== */
+:root{
+  --card-width: 820px;
+  --card-gap: 40px;
+}
+
+body::before{
+  background-image: linear-gradient(rgba(249,246,240,.16), rgba(249,246,240,.16)), var(--hero-image) !important;
+  background-size: cover !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+}
+
+.section{
+  padding: 34px 0 !important;
+}
+
+.section > .container{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: var(--card-gap) !important;
+}
+
+.card,
+.tip,
+.map-card,
+.slide-card,
+.title-card,
+.travel-slider{
+  width: min(100%, var(--card-width)) !important;
+  max-width: var(--card-width) !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  background: var(--card-bg) !important;
+}
+
+.inner-card{
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.dates-grid,
+.stay-grid,
+.travel-grid{
+  width: min(100%, var(--card-width)) !important;
+  max-width: var(--card-width) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: var(--card-gap) !important;
+  margin: 0 auto !important;
+}
+
+#story.section{
+  margin-top: -20px !important;
+}
+
+.travel-slider{
+  display: grid !important;
+  grid-template-columns: 56px minmax(0,1fr) 56px !important;
+  gap: 14px !important;
+  align-items: center !important;
+  overflow: visible !important;
+  padding: 18px !important;
+}
+
+.travel-slides{
+  display: flex !important;
+  overflow-x: auto !important;
+  scroll-snap-type: x mandatory !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  gap: 0 !important;
+  grid-column: 2 !important;
+}
+.travel-slides::-webkit-scrollbar{display:none !important;}
+
+.slide-card{
+  flex: 0 0 100% !important;
+  scroll-snap-align: start !important;
+  margin: 0 !important;
+}
+
+.slider-arrow{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 999px !important;
+  border: 1px solid #e5ded2 !important;
+  background: rgba(249,246,240,.98) !important;
+  box-shadow: var(--shadow) !important;
+  color: var(--terracotta) !important;
+  font-size: 2.25rem !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 5 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.slider-arrow.prev{grid-column:1 !important;}
+.slider-arrow.next{grid-column:3 !important;}
+
+.map-card{
+  padding: 12px !important;
+}
+
+.map-embed{
+  aspect-ratio: 4 / 3 !important;
+  min-height: 460px !important;
+}
+.map-embed iframe{
+  min-height: 460px !important;
+}
+
+#rsvp .card{
+  width: min(100%, var(--card-width)) !important;
+  max-width: var(--card-width) !important;
+}
+#rsvp .btn{
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+footer{
+  margin-top: 72px !important;
+}
+
+@media (max-width: 767px){
+  body::before{
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center top !important;
+  }
+
+  .hero{
+    min-height: 100svh !important;
+    padding: 78px 16px 14px !important;
+  }
+
+  #story.section{
+    margin-top: -10px !important;
+  }
+
+  .countdown{
+    flex-direction: row !important;
+    width: 100% !important;
+    max-width: 360px !important;
+    gap: 8px !important;
+  }
+  .countdown .unit{
+    min-width: 0 !important;
+    width: 25% !important;
+    max-width: none !important;
+    padding: 8px 6px !important;
+  }
+
+  .travel-slider{
+    grid-template-columns: 44px minmax(0,1fr) 44px !important;
+    gap: 8px !important;
+    padding: 14px !important;
+  }
+  .slider-arrow{
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.9rem !important;
+  }
+
+  .map-embed{
+    aspect-ratio: 1 / 1.02 !important;
+    min-height: 360px !important;
+  }
+  .map-embed iframe{
+    min-height: 360px !important;
+  }
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -332,6 +514,7 @@ section .container {
 <p class="accent">Three simple steps — fly to Malta, get to the right terminal, then hop over to Gozo.</p>
 </div>
 <div aria-label="Travel steps slider" class="travel-slider reveal">
+<button aria-label="Previous travel step" class="slider-arrow prev" type="button">‹</button>
 <div class="travel-slides">
 <article class="slide-card" id="travel-slide-1">
 <h3>Step 1: Fly to Malta (MLA)</h3>
@@ -352,10 +535,7 @@ section .container {
 </ul>
 </article>
 </div>
-<div aria-hidden="true" class="slider-dots">
-<a href="#travel-slide-1"></a>
-<a href="#travel-slide-2"></a>
-</div>
+<button aria-label="Next travel step" class="slider-arrow next" type="button">›</button>
 </div>
 </div>
 </section>
@@ -653,6 +833,27 @@ section .container {
     }, { passive:true });
   });
 
+})();
+
+
+// Travel slider controls
+(() => {
+  const slider = document.querySelector('.travel-slider');
+  if (!slider) return;
+  const track = slider.querySelector('.travel-slides');
+  const prev = slider.querySelector('.slider-arrow.prev');
+  const next = slider.querySelector('.slider-arrow.next');
+  if (!track || !prev || !next) return;
+
+  const scrollByCard = (dir) => {
+    const card = track.querySelector('.slide-card');
+    if (!card) return;
+    const amount = card.getBoundingClientRect().width;
+    track.scrollBy({ left: dir * amount, behavior: 'smooth' });
+  };
+
+  prev.addEventListener('click', () => scrollByCard(-1));
+  next.addEventListener('click', () => scrollByCard(1));
 })();
 </script>
 </body>
