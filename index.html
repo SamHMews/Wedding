@@ -24,7 +24,7 @@
     :root{
       --card-bg: rgba(249,246,240,.94);
       --card-width: 820px;
-      --card-gap: 40px;
+      --card-gap: 80px;
       --terracotta:#A75A32; --gold:#E6B655; --seafoam:#83B8B4; --olive:#7E8C4F; --cream:#F9F6F0; --teal:#2F4A4E; --ink:#243133;
       --maxw:1100px; --radius:18px; --shadow:0 10px 30px rgba(47,74,78,.12);
       --hero-image:url("assets/images/Sunny%20beach%20with%20turquoise%20waves%20(1).png");
@@ -34,13 +34,20 @@
     body{
       margin:0;color:var(--teal);
       font-family:'Raleway',system-ui,Segoe UI,Arial,sans-serif;line-height:1.6;
-      background-color:var(--cream);
+      background:transparent;
+      position:relative;
+      cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='10' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='2' x2='32' y2='14'/%3E%3Cline x1='32' y1='50' x2='32' y2='62'/%3E%3Cline x1='2' y1='32' x2='14' y2='32'/%3E%3Cline x1='50' y1='32' x2='62' y2='32'/%3E%3Cline x1='10' y1='10' x2='18' y2='18'/%3E%3Cline x1='46' y1='46' x2='54' y2='54'/%3E%3Cline x1='10' y1='54' x2='18' y2='46'/%3E%3Cline x1='46' y1='18' x2='54' y2='10'/%3E%3C/g%3E%3C/svg%3E") 13 13, auto
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
       background-image:linear-gradient(rgba(249,246,240,.18), rgba(249,246,240,.18)), var(--hero-image);
       background-size:cover;
       background-position:top center;
       background-repeat:no-repeat;
-      background-attachment:fixed;
-      cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='10' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='2' x2='32' y2='14'/%3E%3Cline x1='32' y1='50' x2='32' y2='62'/%3E%3Cline x1='2' y1='32' x2='14' y2='32'/%3E%3Cline x1='50' y1='32' x2='62' y2='32'/%3E%3Cline x1='10' y1='10' x2='18' y2='18'/%3E%3Cline x1='46' y1='46' x2='54' y2='54'/%3E%3Cline x1='10' y1='54' x2='18' y2='46'/%3E%3Cline x1='46' y1='18' x2='54' y2='10'/%3E%3C/g%3E%3C/svg%3E") 13 13, auto
+      pointer-events:none;
     }
     /* HERO */
     .hero{
@@ -54,10 +61,10 @@
     .hero .tagline{margin:0 auto 24px;color:var(--teal);font-style:italic;max-width:22rem}
 
     /* Countdown */
-    .countdown{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:24px}
+    .countdown{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:8px;margin-bottom:24px;flex-wrap:nowrap}
     .countdown .unit{background:#fff;border:1px solid #eadfcd;border-radius:12px;padding:8px 14px;min-width:120px}
     .countdown .num{font-weight:700;color:var(--terracotta);font-size:1.4rem}
-    @media(min-width:600px){.countdown{flex-direction:row}}
+    
 
     /* CTAs */
     .cta-row{display:flex;flex-direction:column;align-items:center;gap:12px}
@@ -74,23 +81,32 @@
     .accent{font-family:'Parisienne',cursive;font-size:clamp(24px,3vw,42px);color:var(--terracotta)}
     .story-grid{display:grid;gap:24px}
     @media(min-width:900px){.story-grid{grid-template-columns:1.2fr 1fr;align-items:center;gap:42px}}
-    .card,.tip,.map-card,.slide-card{margin:0 auto;text-align:center;max-width:var(--card-width);width:100%;background:var(--card-bg);border:1px solid #efe9de;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;box-sizing:border-box}
+    .card,.tip,.map-card,.slide-card,.title-card,.travel-slider{margin:0 auto;text-align:center;max-width:var(--card-width);width:min(100%, var(--card-width));background:var(--card-bg);border:1px solid #efe9de;border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;box-sizing:border-box;overflow:hidden}
     .title-card{padding:26px 22px}
     .inner-card{max-width:100%;width:100%;background:rgba(255,255,255,.42);box-shadow:none;box-sizing:border-box}
+
+    .dates-grid,.stay-grid,.travel-grid{
+      width:min(100%, var(--card-width));
+      max-width:var(--card-width);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:var(--card-gap);
+      margin:0 auto;
+      box-sizing:border-box;
+    }
+    .travel-slider{
+      display:grid;
+      grid-template-columns:44px minmax(0,1fr) 44px;
+      gap:12px;
+      align-items:center;
+      margin:0 auto;
+    }
+
     .title-card .accent{margin:0}
         
     
-    .title-card,
-    .travel-slider,
-    .dates-grid,
-    .stay-grid,
-    .travel-grid{
-      max-width:var(--card-width);
-      width:100%;
-      margin-left:auto;
-      margin-right:auto;
-      box-sizing:border-box;
-    }
+    
 
     .travel-slider{max-width:var(--card-width);margin:var(--card-gap) auto 0;display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:12px;align-items:center}
     .travel-slides{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
@@ -101,83 +117,21 @@
     .slider-arrow.prev{grid-column:1}
     .travel-slides{grid-column:2}
     .slider-arrow.next{grid-column:3}
-    @media(max-width:767px){.travel-slider{grid-template-columns:40px minmax(0,1fr) 40px;gap:8px}.slider-arrow{width:40px;height:40px;font-size:1.8rem}}
-
-    
-    .container > * + *{
-      margin-top:var(--card-gap);
-    }
-    .travel-slides > * + *{
-      margin-top:0;
-    }
-
-
-
-    .media{position:relative;overflow:hidden;border-radius:var(--radius);box-shadow:var(--shadow)}
-    .media img{width:100%;height:auto;display:block}
-    .pill{display:inline-block;border-radius:999px;border:1px solid var(--seafoam);padding:6px 12px;font-size:.9rem;color:var(--teal);background:#ffffffb3;margin-right:6px}
-
-    /* Dates */
-    .dates{background:transparent}
-    .dates-grid{display:grid;gap:22px;grid-template-columns:1fr;justify-items:center}
-    
-    .map-card{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:12px;box-shadow:var(--shadow);max-width:760px;margin:0 auto}
-    .map-embed{border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#e8f3f2}
-    .map-embed iframe{width:100%;height:100%;border:0;display:block}
-    .map-legend{position:absolute;left:14px;bottom:12px;background:#ffffffd8;border:1px solid #eadfcd;border-radius:12px;padding:6px 10px;font-size:.85rem;color:#2F4A4E}
-    .map-dot{display:inline-block;width:10px;height:10px;background:#A75A32;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #A75A32;margin-right:.4rem}
-
-    /* Travel / Stay */
-    .travel-grid{display:grid;gap:22px;grid-template-columns:1fr}
-    
-    
-
-    .stay-grid{display:grid;gap:22px;grid-template-columns:1fr;justify-items:center}
-    
-    .stay-list{margin:0;padding-left:0;list-style-position:inside;text-align:center}
-    .stay-list li{margin:8px 0}
-
-    /* RSVP */
-    .rsvp{background:transparent}
-    form{display:grid;gap:14px;max-width:720px;margin:16px auto 0}
-    input,select,textarea{width:100%;border:1px solid #e5ded2;border-radius:12px;padding:14px;font:inherit;background:#fff;min-height:48px;font-size:16px}
-    .fieldset{border:1px dashed #eadfcd;border-radius:14px;padding:12px}
-    .fieldset legend{padding:0 6px;color:var(--terracotta);font-weight:600}
-    .hidden{display:none !important}
-
-    /* Gallery */
-    .gallery-grid{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:800px){.gallery-grid{grid-template-columns:repeat(4,1fr);gap:14px}}
-    .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:14px;box-shadow:var(--shadow)}
-
-    /* Footer */
-    footer{background:var(--teal);color:#eaf3f2;padding:50px 0;position:relative;overflow:hidden}
-    .footer-motif{position:absolute;inset:0;opacity:.08;background-image:radial-gradient(circle at 20% 10%,#fff 1px,transparent 2px),radial-gradient(circle at 80% 70%,#fff 1px,transparent 2px);background-size:120px 120px,160px 160px}
-
-    /* Reveal */
-    .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s,transform .8s}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-
-    /* Sunlight hover */
-    .sunlight{position:fixed;inset:0;pointer-events:none;z-index:5;mix-blend-mode:soft-light;background:
-      radial-gradient(420px 420px at var(--x,50%) var(--y,50%), rgba(230,182,85,.55), rgba(230,182,85,.18) 40%, rgba(230,182,85,0) 65%),
-      radial-gradient(800px 800px at var(--x,50%) var(--y,50%), rgba(255,255,220,.15), rgba(255,255,220,0) 50%);
-      transition:background .08s ease}
-    @media(prefers-reduced-motion:reduce){.sunlight{transition:none;display:none}}
-
     @media(max-width:767px){
-      body{background-attachment:scroll;background-size:auto 100vh}
-      .container{padding:0 16px}
-      .section{padding:36px 0}
+      .container{padding:0 16px;gap:56px}
+      .section{padding:28px 0}
       .hero{min-height:100svh;padding:78px 16px 34px}
       .hero .display{font-size:clamp(38px,13vw,58px)}
       .hero .tagline{max-width:22rem}
-      .countdown{gap:10px}
-      .countdown .unit{min-width:0;width:100%;max-width:92px;padding:8px 10px}
+      .countdown{gap:8px;width:100%;max-width:360px}
+      .countdown .unit{min-width:0;flex:1 1 0;width:auto;max-width:none;padding:8px 6px}
       .cta-row{width:100%;max-width:320px}
-      .btn{width:100%}
-      .card,.tip,.map-card,.slide-card{padding:18px}.travel-slider{margin-top:var(--card-gap)}
+      .btn{width:100%;max-width:100%;box-sizing:border-box}
+      .card,.tip,.map-card,.slide-card,.title-card,.travel-slider{padding:18px;width:100%;max-width:100%}
+      .travel-slider{grid-template-columns:40px minmax(0,1fr) 40px;gap:8px}
+      .slider-arrow{width:40px;height:40px;font-size:1.8rem}
       .map-embed{aspect-ratio:1/1.08}
+      body::before{background-size:cover;background-position:center top}
     }
 
 
@@ -338,7 +292,7 @@ section .container {
 <!-- Wedding Dates with Google Maps -->
 <section aria-labelledby="dates-title" class="section dates" id="dates">
 <div class="container">
-<div class="card reveal title-card" style="max-width:760px;">
+<div class="card reveal title-card">
 <h2 id="dates-title">The Wedding Dates</h2>
 <h3>Ceremony</h3>
 <p>Details to follow — time and location for the vows will be shared here.</p>
@@ -357,7 +311,7 @@ section .container {
 <a class="btn alt" href="https://www.google.com/maps?q=36.017361,14.271833" rel="noopener" target="_blank">View in Google Maps</a>
 </p>
 </div>
-<div class="dates-grid" >
+<div class="dates-grid">
 <div aria-label="Google map of Il Kantra Beach Club, Gozo" class="map-card reveal">
 <div class="map-embed">
 <iframe allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=36.017361,14.271833&amp;z=16&amp;output=embed" title="Il Kantra Beach Club location on Google Maps"></iframe>
@@ -405,12 +359,12 @@ section .container {
 <!-- Getting Around -->
 <section aria-labelledby="around-title" class="section" id="getting-around">
 <div class="container">
-<div class="card reveal title-card" style="max-width:760px;">
+<div class="card reveal title-card">
 <h2 id="around-title">Getting Around Gozo</h2>
 <p class="accent">Gozo is small — you’re never far from the good stuff.</p>
 </div>
-<div class="stay-grid" >
-<div class="card reveal" style="max-width:760px;">
+<div class="stay-grid">
+<div class="card reveal">
 <h3>Best option: car hire</h3>
 <ul class="stay-list">
 <li>Most flexible for beaches, dinner plans, and exploring.</li>
@@ -435,7 +389,7 @@ section .container {
 <h2 id="stay-title">🌿 Where to Stay on Gozo</h2>
 <p class="accent">Short distances, big views — pick the vibe you want and everything is a quick drive away.</p>
 </div>
-<div class="stay-grid" >
+<div class="stay-grid">
 <div class="card reveal">
 <h3>Choose an area</h3>
 <div style="display:grid; gap:14px; margin-top:10px">
@@ -474,17 +428,17 @@ section .container {
 <!-- RSVP -->
 <section aria-labelledby="rsvp-title" class="section rsvp" id="rsvp">
 <div class="container">
+<div class="card reveal title-card">
 <h2 id="rsvp-title">RSVP</h2>
 <p class="accent">One quick form and you’re done.</p>
-<div class="card reveal" style="max-width:720px;margin:0 auto;text-align:center">
-<p style="margin:0 0 14px">Please RSVP via our Google Form so we can confirm numbers and meal choices.</p>
+<p style="margin:12px 0 14px">Please RSVP via our Google Form so we can confirm numbers and meal choices.</p>
 <a class="btn" href="https://forms.gle/REPLACE_ME" id="googleFormBtn" rel="noopener" target="_blank">Open RSVP Form</a>
 <p style="margin:10px 0 0; font-size:.95rem; opacity:.9">If the link doesn’t work for you, message us and we’ll sort it.</p>
 </div>
 </div>
 </section>
 <!-- Footer -->
-<footer role="contentinfo" style="margin-top:72px">
+<footer role="contentinfo" style="margin-top:96px">
 <div aria-hidden="true" class="footer-motif"></div>
 <div class="container footer-inner">
 <p style="text-align:center;margin:0;font-family:'Cormorant Garamond',serif;font-size:1.2rem">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
