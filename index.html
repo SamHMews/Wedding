@@ -1034,6 +1034,173 @@ footer{
     font-size:1.8rem !important;
   }
 }
+
+
+/* ===== v33 hard overrides ===== */
+
+/* Softer gold border for the three area cards */
+.inner-card{
+  border: 1px solid rgba(230,182,85,.26) !important;
+  background: rgba(255,255,255,.36) !important;
+}
+
+/* Consistent spacing between every major section/card on desktop and mobile */
+:root{
+  --uniform-section-gap: 40px;
+  --uniform-mobile-gap: 24px;
+}
+
+main.hero + section{
+  margin-top: calc(var(--uniform-section-gap) * -0.5) !important;
+}
+
+.section{
+  padding: 32px 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.section + .section{
+  margin-top: var(--uniform-section-gap) !important;
+}
+
+.section > .container{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: var(--uniform-section-gap) !important;
+}
+
+.section > .container > *{
+  margin: 0 !important;
+}
+
+.dates-grid,
+.stay-grid,
+.travel-grid{
+  gap: var(--uniform-section-gap) !important;
+}
+
+/* Travel slider: full-width readable layout */
+#travel .title-card{
+  overflow: visible !important;
+}
+
+#travel .travel-slider{
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 24px auto 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#travel .travel-slides{
+  display: flex !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  scroll-snap-type: x mandatory !important;
+  scrollbar-width: none !important;
+  gap: 0 !important;
+}
+
+#travel .travel-slides::-webkit-scrollbar{
+  display: none !important;
+}
+
+#travel .slide-card{
+  flex: 0 0 100% !important;
+  min-width: 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+  scroll-snap-align: start !important;
+  box-sizing: border-box !important;
+}
+
+#travel .slider-controls{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  width: 100% !important;
+  margin-top: 14px !important;
+}
+
+#travel .slider-arrow{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(230,182,85,.28) !important;
+  background: rgba(249,246,240,.98) !important;
+  color: var(--terracotta) !important;
+  box-shadow: var(--shadow) !important;
+  font-size: 1.9rem !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+}
+
+@media (max-width: 767px){
+  .section{
+    padding: 28px 0 !important;
+  }
+
+  .section + .section{
+    margin-top: var(--uniform-mobile-gap) !important;
+  }
+
+  .section > .container{
+    gap: var(--uniform-mobile-gap) !important;
+  }
+
+  .dates-grid,
+  .stay-grid,
+  .travel-grid{
+    gap: var(--uniform-mobile-gap) !important;
+  }
+
+  main.hero + section{
+    margin-top: -16px !important;
+  }
+
+  #travel .travel-slider{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  #travel .travel-slides{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  #travel .slide-card{
+    min-width: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 20px 18px !important;
+  }
+
+  #travel .slider-controls{
+    gap: 16px !important;
+    margin-top: 12px !important;
+  }
+
+  #travel .slider-arrow{
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    font-size: 1.8rem !important;
+  }
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -1235,6 +1402,7 @@ footer{
 <div aria-hidden="true" class="footer-motif"></div>
 <div class="container footer-inner">
 <p style="text-align:center;margin:0;font-family:'Cormorant Garamond',serif;font-size:1.2rem">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
+<p style="text-align:center;margin:8px 0 0;font-size:.85rem;opacity:.8">Images: Dwejra Inland Sea; Mġarr Harbour; Ramla Bay; Xlendi Bay — via Wikimedia Commons.</p>
 </div>
 </footer>
 <!-- Waves audio element -->
@@ -1630,6 +1798,25 @@ footer{
 
   prev.onclick = () => track.scrollBy({ left: -getAmount(), behavior: 'smooth' });
   next.onclick = () => track.scrollBy({ left: getAmount(), behavior: 'smooth' });
+})();
+
+
+// v33 travel slider controls refresh
+(() => {
+  const slider = document.querySelector('#travel .travel-slider');
+  if (!slider) return;
+  const track = slider.querySelector('.travel-slides');
+  const prev = slider.querySelector('.slider-arrow.prev');
+  const next = slider.querySelector('.slider-arrow.next');
+  if (!track || !prev || !next) return;
+
+  const getSlideWidth = () => {
+    const card = track.querySelector('.slide-card');
+    return card ? card.getBoundingClientRect().width : track.getBoundingClientRect().width;
+  };
+
+  prev.onclick = () => track.scrollBy({ left: -getSlideWidth(), behavior: 'smooth' });
+  next.onclick = () => track.scrollBy({ left: getSlideWidth(), behavior: 'smooth' });
 })();
 </script>
 </body>
