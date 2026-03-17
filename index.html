@@ -33,39 +33,21 @@
 
     html{scroll-behavior:smooth}
     body{
-      margin:0;background:var(--cream);color:var(--teal);
+      margin:0;color:var(--teal);
       font-family:'Raleway',system-ui,Segoe UI,Arial,sans-serif;line-height:1.6;
+      background-color:var(--cream);
+      background-image:linear-gradient(rgba(249,246,240,.18), rgba(249,246,240,.18)), var(--hero-image);
+      background-size:cover;
+      background-position:top center;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
       cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='10' fill='%23E6B655'/%3E%3Cg stroke='%23E6B655' stroke-width='4'%3E%3Cline x1='32' y1='2' x2='32' y2='14'/%3E%3Cline x1='32' y1='50' x2='32' y2='62'/%3E%3Cline x1='2' y1='32' x2='14' y2='32'/%3E%3Cline x1='50' y1='32' x2='62' y2='32'/%3E%3Cline x1='10' y1='10' x2='18' y2='18'/%3E%3Cline x1='46' y1='46' x2='54' y2='54'/%3E%3Cline x1='10' y1='54' x2='18' y2='46'/%3E%3Cline x1='46' y1='18' x2='54' y2='10'/%3E%3C/g%3E%3C/svg%3E") 13 13, auto
-    background:none;background-size:cover;background-position:top center;background-attachment:fixed;background-repeat:no-repeat;}
-
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-    .section{padding:72px 0;position:relative;scroll-margin-top:84px}
-    @media(min-width:900px){.section{padding:120px 0}}
-
-    /* Header */
-    header{position:sticky;top:0;z-index:1000;background:color-mix(in srgb,var(--cream) 90%,white 10%);border-bottom:1px solid #e8e3d9;backdrop-filter:blur(6px)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;height:64px}
-    .brand{display:inline-flex;align-items:center;gap:.6rem;color:var(--terracotta);text-decoration:none;font-weight:700}
-    .brand .logo{width:24px;height:24px}
-    .burger{display:inline-flex;width:40px;height:40px;border:1px solid #d8d3c8;border-radius:12px;background:#fff;align-items:center;justify-content:center}
-    .burger span{width:18px;height:2px;background:var(--teal);position:relative;display:block}
-    .burger span::before,.burger span::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--teal)}
-    .burger span::before{top:-6px}.burger span::after{top:6px}
-    nav ul{list-style:none;margin:0;padding:0;display:none;position:absolute;top:64px;left:16px;right:16px;background:#fff;border:1px solid #e8e3d9;border-radius:14px;box-shadow:var(--shadow)}
-    nav ul.open{display:block}
-    nav a{text-decoration:none;color:var(--teal);font-weight:600;display:block;padding:12px 14px}
-    nav a:hover{color:var(--terracotta)}
-    @media(min-width:880px){.burger{display:none} nav ul{position:static;display:flex;border:none;box-shadow:none} nav a{padding:0;margin-left:20px}}
-
-    /* HERO */
-    .hero{
+    }
+    @media(min-width:900px){.hero{
       display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
       min-height:120vh;padding:100px 20px 60px;position:relative;overflow:hidden;
-      background:none;
-      background-size:contain;background-position:top center;background-repeat:no-repeat;background-attachment:scroll
-    }
-    @media(min-width:900px){.hero{min-height:86vh;background-size:cover;background-position:top center;background-attachment:fixed;padding:160px 20px 100px}}
-    @media (prefers-reduced-motion: reduce){.hero{background-attachment:scroll}}
+      background:transparent;
+      background-size:contain;background-position:top center;background-repeat:no-repeat;background-attachment:scroll}}
     .hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--olive)}
     .hero .display{font-family:'Cormorant Garamond',serif;color:var(--terracotta);font-size:clamp(40px,8vw,72px);margin:12px 0 8px}
     .hero .tagline{margin-bottom:24px;color:var(--teal);font-style:italic}
@@ -97,7 +79,7 @@
     .pill{display:inline-block;border-radius:999px;border:1px solid var(--seafoam);padding:6px 12px;font-size:.9rem;color:var(--teal);background:#ffffffb3;margin-right:6px}
 
     /* Dates */
-    .dates{background:linear-gradient(180deg,#fff,#f6f2ea)}
+    .dates{background:transparent}
     .dates-grid{display:grid;gap:22px}
     @media(min-width:980px){.dates-grid{grid-template-columns:1.1fr .9fr;gap:32px}}
     .map-card{position:relative;background:#fff;border:1px solid #eadfcd;border-radius:18px;padding:12px;box-shadow:var(--shadow)}
@@ -117,7 +99,7 @@
     .stay-list li{margin:8px 0}
 
     /* RSVP */
-    .rsvp{background:linear-gradient(180deg,#f6f2ea,#fff)}
+    .rsvp{background:transparent}
     form{display:grid;gap:14px;max-width:720px;margin:16px auto 0}
     input,select,textarea{width:100%;border:1px solid #e5ded2;border-radius:12px;padding:14px;font:inherit;background:#fff;min-height:48px;font-size:16px}
     .fieldset{border:1px dashed #eadfcd;border-radius:14px;padding:12px}
@@ -306,8 +288,8 @@ section .container {
 
   
   <!-- Our Story (Replaced) -->
-  <section id="story" class="section" aria-labelledby="story-title" style="margin-top:-20vh; position:relative; z-index:2;">
-    <div class="container" style="text-align:center; max-width:800px; background:rgba(249,246,240,0.85); padding:40px; border-radius:18px;">
+  <section id="story" class="section" aria-labelledby="story-title" style="position:relative; z-index:2;">
+    <div class="container" style="text-align:center; max-width:800px;"><div style="max-width:760px; margin:0 auto; background:rgba(249,246,240,0.94); padding:48px 34px; border-radius:18px; box-shadow:var(--shadow);">
       <h2 id="story-title">To Our Wonderful Family &amp; Friends</h2>
       <p style="font-size:1.2rem; line-height:1.8; margin-top:20px;">
         We’re getting married and we’d love for you to be there!<br><br>
@@ -317,6 +299,7 @@ section .container {
         Please let us know if you can make it by <strong>30th March</strong>.<br>
         You’ll find the RSVP button below 💌
       </p>
+      </div>
     </div>
   </section>
 
