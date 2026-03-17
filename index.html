@@ -449,6 +449,53 @@ footer{
 .map-embed iframe{
   border-radius: 14px !important;
 }
+
+/* Internal dividers within cards */
+.card .section-divider{
+  height:1px;
+  width:100%;
+  margin:18px 0;
+  background:linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,.15), rgba(0,0,0,0));
+}
+.card h3{
+  margin-top:8px;
+}
+
+
+/* Icon-led sections + hero spacing refinement */
+.icon-label{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  margin:8px auto 12px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.55);
+  border:1px solid #e5ded2;
+  color:var(--terracotta);
+  font-weight:700;
+  letter-spacing:.02em;
+  width:fit-content;
+}
+
+#story.section{
+  margin-top:-10px !important;
+}
+
+@media(min-width:900px){
+  #story.section{
+    margin-top:calc(var(--card-gap) * -0.25) !important;
+  }
+}
+
+@media(max-width:767px){
+  .icon-label{
+    font-size:.95rem;
+    padding:7px 12px;
+    margin:6px auto 10px;
+  }
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -510,12 +557,12 @@ footer{
 <h2 id="dates-title">The Wedding Dates</h2>
 <h3>Ceremony</h3>
 <p>Details to follow — time and location for the vows will be shared here.</p>
-<h3 style="margin-top:18px">Reception — Il Kantra Beach Club</h3>
+<div class="section-divider"></div><h3 style="margin-top:18px">Reception — Il Kantra Beach Club</h3>
 <p>Il Kantra Beach Club, Triq Ta’ Ċenċ (by Mġarr ix-Xini), Sannat, Gozo.
         <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" rel="noopener" target="_blank">Tripadvisor</a>
 </p>
 <hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0"/>
-<h3>Local highlights</h3>
+<div class="section-divider"></div><h3>Local highlights</h3>
 <ul class="stay-list">
 <li>Mġarr ix-Xini inlet — swim &amp; snorkel</li>
 <li>Ramla Bay — red sand beach</li>
@@ -542,30 +589,6 @@ footer{
 <h2 id="travel-title">How to Get There</h2>
 <p class="accent">Three simple steps — fly to Malta, get to the right terminal, then hop over to Gozo.</p>
 </div>
-<div aria-label="Travel steps slider" class="travel-slider reveal">
-<button aria-label="Previous travel step" class="slider-arrow prev" type="button">‹</button>
-<div class="travel-slides">
-<article class="slide-card" id="travel-slide-1">
-<h3>Step 1: Fly to Malta (MLA)</h3>
-<ul class="stay-list">
-<li>Book flights to <strong>Malta International Airport (MLA)</strong>.</li>
-<li><strong>Car hire:</strong> hiring at the airport is the easiest way to explore Gozo and makes ferry travel straightforward.</li>
-<li>If you’re not hiring a car, taxis and ride-hailing can get you into Valletta for the fast ferry.</li>
-</ul>
-</article>
-<article class="slide-card" id="travel-slide-2">
-<h3>Step 2: Ferry options &amp; onward travel</h3>
-<ul class="stay-list">
-<li><strong>Option A — Car ferry terminal (Ċirkewwa):</strong> best if you have a hire car. Drive from the airport to Ċirkewwa and take the <em>Gozo Channel</em> car ferry.</li>
-<li><strong>Option B — Valletta fast ferry:</strong> best if you’re travelling without a car. Head to Valletta and take the <em>Gozo Highspeed</em> passenger ferry.</li>
-<li><strong>Car ferry (Ċirkewwa ↔ Mġarr):</strong> frequent sailings, around 25 minutes.</li>
-<li><strong>Fast ferry (Valletta ↔ Mġarr):</strong> passenger-only, typically around 45 minutes.</li>
-<li><a href="https://www.gozochannel.com/ferry/schedule/" rel="noopener" target="_blank">Gozo Channel timetable</a> • <a href="https://gozohighspeed.com/pages/schedule" rel="noopener" target="_blank">Gozo Highspeed timetable</a></li>
-</ul>
-</article>
-</div>
-<button aria-label="Next travel step" class="slider-arrow next" type="button">›</button>
-</div>
 </div>
 </section>
 <!-- Getting Around -->
@@ -582,7 +605,7 @@ footer{
 <li>Most flexible for beaches, dinner plans, and exploring.</li>
 <li>Driving is relaxed and distances are short.</li>
 </ul>
-<h3 style="margin-top:12px">Also works well</h3>
+<div class="section-divider"></div><h3 style="margin-top:12px">Also works well</h3>
 <ul class="stay-list">
 <li><strong>Taxis / ride-hailing:</strong> local taxis and ride-hailing in Malta can help for airport and Valletta legs.</li>
 <li><strong>Buses:</strong> inexpensive routes between towns, though it is worth allowing extra time.</li>
@@ -600,10 +623,7 @@ footer{
 <div class="card reveal title-card">
 <h2 id="stay-title">🌿 Where to Stay on Gozo</h2>
 <p class="accent">Short distances, big views — pick the vibe you want and everything is a quick drive away.</p>
-</div>
-<div class="stay-grid">
-<div class="card reveal">
-<h3>Choose an area</h3>
+<div class="icon-label">🏨 Staying on Gozo</div><h3>Choose an area</h3>
 <div style="display:grid; gap:14px; margin-top:10px">
 <div class="card inner-card" style="padding:16px">
 <h4 style="margin:0 0 6px">Victoria (Rabat)</h4>
@@ -618,13 +638,13 @@ footer{
 <p style="margin:0">Quiet countryside, stone farmhouses, wide skies — perfect for a slower pace.</p>
 </div>
 </div>
-<h3 style="margin-top:18px">Accommodation style</h3>
+<div class="section-divider"></div><h3 style="margin-top:18px">Accommodation style</h3>
 <ul class="stay-list">
 <li><strong>Boutique hotels:</strong> easy, service-led stays.</li>
 <li><strong>Farmhouses with pools:</strong> brilliant for groups and families.</li>
 <li><strong>Apartments:</strong> flexible, often with sea views.</li>
 </ul>
-<h3 style="margin-top:18px">Handy picks</h3>
+<div class="section-divider"></div><h3 style="margin-top:18px">Handy picks</h3>
 <ul class="stay-list">
 <li><a href="https://tacenc.com/" rel="noopener" target="_blank"><strong>Hotel Ta’ Ċenċ &amp; Spa</strong></a>: peaceful, elevated setting with spa facilities.</li>
 <li><a href="https://grandhotelmalta.com/en/" rel="noopener" target="_blank"><strong>Grand Hotel Gozo</strong></a>: harbour views and an easy base near the ferry.</li>
@@ -634,6 +654,7 @@ footer{
 </ul>
 <p style="margin-top:10px">If you tell us what vibe you want — quiet vs lively, hotel vs farmhouse — we’ll happily suggest a few options.</p>
 </div>
+<div class="stay-grid">
 </div>
 </div>
 </section>
