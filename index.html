@@ -55,7 +55,7 @@
       min-height:100svh;padding:84px 18px 40px;position:relative;overflow:hidden;
       background:transparent
     }
-    @media(min-width:900px){.hero{min-height:110vh;padding:140px 20px 80px}}
+    @media(min-width:900px){.hero{min-height:110vh;padding:140px 20px 40px}}
     .hero .eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.8rem;color:var(--olive)}
     .hero .display{font-family:'Cormorant Garamond',serif;color:var(--terracotta);font-size:clamp(38px,13vw,72px);margin:12px 0 8px}
     .hero .tagline{margin:0 auto 24px;color:var(--teal);font-style:italic;max-width:22rem}
@@ -112,7 +112,7 @@
     .travel-slides{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
     .travel-slides::-webkit-scrollbar{display:none}
     .slide-card{flex:0 0 100%;scroll-snap-align:start;box-sizing:border-box}
-    .slider-arrow{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;background:var(--card-bg);border:1px solid #e5ded2;box-shadow:var(--shadow);color:var(--terracotta);text-decoration:none;font-size:2rem;line-height:1}
+    .slider-arrow{display:flex !important;align-items:center;justify-content:center;width:52px;height:52px;border-radius:999px;background:var(--card-bg);border:1px solid #e5ded2;box-shadow:var(--shadow);color:var(--terracotta);text-decoration:none;font-size:2.2rem;line-height:1;position:relative;z-index:3;flex-shrink:0}
     .slider-arrow:hover{transform:translateY(-1px)}
     .slider-arrow.prev{grid-column:1}
     .travel-slides{grid-column:2}
@@ -120,7 +120,7 @@
     @media(max-width:767px){
       .container{padding:0 16px;gap:56px}
       .section{padding:28px 0}
-      .hero{min-height:100svh;padding:78px 16px 34px}
+      .hero{min-height:100svh;padding:78px 16px 18px}
       .hero .display{font-size:clamp(38px,13vw,58px)}
       .hero .tagline{max-width:22rem}
       .countdown{gap:8px;width:100%;max-width:360px}
@@ -129,8 +129,8 @@
       .btn{width:100%;max-width:100%;box-sizing:border-box}
       .card,.tip,.map-card,.slide-card,.title-card,.travel-slider{padding:18px;width:100%;max-width:100%}
       .travel-slider{grid-template-columns:40px minmax(0,1fr) 40px;gap:8px}
-      .slider-arrow{width:40px;height:40px;font-size:1.8rem}
-      .map-embed{aspect-ratio:1/1.08}
+      .slider-arrow{display:flex !important;align-items:center;justify-content:center;width:52px;height:52px;border-radius:999px;background:var(--card-bg);border:1px solid #e5ded2;box-shadow:var(--shadow);color:var(--terracotta);text-decoration:none;font-size:2.2rem;line-height:1;position:relative;z-index:3;flex-shrink:0}
+      .map-embed{aspect-ratio:1/1.02;min-height:360px}
       body::before{background-size:cover;background-position:center top}
     }
 
@@ -235,6 +235,9 @@ section .container {
   visibility: visible;
 }
 
+
+    #story.section{margin-top:calc(var(--card-gap) * -0.5)}
+    @media(max-width:767px){#story.section{margin-top:calc(var(--card-gap) * -0.25)}}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
