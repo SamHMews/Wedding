@@ -1295,6 +1295,15 @@ main.hero + section{
     transform: none !important;
   }
 }
+
+
+/* v37: remove travel slider entirely in favour of a standard section */
+#travel .travel-slider,
+#travel .travel-slides,
+#travel .slider-controls,
+#travel .slider-arrow{
+  display:none !important;
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -1385,17 +1394,14 @@ main.hero + section{
 <div class="card reveal title-card">
 <h2 id="travel-title">How to Get There</h2>
 <p class="accent">Three simple steps — fly to Malta, get to the right terminal, then hop over to Gozo.</p>
-<div aria-label="Travel steps slider" class="travel-slider reveal">
-<div class="travel-slides">
-<article class="slide-card" id="travel-slide-1">
+<div class="section-divider"></div>
 <h3>Step 1: Fly to Malta (MLA)</h3>
 <ul class="stay-list">
 <li>Book flights to <strong>Malta International Airport (MLA)</strong>.</li>
 <li><strong>Car hire:</strong> hiring at the airport is the easiest way to explore Gozo and makes ferry travel straightforward.</li>
 <li>If you’re not hiring a car, taxis and ride-hailing can get you into Valletta for the fast ferry.</li>
 </ul>
-</article>
-<article class="slide-card" id="travel-slide-2">
+<div class="section-divider"></div>
 <h3>Step 2: Ferry options &amp; onward travel</h3>
 <ul class="stay-list">
 <li><strong>Option A — Car ferry terminal (Ċirkewwa):</strong> best if you have a hire car. Drive from the airport to Ċirkewwa and take the <em>Gozo Channel</em> car ferry.</li>
@@ -1404,13 +1410,6 @@ main.hero + section{
 <li><strong>Fast ferry (Valletta ↔ Mġarr):</strong> passenger-only, typically around 45 minutes.</li>
 <li><a href="https://www.gozochannel.com/ferry/schedule/" rel="noopener" target="_blank">Gozo Channel timetable</a> • <a href="https://gozohighspeed.com/pages/schedule" rel="noopener" target="_blank">Gozo Highspeed timetable</a></li>
 </ul>
-</article>
-</div>
-<div class="slider-controls">
-<button aria-label="Previous travel step" class="slider-arrow prev" type="button">‹</button>
-<button aria-label="Next travel step" class="slider-arrow next" type="button">›</button>
-</div>
-</div>
 </div>
 </div>
 </section>
