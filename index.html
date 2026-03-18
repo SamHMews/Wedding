@@ -1409,6 +1409,33 @@ footer{
     margin-top: 40px !important;
   }
 }
+
+
+/* ===== v39 spacing fix =====
+Root cause: empty wrapper grids remained in merged sections,
+and the container spacing rules were still reserving full gaps for them.
+These overrides remove leftover phantom spacing and keep one rhythm.
+*/
+
+#getting-around .container > .stay-grid,
+#stay .container > .stay-grid,
+#travel .container > .travel-grid{
+  display:none !important;
+}
+
+.section > .container{
+  gap: 0 !important;
+}
+
+.section > .container > * + *{
+  margin-top: var(--section-space-desktop) !important;
+}
+
+@media (max-width: 767px){
+  .section > .container > * + *{
+    margin-top: var(--section-space-mobile) !important;
+  }
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -1474,6 +1501,7 @@ footer{
 <p>Il Kantra Beach Club, Triq Ta’ Ċenċ (by Mġarr ix-Xini), Sannat, Gozo.
         <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" rel="noopener" target="_blank">Tripadvisor</a>
 </p>
+<hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0"/>
 <div class="section-divider"></div><h3>Local highlights</h3>
 <ul class="stay-list">
 <li>Mġarr ix-Xini inlet — swim &amp; snorkel</li>
@@ -1534,8 +1562,7 @@ footer{
 <li><strong>Buses:</strong> inexpensive routes between towns, though it is worth allowing extra time.</li>
 </ul>
 </div>
-<div class="stay-grid">
-</div>
+
 </div>
 </section>
 <!-- Weather -->
@@ -1578,8 +1605,7 @@ footer{
 </ul>
 <p style="margin-top:10px">If you tell us what vibe you want — quiet vs lively, hotel vs farmhouse — we’ll happily suggest a few options.</p>
 </div>
-<div class="stay-grid">
-</div>
+
 </div>
 </section>
 <!-- RSVP -->
