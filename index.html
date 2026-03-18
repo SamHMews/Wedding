@@ -1201,6 +1201,100 @@ main.hero + section{
     font-size: 1.8rem !important;
   }
 }
+
+
+/* ===== v34 slider layout fix ===== */
+
+/* Travel card must allow arrows to sit outside on desktop */
+#travel .title-card{
+  overflow: visible !important;
+  position: relative !important;
+}
+
+/* Desktop: arrows outside the off-white card, slides full width inside */
+@media (min-width: 768px){
+  #travel .travel-slider{
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 70px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  #travel .travel-slides{
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  #travel .slide-card{
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  #travel .slider-controls{
+    display: contents !important;
+  }
+
+  #travel .slider-arrow{
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 6 !important;
+  }
+
+  #travel .slider-arrow.prev{
+    left: 0 !important;
+  }
+
+  #travel .slider-arrow.next{
+    right: 0 !important;
+  }
+}
+
+/* Mobile: slide full width, arrows below */
+@media (max-width: 767px){
+  #travel .travel-slider{
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  #travel .travel-slides{
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  #travel .slide-card{
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #travel .slider-controls{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+  }
+
+  #travel .slider-arrow{
+    position: static !important;
+    transform: none !important;
+  }
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
