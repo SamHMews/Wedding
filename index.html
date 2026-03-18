@@ -1470,6 +1470,31 @@ being cancelled by earlier overrides.
   }
 }
 
+
+
+/* ===== v42 final section-gap override =====
+   Some older rules were still zeroing .section + .section.
+   This explicitly restores one consistent gap between sections,
+   while leaving intra-section spacing untouched.
+*/
+.section + .section{
+  margin-top: var(--section-space-desktop) !important;
+}
+
+.section + .section > .container > :first-child{
+  margin-top: 0 !important;
+}
+
+@media (max-width: 767px){
+  .section + .section{
+    margin-top: var(--section-space-mobile) !important;
+  }
+
+  .section + .section > .container > :first-child{
+    margin-top: 0 !important;
+  }
+}
+
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
