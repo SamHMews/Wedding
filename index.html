@@ -1436,6 +1436,22 @@ These overrides remove leftover phantom spacing and keep one rhythm.
     margin-top: var(--section-space-mobile) !important;
   }
 }
+
+
+/* ===== v40 inter-section gap fix =====
+Use an explicit top margin on the first content block of every section
+after the first. This avoids relying on section margins/gaps that were
+being cancelled by earlier overrides.
+*/
+.section + .section > .container > :first-child{
+  margin-top: var(--section-space-desktop) !important;
+}
+
+@media (max-width: 767px){
+  .section + .section > .container > :first-child{
+    margin-top: var(--section-space-mobile) !important;
+  }
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -1562,7 +1578,6 @@ These overrides remove leftover phantom spacing and keep one rhythm.
 <li><strong>Buses:</strong> inexpensive routes between towns, though it is worth allowing extra time.</li>
 </ul>
 </div>
-
 </div>
 </section>
 <!-- Weather -->
@@ -1605,7 +1620,6 @@ These overrides remove leftover phantom spacing and keep one rhythm.
 </ul>
 <p style="margin-top:10px">If you tell us what vibe you want — quiet vs lively, hotel vs farmhouse — we’ll happily suggest a few options.</p>
 </div>
-
 </div>
 </section>
 <!-- RSVP -->
