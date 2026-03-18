@@ -1304,6 +1304,111 @@ main.hero + section{
 #travel .slider-arrow{
   display:none !important;
 }
+
+
+/* ===== v38 spacing system reset =====
+   Root cause fix:
+   - previous iterations stacked gap + margin + inline spacing rules
+   - these overrides establish one spacing system only
+*/
+:root{
+  --section-space-desktop: 40px;
+  --section-space-mobile: 24px;
+}
+
+/* Reset section rhythm */
+.section{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Keep hero-to-first-card spacing intentionally tighter */
+main.hero + section{
+  margin-top: -20px !important;
+}
+
+/* Uniform spacing between all sections */
+.section + .section{
+  margin-top: var(--section-space-desktop) !important;
+}
+
+/* Uniform spacing between direct children within every section */
+.section > .container{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0 !important;
+}
+
+.section > .container > *{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.section > .container > * + *{
+  margin-top: var(--section-space-desktop) !important;
+}
+
+/* Wrappers should not introduce extra outside spacing */
+.dates-grid,
+.stay-grid,
+.travel-grid{
+  width: min(100%, var(--card-width)) !important;
+  max-width: var(--card-width) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0 !important;
+  margin: 0 !important;
+}
+
+/* Uniform spacing between cards inside wrapper grids */
+.dates-grid > *,
+.stay-grid > *,
+.travel-grid > *{
+  margin: 0 !important;
+}
+
+.dates-grid > * + *,
+.stay-grid > * + *,
+.travel-grid > * + *{
+  margin-top: var(--section-space-desktop) !important;
+}
+
+/* Story exception only */
+#story.section{
+  margin-top: -20px !important;
+}
+
+/* Footer separation should feel deliberate, not random */
+footer{
+  margin-top: 56px !important;
+}
+
+@media (max-width: 767px){
+  .section + .section{
+    margin-top: var(--section-space-mobile) !important;
+  }
+
+  .section > .container > * + *{
+    margin-top: var(--section-space-mobile) !important;
+  }
+
+  .dates-grid > * + *,
+  .stay-grid > * + *,
+  .travel-grid > * + *{
+    margin-top: var(--section-space-mobile) !important;
+  }
+
+  main.hero + section,
+  #story.section{
+    margin-top: -12px !important;
+  }
+
+  footer{
+    margin-top: 40px !important;
+  }
+}
 </style>
 <!-- Event structured data -->
 <script type="application/ld+json">
@@ -1379,7 +1484,7 @@ main.hero + section{
 <p style="margin-top:14px">
 <a class="btn alt" href="https://www.google.com/maps?q=36.017361,14.271833" rel="noopener" target="_blank">View in Google Maps</a>
 </p>
-</div><div class="card reveal" style="margin-top:var(--card-gap);"><div class="media"><img src="assets/images/Victoria.jpeg" style="width:100%;height:auto;display:block;border-radius:14px"/></div></div>
+</div><div class="card reveal"><div class="media"><img src="assets/images/Victoria.jpeg" style="width:100%;height:auto;display:block;border-radius:14px"/></div></div>
 <div class="dates-grid">
 <div aria-label="Google map of Il Kantra Beach Club, Gozo" class="map-card reveal" style="padding:16px">
 <div class="map-embed" style="width:100%;margin:0;border-radius:12px;overflow:hidden">
