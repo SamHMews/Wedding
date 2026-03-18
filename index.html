@@ -1624,7 +1624,7 @@ a[href*="google.com/maps"]:focus-visible{
 <p>Il Kantra Beach Club, Triq Ta’ Ċenċ (by Mġarr ix-Xini), Sannat, Gozo.
         <a href="https://www.tripadvisor.co.uk/Restaurant_Review-g230154-d4400180-Reviews-Kantra_Beach_Club-Sannat_Island_of_Gozo.html" rel="noopener" target="_blank">Tripadvisor</a>
 </p>
-<hr style="border:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px 0"/>
+
 <div class="section-divider"></div><h3>Getting to the venue</h3><p class="accent">Easiest option, use Google Maps.</p><p>For those driving, there is a small car park with limited parking. No parking bays, just a rough, rocky road. Kind of a “park where you can,” which is typical of the Maltese &amp; Gozitan road system.</p><p>If you are taking a taxi, the driver will drop you at the top of the steps that lead down to Il Kantra.</p><p>Upon arrival, you will see someone or signage directing you toward the entrance.</p>
 <p style="margin-top:14px">
 <a class="btn alt" href="https://www.google.com/maps?q=36.017361,14.271833" rel="noopener" target="_blank">View in Google Maps</a>
@@ -1643,7 +1643,7 @@ a[href*="google.com/maps"]:focus-visible{
 <div class="container">
 <div class="card reveal title-card">
 <h2 id="travel-title">⛴️ Getting to Gozo from the airport</h2>
-<p class="accent">Three simple steps — fly to Malta, get to the right terminal, then hop over to Gozo.</p>
+<p class="accent">Two simple steps — fly to Malta, get to the right terminal, then hop over to Gozo.</p>
 <div class="section-divider"></div>
 <h3>Step 1: Fly to Malta (MLA)</h3>
 <ul class="stay-list">
@@ -1731,7 +1731,7 @@ a[href*="google.com/maps"]:focus-visible{
 <h2 id="rsvp-title">RSVP</h2>
 <p class="accent">One quick form and you’re done.</p>
 <p style="margin:12px 0 14px">Please RSVP via our Google Form so we can confirm numbers and meal choices.</p>
-<a class="btn" href="https://forms.gle/REPLACE_ME" id="googleFormBtn" rel="noopener" target="_blank">Open RSVP Form</a>
+<a class="btn" href="https://forms.gle/yp4Mi7hoaEXJT6Dg7" id="googleFormBtn" rel="noopener" target="_blank">Open RSVP Form</a>
 <p style="margin:10px 0 0; font-size:.95rem; opacity:.9">If the link doesn’t work for you, message us and we’ll sort it.</p>
 </div>
 </div>
@@ -1741,7 +1741,7 @@ a[href*="google.com/maps"]:focus-visible{
 <div aria-hidden="true" class="footer-motif"></div>
 <div class="container footer-inner">
 <p style="text-align:center;margin:0;font-family:'Cormorant Garamond',serif;font-size:1.2rem">With love from Gozo · <span style="color:var(--gold)">☼</span> · See you on our island</p>
-<p style="text-align:center;margin:8px 0 0;font-size:.85rem;opacity:.8">Images: Dwejra Inland Sea; Mġarr Harbour; Ramla Bay; Xlendi Bay — via Wikimedia Commons.</p>
+
 </div>
 </footer>
 <!-- Waves audio element -->
@@ -2082,43 +2082,7 @@ a[href*="google.com/maps"]:focus-visible{
   });
 })();
 
-// Bubble effect when fish appears
-(() => {
-  const makeBubbles = (x, y) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const burst = document.createElement('div');
-    burst.className = 'bubble-burst';
-    document.body.appendChild(burst);
 
-    const count = 6;
-    for (let i = 0; i < count; i++) {
-      const b = document.createElement('span');
-      b.className = 'bubble';
-      const startX = x + (Math.random() * 24 - 12);
-      const startY = y + 8 + (Math.random() * 10);
-      b.style.left = `${startX}px`;
-      b.style.top = `${startY}px`;
-      b.style.setProperty('--dx', `${Math.random() * 50 - 25}px`);
-      b.style.setProperty('--dy', `${70 + Math.random() * 70}px`);
-      b.style.setProperty('--dur', `${1100 + Math.random() * 600}ms`);
-      burst.appendChild(b);
-    }
-    setTimeout(() => burst.remove(), 2200);
-  };
-
-  const originalLaunch = window.launchFish;
-  // Hook into touch/pointer using capture since launchFish is scoped
-  ['pointerdown','touchstart'].forEach(ev => {
-    window.addEventListener(ev, (e) => {
-      const target = e.target;
-      if (target && target.closest && target.closest('a, button, input, select, textarea, label')) return;
-      const pt = e.touches ? e.touches[0] : e;
-      if (window.matchMedia('(max-width: 767.98px)').matches || window.matchMedia('(pointer: coarse)').matches) {
-        makeBubbles(pt.clientX + 12, pt.clientY + 6);
-      }
-    }, { passive:true, capture:true });
-  });
-})();
 
 
 // v32 travel slider controls
@@ -2156,6 +2120,50 @@ a[href*="google.com/maps"]:focus-visible{
 
   prev.onclick = () => track.scrollBy({ left: -getSlideWidth(), behavior: 'smooth' });
   next.onclick = () => track.scrollBy({ left: getSlideWidth(), behavior: 'smooth' });
+})();
+
+
+// Fish bubbles on arrival at tap point
+(() => {
+  const makeBubblesAt = (x, y) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const burst = document.createElement('div');
+    burst.className = 'bubble-burst';
+    document.body.appendChild(burst);
+
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const b = document.createElement('span');
+      b.className = 'bubble';
+      const startX = x + (Math.random() * 24 - 12);
+      const startY = y + 4 + (Math.random() * 12);
+      b.style.left = `${startX}px`;
+      b.style.top = `${startY}px`;
+      b.style.setProperty('--dx', `${Math.random() * 50 - 25}px`);
+      b.style.setProperty('--dy', `${70 + Math.random() * 70}px`);
+      b.style.setProperty('--dur', `${1100 + Math.random() * 600}ms`);
+      burst.appendChild(b);
+    }
+    setTimeout(() => burst.remove(), 2200);
+  };
+
+  const shouldIgnoreTarget = (target) =>
+    !!target?.closest?.('a, button, input, select, textarea, label');
+
+  ['pointerdown','touchstart'].forEach(ev => {
+    window.addEventListener(ev, (e) => {
+      if (!(window.matchMedia('(max-width: 767.98px)').matches ||
+            window.matchMedia('(pointer: coarse)').matches)) return;
+      if (shouldIgnoreTarget(e.target)) return;
+
+      const pt = e.touches ? e.touches[0] : e;
+      const x = pt.clientX;
+      const y = pt.clientY;
+
+      // Match fish animation timing: bubbles appear when fish reaches the tap point
+      setTimeout(() => makeBubblesAt(x, y), 650);
+    }, { passive: true, capture: true });
+  });
 })();
 </script>
 </body>
